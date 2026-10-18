@@ -1,0 +1,22 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      # Next and React ship together; keeping them in one pull request avoids a
+      # version pair that was never tested together.
+      react:
+        patterns:
+          - "react"
+          - "react-dom"
+          - "next"
+
+  # Pinned workflow actions get bumped with a reviewable diff instead of
+  # silently tracking a moving tag.
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly

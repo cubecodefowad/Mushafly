@@ -1,4 +1,10 @@
 node_modules/
+
+# Nothing here needs a secret today; keep any future ones out of history.
+.env
+.env.*
+!.env.example
+
 .next/
 out/
 .quranjson/

@@ -29,7 +29,7 @@ jobs:
       - run: npm test
       - run: npm run lint
       - run: npm run build
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: mushafly-static
           path: out/
@@ -58,7 +58,7 @@ jobs:
           curl -sf -o /dev/null http://localhost:3200/ || { cat static-preview.log; exit 1; }
           BASE_URL=http://localhost:3200 npx playwright test
       - if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: playwright-failures
           path: |

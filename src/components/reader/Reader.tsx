@@ -18,6 +18,7 @@ import { Verse } from "@/components/reader/Verse";
 import { SettingsSheet } from "@/components/settings/SettingsSheet";
 import { useSettings } from "@/components/settings/SettingsProvider";
 import { TajweedLegend } from "@/components/tajweed/TajweedLegend";
+import { ReaderKey } from "@/components/tajweed/ReaderKey";
 import { AccuracyNotice } from "@/components/legal/AccuracyNotice";
 import { sourceInfo } from "@/data/attribution";
 import type { SurahView, VerseView } from "@/types/quran";
@@ -206,113 +207,126 @@ export function Reader({ surah }: { surah: SurahView }) {
 
       <SurahHeader surah={surah} />
 
-      <div className="reader-column">
-        {settings.tajweed ? (
-          <TajweedLegend
-            rules={surah.tajweedRules}
-            unavailableCount={surah.unavailableTajweedCount}
-          />
-        ) : null}
-      </div>
+      <div className="mx-auto w-full max-w-[92rem] lg:grid lg:grid-cols-[minmax(0,1fr)_17.5rem] lg:gap-6 lg:px-6 xl:gap-10">
+        <div className="min-w-0">
+            <div className="reader-column">
+              {settings.tajweed ? (
+                <TajweedLegend
+                  rules={surah.tajweedRules}
+                  unavailableCount={surah.unavailableTajweedCount}
+                />
+              ) : null}
+            </div>
 
-      <div className="reader-column mt-2">
-        {surah.bismillah ? (
-          <Verse
-            surah={surah}
-            verse={surah.bismillah}
-            settings={settings}
-            active={audio.current?.key === surah.bismillah.key}
-            playing={audio.status === "playing" && audio.current?.key === surah.bismillah.key}
-            onTogglePlay={togglePlay}
-          />
-        ) : null}
+            <div className="reader-column mt-2">
+              {surah.bismillah ? (
+                <Verse
+                  surah={surah}
+                  verse={surah.bismillah}
+                  settings={settings}
+                  active={audio.current?.key === surah.bismillah.key}
+                  playing={audio.status === "playing" && audio.current?.key === surah.bismillah.key}
+                  onTogglePlay={togglePlay}
+                />
+              ) : null}
 
-        {surah.verses.map((verse) => (
-          <Verse
-            key={verse.key}
-            surah={surah}
-            verse={verse}
-            settings={settings}
-            active={audio.current?.key === verse.key}
-            playing={audio.status === "playing" && audio.current?.key === verse.key}
-            onTogglePlay={togglePlay}
-            onBookmarkToggled={(added) =>
-              showToast(
-                added
-                  ? `Bookmarked ${surah.meta.number}:${verse.number}`
-                  : `Removed bookmark ${surah.meta.number}:${verse.number}`,
-              )
-            }
-          />
-        ))}
-      </div>
+              {surah.verses.map((verse) => (
+                <Verse
+                  key={verse.key}
+                  surah={surah}
+                  verse={verse}
+                  settings={settings}
+                  active={audio.current?.key === verse.key}
+                  playing={audio.status === "playing" && audio.current?.key === verse.key}
+                  onTogglePlay={togglePlay}
+                  onBookmarkToggled={(added) =>
+                    showToast(
+                      added
+                        ? `Bookmarked ${surah.meta.number}:${verse.number}`
+                        : `Removed bookmark ${surah.meta.number}:${verse.number}`,
+                    )
+                  }
+                />
+              ))}
+            </div>
 
-      <nav
-        aria-label="Adjacent surahs"
-        className="reader-column mt-12 grid gap-3 border-t border-line pt-8 sm:grid-cols-2"
-      >
-        {surah.prev ? (
-          <Link
-            href={`/surah/${surah.prev.number}/`}
-            className="group rounded-lg border border-line bg-surface p-4 transition-colors hover:border-accent/40"
-          >
-            <span className="flex items-center gap-1.5 text-[0.6875rem] text-muted">
-              <ArrowLeft size={13} strokeWidth={1.8} aria-hidden />
-              Previous surah
-            </span>
-            <span className="mt-1.5 flex items-baseline justify-between gap-3">
-              <span className="text-sm font-medium text-ink group-hover:text-accent-strong">
-                {surah.prev.name}
-              </span>
-              <span lang="ar" dir="rtl" className="font-arabic text-xl text-muted">
-                {surah.prev.arabicName}
-              </span>
-            </span>
-          </Link>
-        ) : (
-          <span />
-        )}
-        {surah.next ? (
-          <Link
-            href={`/surah/${surah.next.number}/`}
-            className="group rounded-lg border border-line bg-surface p-4 text-right transition-colors hover:border-accent/40"
-          >
-            <span className="flex items-center justify-end gap-1.5 text-[0.6875rem] text-muted">
-              Next surah
-              <ArrowRight size={13} strokeWidth={1.8} aria-hidden />
-            </span>
-            <span className="mt-1.5 flex items-baseline justify-between gap-3">
-              <span lang="ar" dir="rtl" className="font-arabic text-xl text-muted">
-                {surah.next.arabicName}
-              </span>
-              <span className="text-sm font-medium text-ink group-hover:text-accent-strong">
-                {surah.next.name}
-              </span>
-            </span>
-          </Link>
-        ) : null}
-      </nav>
+            <nav
+              aria-label="Adjacent surahs"
+              className="reader-column mt-12 grid gap-3 border-t border-line pt-8 sm:grid-cols-2"
+            >
+              {surah.prev ? (
+                <Link
+                  href={`/surah/${surah.prev.number}/`}
+                  className="group rounded-lg border border-line bg-surface p-4 transition-colors hover:border-accent/40"
+                >
+                  <span className="flex items-center gap-1.5 text-[0.6875rem] text-muted">
+                    <ArrowLeft size={13} strokeWidth={1.8} aria-hidden />
+                    Previous surah
+                  </span>
+                  <span className="mt-1.5 flex items-baseline justify-between gap-3">
+                    <span className="text-sm font-medium text-ink group-hover:text-accent-strong">
+                      {surah.prev.name}
+                    </span>
+                    <span lang="ar" dir="rtl" className="font-arabic text-xl text-muted">
+                      {surah.prev.arabicName}
+                    </span>
+                  </span>
+                </Link>
+              ) : (
+                <span />
+              )}
+              {surah.next ? (
+                <Link
+                  href={`/surah/${surah.next.number}/`}
+                  className="group rounded-lg border border-line bg-surface p-4 text-right transition-colors hover:border-accent/40"
+                >
+                  <span className="flex items-center justify-end gap-1.5 text-[0.6875rem] text-muted">
+                    Next surah
+                    <ArrowRight size={13} strokeWidth={1.8} aria-hidden />
+                  </span>
+                  <span className="mt-1.5 flex items-baseline justify-between gap-3">
+                    <span lang="ar" dir="rtl" className="font-arabic text-xl text-muted">
+                      {surah.next.arabicName}
+                    </span>
+                    <span className="text-sm font-medium text-ink group-hover:text-accent-strong">
+                      {surah.next.name}
+                    </span>
+                  </span>
+                </Link>
+              ) : null}
+            </nav>
 
-      <div className="reader-column mt-10 border-t border-line pt-5 text-[0.6875rem] leading-relaxed text-muted">
-        <p>
-          Arabic, Tajweed and audio from{" "}
-          <a
-            href={`${sourceInfo.repository}/tree/${sourceInfo.commit}`}
-            className="underline decoration-line underline-offset-2 hover:text-ink"
-            target="_blank"
-            rel="noreferrer"
-          >
-            quranjson
-          </a>{" "}
-          at revision {sourceInfo.commit.slice(0, 7)}. English translation:{" "}
-          {sourceInfo.translation.translator} ({sourceInfo.translation.source}).
-          Recitation: {sourceInfo.audio.reciter}.
-        </p>
-        <p className="mt-2">
-          Verse text is rendered from the pinned source records. Search and
-          highlighting never modify the displayed Quranic string.
-        </p>
-        <AccuracyNotice compact className="mt-4 border-t border-line pt-4" />
+            <div className="reader-column mt-10 border-t border-line pt-5 text-[0.6875rem] leading-relaxed text-muted">
+              <p>
+                Arabic, Tajweed and audio from{" "}
+                <a
+                  href={`${sourceInfo.repository}/tree/${sourceInfo.commit}`}
+                  className="underline decoration-line underline-offset-2 hover:text-ink"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  quranjson
+                </a>{" "}
+                at revision {sourceInfo.commit.slice(0, 7)}. English translation:{" "}
+                {sourceInfo.translation.translator} ({sourceInfo.translation.source}).
+                Recitation: {sourceInfo.audio.reciter}.
+              </p>
+              <p className="mt-2">
+                Verse text is rendered from the pinned source records. Search and
+                highlighting never modify the displayed Quranic string.
+              </p>
+              <AccuracyNotice compact className="mt-4 border-t border-line pt-4" />
+            </div>
+        </div>
+
+        <aside
+          aria-label="Tajweed and mark key"
+          className="hidden lg:block"
+        >
+          <div className="sticky top-[7.5rem] max-h-[calc(100dvh-9rem)] overflow-y-auto overscroll-contain pb-6 pr-1">
+            <ReaderKey />
+          </div>
+        </aside>
       </div>
 
       <div className={audio.current ? "h-28" : "h-6"} aria-hidden="true" />

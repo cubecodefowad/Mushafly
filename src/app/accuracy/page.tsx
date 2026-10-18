@@ -75,12 +75,22 @@ export default function AccuracyPage() {
             can be traced to the source record behind it.
           </p>
           <p>
-            <Link
-              href="/about/#contact"
+            Email{" "}
+            <a
+              href="mailto:hello@mushafly.com"
               className="text-accent underline decoration-line underline-offset-4"
             >
-              How to reach us
-            </Link>
+              hello@mushafly.com
+            </a>{" "}
+            with the surah and verse. Reports are checked against the pinned
+            source record; the{" "}
+            <Link
+              href="/about/#contact"
+              className="underline decoration-line underline-offset-4 hover:text-ink"
+            >
+              contact section
+            </Link>{" "}
+            explains what reaches us that way.
           </p>
         </div>
       </section>

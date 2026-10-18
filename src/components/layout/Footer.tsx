@@ -15,6 +15,15 @@ export function Footer() {
             A quiet place to read the Quran. No account, no tracking, no
             substituted text.
           </p>
+          <p className="mt-3 text-[0.8125rem] text-muted">
+            Contact:{" "}
+            <a
+              className="underline decoration-line underline-offset-4 hover:text-ink"
+              href="mailto:hello@mushafly.com"
+            >
+              hello@mushafly.com
+            </a>
+          </p>
         </div>
         <nav aria-label="Footer" className="text-[0.8125rem]">
           <p className="meta mb-3">Sections</p>
@@ -23,6 +32,7 @@ export function Footer() {
             <li><Link className="hover:text-ink" href="/search/">Search</Link></li>
             <li><Link className="hover:text-ink" href="/bookmarks/">Bookmarks</Link></li>
             <li><Link className="hover:text-ink" href="/settings/">Settings</Link></li>
+            <li><Link className="hover:text-ink" href="/tajweed/">Tajweed and marks</Link></li>
             <li><Link className="hover:text-ink" href="/about/">About</Link></li>
           </ul>
           <p className="meta mb-3 mt-6">Legal</p>

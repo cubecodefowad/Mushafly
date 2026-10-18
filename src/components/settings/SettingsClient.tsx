@@ -274,6 +274,11 @@ export function SettingsClient({
             consistency with the pinned revision; it is not a claim of textual
             authenticity beyond that source.
           </p>
+          <p>
+            <Link href="/tajweed/" className="text-accent underline decoration-line underline-offset-4">
+              What every highlight colour and sign means
+            </Link>
+          </p>
         </div>
       </section>
 

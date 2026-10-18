@@ -23,11 +23,11 @@ export function ReaderKey() {
       <div className="mt-2">
         <TajweedRules variant="compact" />
       </div>
-      <p className="mt-2 text-[0.625rem] leading-relaxed text-muted">
-        Colours appear when Tajweed is on.
+      <p className="mt-1.5 text-[0.625rem] leading-relaxed text-muted">
+        Colours show when Tajweed is on.
       </p>
 
-      <p className="meta mb-2 mt-4 text-[0.625rem]">Signs</p>
+      <p className="meta mb-2 mt-3.5 text-[0.625rem]">Signs</p>
       <TextMarks variant="compact" />
     </div>
   );

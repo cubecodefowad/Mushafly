@@ -7,7 +7,7 @@ import { TEXT_MARKS } from "@/data/text-marks";
 export function TextMarks({ variant = "full" }: { variant?: "full" | "compact" }) {
   if (variant === "compact") {
     return (
-      <ul className="space-y-2">
+      <ul className="space-y-1.5">
         {TEXT_MARKS.map((mark) => (
           <li key={mark.glyph} className="flex items-start gap-2.5">
             <span

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Analytics } from "@vercel/analytics/next";
+import { SiteAnalytics } from "@/components/analytics/SiteAnalytics";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -83,9 +83,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </div>
           </ReadingStateProvider>
           {/* Cookieless page counts, served from this origin by Vercel at
-              /_vercel/insights/*. It reports nothing when the site is not on
-              Vercel. See /privacy/. */}
-          <Analytics />
+              /_vercel/insights/*, with query strings stripped. It reports
+              nothing when the site is not on Vercel. See /privacy/. */}
+          <SiteAnalytics />
         </SettingsProvider>
       </body>
     </html>

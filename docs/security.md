@@ -135,10 +135,13 @@ These cannot be set from the code and are worth a few minutes:
   and the only third-party script is the same-origin analytics bundle; the
   policy limits the blast radius but does not eliminate it.
 - Analytics is a deliberate, narrow exception to the app's earlier "no
-  measurement at all" position. It is cookieless, collects no reader-authored
-  value, and is inert away from Vercel, but it is still an outside service
-  seeing page traffic. Anyone forking this to run a fully unmeasured copy should
-  delete the `<Analytics />` element and the dependency.
+  measurement at all" position. It is cookieless, inert away from Vercel, and
+  the wrapper in `src/components/analytics/SiteAnalytics.tsx` strips the query
+  string and fragment from every view before it is sent, so a search reaches
+  Vercel as `/search/` and never as `/search/?q=…` (covered by
+  `tests/unit/analytics.test.ts`). It is still an outside service seeing page
+  traffic. Anyone forking this to run a fully unmeasured copy should delete the
+  element and the dependency.
 - The contact address is `mailto:` text, so it is harvestable by scrapers.
 - There is no CSP reporting endpoint, so a violation is invisible unless the
   browser console is open.

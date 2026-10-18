@@ -13,8 +13,9 @@ export default function PrivacyPage() {
       <p className="meta">Legal</p>
       <h1 className="display mt-3 text-4xl sm:text-5xl">Privacy Policy</h1>
       <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted">
-        Mushafly is a static reading application. It has no accounts, no
-        analytics, and no advertising. This page states exactly what is stored,
+        Mushafly is a static reading application. It has no accounts and no
+        advertising. Page views are counted anonymously through Vercel Web
+        Analytics, and nothing else. This page states exactly what is stored,
         where it is stored, and what leaves your device.
       </p>
 
@@ -39,8 +40,33 @@ export default function PrivacyPage() {
             Settings → Local data, or by clearing site data for this address.
           </p>
           <p>
-            Mushafly sets no cookies. It contains no analytics, no tracking
-            pixels, no advertising identifiers and no social media embeds.
+            Mushafly sets no cookies, no tracking pixels, no advertising
+            identifiers and no social media embeds.
+          </p>
+        </div>
+      </section>
+
+      <section aria-labelledby="measurement" className="mt-10">
+        <h2 id="measurement" className="display text-2xl">Measurement</h2>
+        <div className="mt-4 space-y-3 rounded-xl border border-line bg-surface p-5 text-sm leading-relaxed text-muted">
+          <p>
+            Page views are counted with{" "}
+            <span className="text-ink">Vercel Web Analytics</span>, which is
+            cookieless. It records the address of the page, the referring page,
+            a coarse location derived from the connection, and the browser,
+            operating system and device type. It keeps no identifier that
+            survives the day: its visitor hash is discarded after 24 hours, so a
+            reader cannot be followed from one day to the next, or across sites.
+          </p>
+          <p>
+            Nothing you type or save is ever sent — no bookmark, no label, no
+            reading position, no search term. The app records no custom events,
+            and no advertising, profiling or data sharing is involved.
+          </p>
+          <p>
+            This measurement runs only when the site is served by Vercel, which
+            is the host of this copy; on a copy hosted anywhere else it is
+            inert. Blocking it changes nothing about reading.
           </p>
         </div>
       </section>
@@ -80,7 +106,17 @@ export default function PrivacyPage() {
             . Reading, search, bookmarks and settings require no such request.
           </p>
           <p>
-            <span className="text-ink">Nothing else.</span> No third-party
+            <span className="text-ink">Page counting.</span> The measurement
+            described above is fetched from this same address, under{" "}
+            <code className="rounded bg-surface-muted px-1 py-0.5 text-[0.75rem]">
+              /_vercel/insights/…
+            </code>
+            , and only when Vercel serves the site. Vercel sees the request as
+            any host would see a request for a page it serves; more detail is in
+            Vercel&apos;s own privacy documentation.
+          </p>
+          <p>
+            <span className="text-ink">Nothing else.</span> No other third-party
             scripts, no remote fonts, no CDNs beyond the host serving this site.
             When you follow an external link, including the source-data links in
             Settings, the destination site&apos;s own policy applies.

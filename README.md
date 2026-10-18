@@ -3,7 +3,7 @@
 An elegant, source-faithful Quran reading experience. All 114 surahs in
 Arabic, with the Itani English translation, repository-derived Tajweed
 highlighting, verse-by-verse recitation, local bookmarks and Arabic/English
-search. No account, no tracking, no generated Quranic content.
+search. No account, no cookies, no generated Quranic content.
 
 Built with Next.js 16 (App Router, static export), React 19, TypeScript and
 Tailwind CSS 4.
@@ -270,20 +270,25 @@ reading surface, uses the preloaded Amiri Quran subset (45 KiB).
 
 ## Privacy
 
-No accounts, analytics, cookies, or server-side reading history. Bookmarks,
-last-read position and preferences live in `localStorage` and are validated on
-read. Malformed or out-of-range records are ignored. Quran content is rendered
-as text/spans, never injected as HTML. The user-facing statement, including the
-fact that playing a verse contacts GitHub for the MP3, is at `/privacy/` and
-mirrored in this README.
+No accounts, no cookies, no server-side reading history. Bookmarks, last-read
+position and preferences live in `localStorage` and are validated on read.
+Malformed or out-of-range records are ignored. Quran content is rendered as
+text/spans, never injected as HTML.
+
+Page views are counted by Vercel Web Analytics: cookieless, one route served
+from this origin at `/_vercel/insights/*`, no custom events, no identifier that
+lasts beyond a day, and inert when the site is not hosted on Vercel. The
+user-facing statement — including that fact, the MP3 request to GitHub when a
+verse plays, and the exact storage keys — is at `/privacy/` and mirrored here.
 
 ## Security
 
-No server, no database, no accounts, no third-party scripts: the render path is
-React-escaped text, stored values are type-checked and bounded, and every
-`fetch()` is same-origin apart from verse audio at a pinned commit. `npm audit`
-is clean for production and development dependencies, and CI now fails on a high
-or critical advisory.
+No server, no database, no accounts: the render path is React-escaped text,
+stored values are type-checked and bounded, and every `fetch()` is same-origin
+except verse audio at a pinned commit. The one third-party script is Vercel's
+analytics script, served from this origin in production and covered by the same
+policy. `npm audit` is clean for production and development dependencies, and CI
+fails on a high or critical advisory.
 
 What is checked, the recommended host headers (with the two `'unsafe-inline'`
 allowances a static export forces), the GitHub settings worth turning on, and the

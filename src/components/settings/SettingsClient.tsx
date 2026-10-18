@@ -59,7 +59,8 @@ export function SettingsClient({
       <p className="meta">Preferences</p>
       <h1 className="display mt-3 text-4xl sm:text-5xl">Settings</h1>
       <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted">
-        Everything here is stored locally. No account, no sync, no tracking.
+        Everything here is stored locally. No account, no sync, and nothing you
+        read or save is ever uploaded.
         Reading remains available if storage is blocked.
       </p>
 
@@ -357,7 +358,8 @@ export function SettingsClient({
             The repository&apos;s MIT license covers the software. Translation
             and audio attributions are preserved from the dataset
             <code className="mx-1">.sources</code> files. This application adds no
-            other Quranic content and contains no analytics.
+            other Quranic content. The only measurement the app makes is an
+            anonymous, cookieless page count.
           </p>
         </div>
       </section>

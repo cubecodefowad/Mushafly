@@ -1,10 +1,11 @@
 # Security policy
 
-Mushafly is a static reading application: no server, no database, no accounts,
-no cookies, no analytics and no third-party scripts. That removes most classes
-of web vulnerability before they can exist, and it means the interesting
-surface is small — the rendering path, local storage, the build and the
-dependencies.
+Mushafly is a static reading application: no server, no database, no accounts
+and no cookies. It loads exactly one third-party script, Vercel's cookieless
+Web Analytics, and stops counting if its script is blocked. That removes most
+classes of web vulnerability before they can exist, and it means the
+interesting surface is small — the rendering path, local storage, the build and
+the dependencies.
 
 ## Reporting a vulnerability
 

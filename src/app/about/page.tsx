@@ -31,13 +31,14 @@ export default function AboutPage() {
             is shown as plain text rather than guessed at.
           </p>
           <p>
-            The application is free. There is no account, no subscription, no
-            advertising and no analytics. Bookmarks, your last-read position and
-            reading preferences stay in your browser — see the{" "}
+            The application is free. There is no account, no subscription and no
+            advertising. Page views are counted anonymously and without cookies —
+            the only measurement the app makes, described in full in the{" "}
             <Link href="/privacy/" className="underline decoration-line underline-offset-4 hover:text-ink">
               Privacy Policy
-            </Link>{" "}
-            for the exact keys and the one third-party request the app can make.
+            </Link>
+            , alongside the exact storage keys and the network requests the app
+            can make.
           </p>
         </div>
       </section>

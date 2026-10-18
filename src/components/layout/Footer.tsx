@@ -12,7 +12,7 @@ export function Footer() {
             <span className="display">Mushafly</span>
           </p>
           <p className="mt-2 max-w-xs text-[0.8125rem] leading-relaxed text-muted">
-            A quiet place to read the Quran. No account, no tracking, no
+            A quiet place to read the Quran. No account, no cookies, no
             substituted text.
           </p>
           <p className="mt-3 text-[0.8125rem] text-muted">

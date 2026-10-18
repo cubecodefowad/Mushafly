@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+jobs:
+  integrity-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      # The pinned upstream checkout is not committed. The validator still runs
+      # all structural, provenance, search-index and anomaly checks on the
+      # committed runtime copies; hash pinning runs when .quranjson is present.
+      - run: npm run data:validate
+      - run: npm test
+      - run: npm run lint
+      - run: npm run build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mushafly-static
+          path: out/
+          retention-days: 7
+
+  end-to-end:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium firefox webkit
+      # The suite runs against the built static export, which is the artifact
+      # that ships, not only against the development server.
+      - name: Build the static export and test it
+        run: |
+          npm run build
+          nohup npm run start >static-preview.log 2>&1 &
+          for i in $(seq 1 30); do
+            if curl -sf -o /dev/null http://localhost:3200/; then break; fi
+            sleep 1
+          done
+          curl -sf -o /dev/null http://localhost:3200/ || { cat static-preview.log; exit 1; }
+          BASE_URL=http://localhost:3200 npx playwright test
+      - if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-failures
+          path: |
+            test-results/
+            static-preview.log

@@ -277,6 +277,20 @@ as text/spans, never injected as HTML. The user-facing statement, including the
 fact that playing a verse contacts GitHub for the MP3, is at `/privacy/` and
 mirrored in this README.
 
+## Security
+
+No server, no database, no accounts, no third-party scripts: the render path is
+React-escaped text, stored values are type-checked and bounded, and every
+`fetch()` is same-origin apart from verse audio at a pinned commit. `npm audit`
+is clean for production and development dependencies, and CI now fails on a high
+or critical advisory.
+
+What is checked, the recommended host headers (with the two `'unsafe-inline'`
+allowances a static export forces), the GitHub settings worth turning on, and the
+residual risks are in [docs/security.md](docs/security.md). The preview server
+sends the same policy the deployed site should use, so the browser suite
+verifies it. How to report a problem: [SECURITY.md](SECURITY.md).
+
 ## Attribution
 
 - Quran data: semarketir/quranjson, MIT, revision

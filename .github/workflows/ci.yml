@@ -1,5 +1,10 @@
 name: CI
 
+# The build only reads the repository. Without this the workflow inherits the
+# repository default, which can be read-write.
+permissions:
+  contents: read
+
 on:
   push:
     branches: ["**"]
@@ -15,6 +20,8 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
+      - name: Audit dependencies
+        run: npm audit --audit-level=high
       # The pinned upstream checkout is not committed. The validator still runs
       # all structural, provenance, search-index and anomaly checks on the
       # committed runtime copies; hash pinning runs when .quranjson is present.

@@ -101,7 +101,16 @@ export default function AboutPage() {
             <Link href="/accuracy/" className="underline decoration-line underline-offset-4 hover:text-ink">
               Accuracy and Sources
             </Link>{" "}
-            or through the project&apos;s issue tracker.
+            or through the project&apos;s issue tracker:{" "}
+            <a
+              className="underline decoration-line underline-offset-4 hover:text-ink"
+              href="https://github.com/cubecodefowad/Mushafly/issues"
+              target="_blank"
+              rel="noreferrer"
+            >
+              cubecodefowad/Mushafly
+            </a>
+            .
           </p>
         </div>
       </section>

@@ -1,0 +1,19 @@
+{
+  "repository": "https://github.com/semarketir/quranjson",
+  "commit": "7ca6f46ec9a1a029cdb220c2531d509f4a5b5e98",
+  "license": "MIT",
+  "translation": {
+    "languageCode": "en",
+    "id": "en.itani",
+    "name": "Itani",
+    "translator": "Talal Itani",
+    "source": "Tanzil.net",
+    "lastUpdate": "July 19, 2013"
+  },
+  "audio": {
+    "reciter": "Saad Al-Ghamadi",
+    "source": "versebyversequran.com",
+    "licenseUrl": "http://www.versebyversequran.com/site/licence/",
+    "bitrate": "~40 kbps"
+  }
+}

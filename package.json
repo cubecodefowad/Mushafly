@@ -1,0 +1,46 @@
+{
+  "name": "mushafly",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Mushafly — an elegant Quran reading experience, sourced from semarketir/quranjson.",
+  "license": "MIT",
+  "scripts": {
+    "dev": "next dev",
+    "prebuild": "npm run data:validate && npm run data:search",
+    "build": "next build",
+    "start": "node scripts/serve-static.mjs",
+    "preview": "node scripts/serve-static.mjs",
+    "lint": "tsc --noEmit",
+    "data:prepare": "node scripts/prepare-data.mjs",
+    "data:validate": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/validate-quran-data.mjs",
+    "data:search": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/build-search-index.mjs",
+    "data:all": "npm run data:prepare && npm run data:search && npm run data:validate",
+    "pretest": "npm run data:search",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "perf": "node scripts/measure-performance.mjs"
+  },
+  "dependencies": {
+    "lucide-react": "^0.545.0",
+    "next": "16.4.2",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.56.1",
+    "@tailwindcss/postcss": "^4.3.3",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/node": "^24.10.1",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.1.2",
+    "axe-core": "^4.14.0",
+    "jsdom": "^28.1.0",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^5.9.3",
+    "vitest": "^5.0.5"
+  }
+}

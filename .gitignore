@@ -1,0 +1,13 @@
+node_modules/
+.next/
+out/
+.quranjson/
+*.tsbuildinfo
+next-env.d.ts
+test-results/
+playwright-report/
+dev-server.log
+static-preview.log
+.freebuff/
+.DS_Store
+Thumbs.db

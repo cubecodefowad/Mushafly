@@ -29,6 +29,9 @@ test("about page carries the disclaimer and a reachable contact section", async 
   await expect(
     main.getByRole("link", { name: "semarketir/quranjson" }),
   ).toBeVisible();
+  await expect(
+    main.getByRole("link", { name: "cubecodefowad/Mushafly" }),
+  ).toHaveAttribute("href", "https://github.com/cubecodefowad/Mushafly/issues");
 });
 
 test("reader footer shows the disclaimer and links to the accuracy page", async ({ page }) => {

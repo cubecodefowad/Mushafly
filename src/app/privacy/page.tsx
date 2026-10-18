@@ -114,8 +114,15 @@ export default function PrivacyPage() {
           can be checked against the code you are running.
         </p>
         <p className="mt-4 text-sm leading-relaxed text-muted">
-          Questions about this policy should go to the person or organisation
-          hosting the copy of Mushafly you are using.
+          Questions about this policy can be sent to{" "}
+          <a
+            href="mailto:hello@mushafly.com"
+            className="text-accent underline decoration-line underline-offset-4"
+          >
+            hello@mushafly.com
+          </a>
+          . If you are reading a copy hosted by someone else, that host is also
+          responsible for the copy you are using.
         </p>
       </section>
 

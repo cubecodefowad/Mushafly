@@ -73,6 +73,25 @@ was actually exercised.
   are prerendered, reachable from the header, footer and Settings, tested by
   `tests/e2e/content.spec.ts`, and included in the axe run.
 
+## Reader key, reference page and contact (added after the release pass)
+
+- `/tajweed/` documents all 18 highlight colours and the nine signs found in
+the Uthmani text (the six pause grades, the mu'ānaqah pair, saktah, the
+rub' al-ḥizb divider and the sajdah mark), with the 15 prostration verses
+listed as links. The sajdah list and the glosses were checked against the
+pinned data: reading every surah file finds the sajdah sign in exactly those
+15 verses, and `7:206` is the case that prompted the page.
+- The same key is rendered in a sticky `aside` beside the reader. It uses the
+same components as the page, so the two cannot drift. `align-items` is
+intentionally left at its default on the reader grid: with `items-start` the
+aside collapses to the height of its content and the sticky panel has nowhere
+to travel. Verified at 1440/1280/1024 (aside present, no horizontal overflow)
+and 1023/390 (aside hidden, inline key shown).
+- Contact is `hello@mushafly.com` on the About, Accuracy and Privacy pages and
+in the site footer. No personal or project GitHub account is named anywhere in
+the app; the data source keeps its link because that is attribution for a work
+this project redistributes.
+
 ## Test data policy
 
 Every Quranic string in the suite comes from the packaged runtime data, which is

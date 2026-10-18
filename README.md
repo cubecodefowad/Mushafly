@@ -97,8 +97,9 @@ The validator asserts these counts and reference sets exactly.
 | `/search/` | Arabic + English search with derived normalization |
 | `/bookmarks/` | Local bookmarks with labels and removal |
 | `/settings/` | Theme, type sizes, local data, Tajweed limits, attribution |
-| `/about/` | What the app is, how it is built, contact channels |
+| `/about/` | What the app is, how it is built, contact details |
 | `/accuracy/` | Accuracy and Sources: provenance, pinned revision, reporting |
+| `/tajweed/` | Tajweed and marks: every highlight colour and every sign explained |
 | `/terms/` | Terms of Service |
 | `/privacy/` | Privacy Policy |
 
@@ -130,6 +131,16 @@ the `mushafly.*` keys, so nothing is lost by the rename.
 The Terms of Service and Privacy Policy are written for this application's
 actual behaviour. They are a starting point, not legal advice; have them
 reviewed before any commercial or institutional distribution.
+
+The Tajweed colour key and the symbols printed in the text are documented on
+`/tajweed/`. The same key is rendered beside the surah while it is read: a
+sticky `<aside>` in the reader's grid that stays put from the first verse to
+the last, hidden below the `lg` breakpoint where the collapsible key under the
+surah header takes over. Both draw on one pair of components
+(`TajweedRules`, `TextMarks`), so the reference and the reader cannot disagree.
+
+Contact addresses are `hello@mushafly.com`; the app links to no personal
+account.
 
 The accuracy disclaimer is written once in
 `src/components/legal/AccuracyNotice.tsx` and rendered in three places: the

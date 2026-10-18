@@ -80,36 +80,27 @@ export default function AboutPage() {
         <h2 id="contact" className="display text-2xl">Contact</h2>
         <div className="mt-4 space-y-3 rounded-xl border border-line bg-surface p-5 text-sm leading-relaxed text-muted">
           <p>
-            Corrections and reports are welcome. For a discrepancy in the Arabic
-            text, the translation, the Tajweed ranges or the recitation audio,
-            open an issue on the dataset that supplies them:{" "}
+            Corrections and reports are welcome, and email is the fastest way to
+            reach us:{" "}
             <a
-              className="underline decoration-line underline-offset-4 hover:text-ink"
-              href={`${sourceInfo.repository}/issues`}
-              target="_blank"
-              rel="noreferrer"
+              className="text-accent underline decoration-line underline-offset-4"
+              href="mailto:hello@mushafly.com"
             >
-              {sourceInfo.repository.replace("https://github.com/", "")}
+              hello@mushafly.com
             </a>
-            . Mention the surah and verse so it can be traced to the source
-            record.
+            .
           </p>
           <p>
-            For anything about how Mushafly itself displays, searches or plays
-            the content — layout, broken links, unreadable text, playback
-            problems — describe it at{" "}
+            For a discrepancy in the Arabic text, the translation, the Tajweed
+            annotation or the recitation, include the surah and verse, what you
+            see and what you expect. Reports are checked against the pinned
+            source record and passed upstream where the dataset itself is at
+            fault. The same address reaches the people who build Mushafly for
+            anything about how the app displays, searches or plays the content —
+            see{" "}
             <Link href="/accuracy/" className="underline decoration-line underline-offset-4 hover:text-ink">
               Accuracy and Sources
-            </Link>{" "}
-            or through the project&apos;s issue tracker:{" "}
-            <a
-              className="underline decoration-line underline-offset-4 hover:text-ink"
-              href="https://github.com/cubecodefowad/Mushafly/issues"
-              target="_blank"
-              rel="noreferrer"
-            >
-              cubecodefowad/Mushafly
-            </a>
+            </Link>
             .
           </p>
         </div>

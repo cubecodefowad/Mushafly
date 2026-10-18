@@ -11,6 +11,7 @@ const pages = [
   { path: "/privacy/", name: "privacy" },
   { path: "/accuracy/", name: "accuracy and sources" },
   { path: "/about/", name: "about" },
+  { path: "/tajweed/", name: "tajweed and marks" },
 ];
 
 for (const target of pages) {

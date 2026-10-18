@@ -323,7 +323,12 @@ export function Reader({ surah }: { surah: SurahView }) {
           aria-label="Tajweed and mark key"
           className="hidden lg:block"
         >
-          <div className="sticky top-[7.5rem] max-h-[calc(100dvh-9rem)] overflow-y-auto overscroll-contain pb-6 pr-1">
+          {/* The panel stops above the recitation bar when it is showing. */}
+          <div
+            className={`sticky top-[7.5rem] overflow-y-auto overscroll-contain pb-6 pr-1 ${
+              audio.current ? "max-h-[calc(100dvh-16rem)]" : "max-h-[calc(100dvh-9rem)]"
+            }`}
+          >
             <ReaderKey />
           </div>
         </aside>

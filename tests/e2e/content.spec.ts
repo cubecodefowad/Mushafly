@@ -34,6 +34,17 @@ test("about page carries the disclaimer and an email contact", async ({ page }) 
   expect(html).not.toContain("cubecodefowad");
 });
 
+test("the privacy policy discloses the measurement it uses", async ({ page }) => {
+  await page.goto("/privacy/");
+  await expect(page.getByRole("heading", { name: "Measurement" })).toBeVisible();
+
+  const main = page.locator("main");
+  await expect(main).toContainText("Vercel Web Analytics");
+  await expect(main).toContainText("cookieless");
+  await expect(main).toContainText("discarded after 24 hours");
+  await expect(main).toContainText("Nothing you type or save is ever sent");
+});
+
 test("tajweed page explains every highlight and every sign", async ({ page }) => {
   await page.goto("/tajweed/");
   await expect(

@@ -65,8 +65,9 @@ was actually exercised.
   Firefox and Safari ignore `media` on favicons.
 - `/terms/` and `/privacy/` are prerendered, linked from the footer and from
   Settings, and included in the axe run. The privacy text names the exact
-  storage keys and the single third-party request the app makes (playing a verse
-  fetches its MP3 from raw.githubusercontent.com).
+  storage keys and the outside requests the app makes (playing a verse fetches
+  its MP3 from raw.githubusercontent.com; page counts come from Vercel's
+  endpoint on this origin).
 - `/about/` and `/accuracy/` were added with the accuracy disclaimer. The text
   lives in one component (`AccuracyNotice`) and is rendered on both pages and,
   compact, in the reader footer, so the three copies cannot diverge. Both routes

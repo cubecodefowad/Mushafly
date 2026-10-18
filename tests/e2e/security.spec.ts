@@ -24,6 +24,13 @@ test("the app runs under its Content-Security-Policy without violations", async 
   expect(headers["x-frame-options"]).toBe("DENY");
   expect(headers["referrer-policy"]).toBe("strict-origin-when-cross-origin");
 
+  // The analytics client asks for its bundle on this origin in production,
+  // which is what keeps it inside the policy's `'self'` allowance.
+  await expect(page.locator('script[src$="/_vercel/insights/script.js"]')).toHaveAttribute(
+    "src",
+    "/_vercel/insights/script.js",
+  );
+
   // Exercise everything the reader loads: the inline theme bootstrap, the
   // Tajweed markup, the settings sheet, the search index and its fetch.
   const tajweed = page.getByRole("button", { name: "Tajweed highlighting" });

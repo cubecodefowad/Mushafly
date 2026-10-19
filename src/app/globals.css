@@ -217,6 +217,14 @@
     color: var(--text-secondary);
   }
 
+  /* Arabic commentary uses the Quranic font's Arabic coverage but the prose
+     rhythm of a translation, not the tight leading of the ayah text. */
+  .translation-arabic {
+    font-family: var(--font-arabic);
+    line-height: 2.05;
+    text-align: right;
+  }
+
   .meta {
     font-family: var(--font-sans);
     font-size: 0.6875rem;

@@ -1,4 +1,8 @@
 import surahMeta from "@/data/generated/surah-meta.json";
+import {
+  DEFAULT_TRANSLATION,
+  isTranslationLanguage,
+} from "@/data/translations";
 import type { BookmarkRecord, LastRead, ReaderSettings, ThemePreference } from "@/types/quran";
 
 export const STORAGE_KEYS = {
@@ -17,6 +21,7 @@ export const LEGACY_STORAGE_KEYS: Record<keyof typeof STORAGE_KEYS, string> = {
 export const DEFAULT_SETTINGS: ReaderSettings = {
   arabicSize: 34,
   translationSize: 17,
+  translation: DEFAULT_TRANSLATION,
   showTranslation: true,
   tajweed: true,
   autoScroll: true,
@@ -48,9 +53,14 @@ export function parseSettings(value: unknown): ReaderSettings {
     ? (input.theme as ThemePreference)
     : DEFAULT_SETTINGS.theme;
 
+  const translation = isTranslationLanguage(input.translation)
+    ? input.translation
+    : DEFAULT_SETTINGS.translation;
+
   return {
     arabicSize: number("arabicSize", DEFAULT_SETTINGS.arabicSize, 24, 56),
     translationSize: number("translationSize", DEFAULT_SETTINGS.translationSize, 14, 26),
+    translation,
     showTranslation: bool("showTranslation", DEFAULT_SETTINGS.showTranslation),
     tajweed: bool("tajweed", DEFAULT_SETTINGS.tajweed),
     autoScroll: bool("autoScroll", DEFAULT_SETTINGS.autoScroll),

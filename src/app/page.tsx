@@ -1,8 +1,14 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Bookmark, Search } from "lucide-react";
 import { BrandMark } from "@/components/layout/BrandMark";
 import { ContinueReading } from "@/components/home/ContinueReading";
 import { SurahDirectory } from "@/components/home/SurahDirectory";
+import { absoluteUrl } from "@/lib/site";
+
+export const metadata: Metadata = {
+  alternates: { canonical: absoluteUrl("/") },
+};
 
 export default function HomePage() {
   return (
@@ -17,9 +23,9 @@ export default function HomePage() {
             A quiet place to read the Quran.
           </h1>
           <p className="mt-5 max-w-lg text-[0.9375rem] leading-relaxed text-muted">
-            All 114 surahs in Arabic, with the Itani English translation,
-            source-derived Tajweed, and verse-by-verse recitation. Read slowly.
-            Your place is kept privately on this device.
+            All 114 surahs in Arabic, with English and Indonesian translations,
+            an Arabic commentary, source-derived Tajweed, and verse-by-verse
+            recitation. Read slowly. Your place is kept privately on this device.
           </p>
 
           <form action="/search/" method="get" role="search" className="mt-8 flex max-w-lg gap-2">

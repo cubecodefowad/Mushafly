@@ -51,6 +51,37 @@ The translation is displayed exactly as supplied in the pinned dataset. Anyone
 redistributing this application should verify the current Tanzil.net terms for
 the translation text.
 
+## Indonesian translation — Indonesian Ministry of Religious Affairs
+
+From `source/translation/id/.sources` in the pinned revision:
+
+- Name: Bahasa Indonesia
+- Translator: Indonesian Ministry of Religious Affairs
+- Language: Indonesian
+- ID: `id.indonesian`
+- Last update: June 4, 2010
+- Source: Tanzil.net
+
+The translation is displayed exactly as supplied in the pinned dataset. Anyone
+redistributing this application should verify the current Tanzil.net terms for
+the translation text.
+
+## Arabic commentary — Tafsir al-Muyassar
+
+From `source/translation/ar/.sources` in the pinned revision:
+
+- Name: تفسير المیسر (Tafsir al-Muyassar)
+- Translator: King Fahad Quran Complex
+- Language: Arabic
+- ID: `ar.muyassar`
+- Source: alquran.cloud
+
+This dataset is a commentary (tafsir), not a translation of the ayah. It is
+displayed exactly as supplied in the pinned dataset and has no entry for the
+unnumbered Bismillah row. The upstream `.sources` file records no last-update
+date; the application does not invent one. Anyone redistributing this
+application should verify the current terms for the commentary text.
+
 ## Recitation — Saad Al-Ghamadi
 
 From `source/audio/.sources` in the pinned revision:

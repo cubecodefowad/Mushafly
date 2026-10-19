@@ -10,9 +10,9 @@ command run in this workspace; nothing is projected or estimated.
 npm ci
 npm run data:validate     # integrity, provenance, anomaly set
 npm run lint              # tsc --noEmit
-npm test                  # 24 Vitest tests
+npm test                  # 41 Vitest tests
 npm run build             # prebuild runs validate + index, then static export
-npm run test:e2e          # 45 Playwright runs (3 browsers)
+npm run test:e2e          # 129 Playwright runs (3 browsers)
 npm run start             # gzip static preview on :3200
 npm run perf              # LCP/CLS, desktop and throttled mobile
 ```
@@ -22,17 +22,19 @@ npm run perf              # LCP/CLS, desktop and throttled mobile
 | Check | Command | Result |
 |---|---|---|
 | Type check | `npm run lint` | exit 0 |
-| Unit / integration | `npm test` | 28 passed (5 files) |
+| Unit / integration | `npm test` | 41 passed (8 files) |
 | Data validation | `npm run data:validate` | exit 0 (runs in `prebuild`) |
-| Static export | `npm run build` | exit 0, 123 prerendered pages (114 surah readers, home, search, bookmarks, settings, terms, privacy, 404 and not-found) |
-| End-to-end (dev server) | `npm run test:e2e` | 66 passed (Chromium, Firefox, WebKit) |
-| End-to-end (release artifact) | `BASE_URL=http://localhost:3200 npm run test:e2e` | 66 passed against the gzip-served `out/` export |
-| Accessibility | axe, WCAG 2.0/2.1/2.2 A–AA | 0 serious, 0 critical on 7 routes + dark reader |
+| Static export | `npm run build` | exit 0, 130 prerendered pages (114 surah readers, home, search, bookmarks, settings, terms, privacy, about, accuracy, tajweed, social preview, 404, not-found, `og.png`, `twitter.png`, `robots.txt`, `sitemap.xml`) |
+| End-to-end (dev server) | `BASE_URL=http://localhost:50517 npx playwright test --project=chromium` | 41 passed, 2 skipped (the CSP specs need response headers a dev server does not send) |
+| End-to-end (release artifact) | `BASE_URL=http://localhost:3210 npx playwright test` | 129 passed against the gzip-served `out/` export |
+| Accessibility | axe, WCAG 2.0/2.1/2.2 A–AA | 0 serious, 0 critical on 11 routes + dark reader |
 | Performance | `npm run perf` | see README table; desktop LCP ≤ 0.4 s, mobile 3G ≤ 2.5 s |
 
 Static routes reachable from the export (HTTP 200, correct content type):
 `/`, `/surah/1/` … `/surah/114/`, `/search/`, `/bookmarks/`, `/settings/`,
-`/terms/`, `/privacy/`.
+`/terms/`, `/privacy/`, `/about/`, `/accuracy/`, `/tajweed/`, `/social-preview/`,
+`/og.png`, `/twitter.png`, `/robots.txt`, `/sitemap.xml`. A missing path returns
+`404.html` with HTTP 404.
 The full Playwright suite is run against that export, not only against the
 development server, so prerendered HTML and the static JSON fetches are what
 was actually exercised.
@@ -43,7 +45,7 @@ was actually exercised.
 |---|---|---|
 | Quran text integrity | Verified | `data:validate` compares every packaged verse against the pinned checkout; `tests/unit/data-integrity.test.ts` asserts 114 surahs / 6,236 numbered verses |
 | Surah coverage | Verified | 114 prerendered surah routes in the build output |
-| Translation coverage | Verified | Itani `en.itani` rendered verse-for-verse from the pinned files; the source's Bismillah convention (absent in surahs 1 and 9, unnumbered elsewhere) is asserted, never inferred |
+| Translation coverage | Verified | `en.itani`, `id.indonesian` and the Arabic commentary `ar.muyassar` are validated row-for-row against the pinned files; the source's Bismillah convention (absent in surahs 1 and 9, unnumbered elsewhere, and absent from the Arabic commentary) is asserted, never inferred |
 | Tajweed integrity | Verified | Every source offset maps to exact characters or is flagged unpinnable (`tests/unit/tajweed.test.ts`); unpinnable verses show the source-anomaly notice instead of invented rules |
 | Audio reliability | Verified | One-to-one verse-to-file mapping asserted (`001.mp3`, `255.mp3`, Bismillah `000.mp3`); playback is progressive enhancement |
 | Reading performance | Verified | LCP 168–380 ms desktop, 1.0–1.4 s mobile Fast 3G + 4× CPU (target ≤ 2.5 s) |
@@ -93,6 +95,50 @@ in the site footer. No personal or project GitHub account is named anywhere in
 the app; the data source keeps its link because that is attribution for a work
 this project redistributes.
 
+## Translations and sign alignment (added after the release pass)
+
+- The reader now offers English, Indonesian and an Arabic commentary. English is part of the
+  statically rendered page; the other two are copied from the same pinned
+  revision to `public/quran/translation/` and fetched same-origin only when
+  selected. That keeps Al-Baqara's HTML from carrying three datasets.
+- The validator checks all three datasets: 6,348 English rows, 6,348 Indonesian
+  rows and 6,236 Arabic rows. The Arabic file is Tafsir al-Muyassar, a
+  commentary, and has no `verse_0`; the reader shows the Bismillah row without a
+  translation rather than substituting one. Unit tests walk all 114 files for
+  both added languages.
+- The reader's toolbar select and the settings sheet share the same generated
+  language list, and the choice is stored in `mushafly.settings.v1`. The
+  bookmarks page renders previews in the selected language and clears stale
+  previews while a new dataset loads.
+- The standalone Tajweed signs in the reader's side key and on `/tajweed/` were
+  optically centred in their cells. The source glyphs are superscript marks
+  designed for a base letter that a key does not have, so their natural ink sat
+  at very different heights. Each sign now carries an `em` offset measured from
+  the bundled Amiri Quran font. A pixel check of the rendered key (hiding the
+  labels, then locating each sign's ink) found ink-centre deviations of 0–2 px
+  vertically and 0–0.5 px horizontally in both densities after the change.
+
+## SEO and social metadata (added after the release pass)
+
+- `src/lib/site.ts` owns the canonical origin (`NEXT_PUBLIC_SITE_URL`, falling
+  back to `https://mushafly.com`) and the shared copy. `src/lib/metadata.ts`
+  builds the canonical, Open Graph and Twitter fields together, so the home
+  page, the dynamic surah routes and every static page carry their own URL and
+  card rather than inheriting the home page's.
+- `/og.png` and `/twitter.png` are 1200×630 PNGs generated at build time from
+  the same copy and brand mark as the site. Playwright checks the PNG signature,
+  dimensions, `image/png` content type and the exact tags on the home and surah
+  pages. `/social-preview/` renders the card and the tag list for review and is
+  noindex.
+- `sitemap.xml` contains 121 URLs: the home page, all 114 surahs and the six
+  public reference pages. `robots.txt` allows crawling, excludes the local
+  bookmarks and settings views and the social preview, and points at the
+  sitemap. Both are checked for content type and contents against the static
+  export.
+- The 404 route returns HTTP 404, carries `noindex`, and has its own title. The
+  home page emits `WebSite` + `SearchAction` JSON-LD. Favicons remain the
+  existing light/dark PNG pair plus the Apple touch icon.
+
 ## Test data policy
 
 Every Quranic string in the suite comes from the packaged runtime data, which is
@@ -128,5 +174,11 @@ back to the untouched source string.
 - On a throttled 3G profile the Inter body font can arrive after first paint, so
   Latin text may briefly show the system fallback. Arabic text uses a preloaded
   45 KiB subset and is unaffected.
+- Search indexes the Arabic source and the English Itani translation only. The
+  Indonesian and Arabic commentary are reading options, not search fields, so
+  the on-demand index does not grow with each language.
+- The Arabic translation option is a commentary (tafsir), not a translation of
+  the ayah, and it carries no text for the unnumbered Bismillah. The interface
+  labels it as Arabic and the attribution names Tafsir al-Muyassar.
 - Deployment to a public host is not performed by this workspace; the export in
   `out/` is the release artifact.

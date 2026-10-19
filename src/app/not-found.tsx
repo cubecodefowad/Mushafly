@@ -1,4 +1,10 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Page not found",
+  description: "The requested page is not part of Mushafly.",
+};
 
 export default function NotFound() {
   return (

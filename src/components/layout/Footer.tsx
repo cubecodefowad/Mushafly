@@ -57,7 +57,12 @@ export function Footer() {
             (MIT).
           </p>
           <p className="mt-2">
-            English: {sourceInfo.translation.translator} ({sourceInfo.translation.source}).
+            {sourceInfo.translations.map((entry) => (
+              <span key={entry.languageCode} className="block">
+                {entry.languageCode === "ar" ? "Arabic commentary" : entry.label}:{" "}
+                {entry.translator} ({entry.source}).
+              </span>
+            ))}
           </p>
           <p className="mt-1">Recitation: {sourceInfo.audio.reciter}.</p>
           <Link

@@ -13,13 +13,14 @@ import {
   REPO_URL,
   SOURCE_ROOT,
   SURAH_NUMBERS,
-  TRANSLATION,
+  TRANSLATIONS,
   findTajweedAnomalies,
   issueKey,
   readJson,
   sha256,
   sourcePath,
   surahFile,
+  translationFile,
   walkFiles,
 } from "./lib/source.mjs";
 
@@ -38,6 +39,18 @@ const bismillahSurahs = SURAH_NUMBERS.filter((n) => {
   return typeof ar.verse.verse_0 === "string";
 });
 
+const translationRows = {};
+for (const translation of TRANSLATIONS) {
+  let rows = 0;
+  for (const n of SURAH_NUMBERS) {
+    const file = readJson(sourcePath(translationFile(n, translation.languageCode)));
+    for (const text of Object.values(file.verse)) {
+      if (typeof text === "string" && text.length > 0) rows++;
+    }
+  }
+  translationRows[translation.languageCode] = rows;
+}
+
 let audioFiles = 0;
 let audioBytes = 0;
 for (const n of SURAH_NUMBERS) {
@@ -52,7 +65,7 @@ const lock = {
   commitDate: COMMIT_DATE,
   license: LICENSE,
   pinnedAt: "2026-10-18",
-  translation: TRANSLATION,
+  translations: TRANSLATIONS,
   audio: { ...AUDIO, files: audioFiles, bytes: audioBytes },
   counts: {
     surahs: metadata.length,
@@ -60,6 +73,7 @@ const lock = {
     arabicEntries: metadata.reduce((total, s) => total + s.count + (bismillahSurahs.includes(s.index * 1) ? 1 : 0), 0),
     translationEntries: metadata.reduce((total, s) => total + s.count + (bismillahSurahs.includes(s.index * 1) ? 1 : 0), 0),
     numberedTranslations: metadata.reduce((total, s) => total + s.count, 0),
+    translationRows,
     tajweedSegments: anomalies.segments,
     tajweedRules: anomalies.rules,
     bismillahVerses: bismillahSurahs.length,
@@ -80,6 +94,7 @@ fs.writeFileSync(LOCK_PATH, JSON.stringify(lock, null, 2) + "\n");
 
 console.log("Wrote", path.relative(process.cwd(), LOCK_PATH));
 console.log("files:", Object.keys(files).length, "audio entries:", audioFiles);
+console.log("translation rows:", translationRows);
 console.log("out-of-bounds verses:", anomalies.outOfBounds.length);
 console.log("overlapping verses:", anomalies.overlapping.length);
 console.log("BOM strings:", anomalies.bom.length);

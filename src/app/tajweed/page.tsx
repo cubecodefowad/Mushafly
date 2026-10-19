@@ -1,14 +1,16 @@
-import type { Metadata } from "next";
 import Link from "next/link";
+import { MarkGlyph } from "@/components/tajweed/MarkGlyph";
 import { TextMarks } from "@/components/tajweed/TextMarks";
 import { TajweedRules } from "@/components/tajweed/TajweedRules";
 import { ORTHOGRAPHIC_MARKS, SAJDAH_VERSES } from "@/data/text-marks";
+import { pageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Tajweed and marks",
   description:
     "What each Tajweed highlight colour means, and what every symbol printed in the Quranic text asks the reader to do.",
-};
+  path: "/tajweed/",
+});
 
 export default function TajweedPage() {
   return (
@@ -122,11 +124,15 @@ export default function TajweedPage() {
         <ul className="mt-5 space-y-3 rounded-xl border border-line bg-surface p-5">
           {ORTHOGRAPHIC_MARKS.map((mark) => (
             <li key={mark.name} className="flex items-start gap-4">
-              <span
-                aria-hidden="true"
-                className="font-arabic w-10 shrink-0 text-center text-xl text-ink"
-              >
-                {mark.glyph}
+              <span className="flex shrink-0 items-center gap-1.5">
+                {mark.glyphs.map((part) => (
+                  <MarkGlyph
+                    key={part.glyph}
+                    glyph={part.glyph}
+                    optical={part.optical}
+                    className="h-5 w-5 text-xl"
+                  />
+                ))}
               </span>
               <span>
                 <span className="block text-sm text-ink">{mark.name}</span>

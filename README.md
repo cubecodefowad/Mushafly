@@ -1,9 +1,10 @@
 # Mushafly
 
 An elegant, source-faithful Quran reading experience. All 114 surahs in
-Arabic, with the Itani English translation, repository-derived Tajweed
-highlighting, verse-by-verse recitation, local bookmarks and Arabic/English
-search. No account, no cookies, no generated Quranic content.
+Arabic, with English and Indonesian translations and an Arabic commentary
+(Tafsir al-Muyassar), repository-derived Tajweed highlighting, verse-by-verse
+recitation, local bookmarks and Arabic/English search. No account, no cookies, no generated
+Quranic content.
 
 Built with Next.js 16 (App Router, static export), React 19, TypeScript and
 Tailwind CSS 4.
@@ -42,7 +43,7 @@ export. Output is written to `out/`.
 | Surahs | 114 |
 | Numbered verses | 6,236 |
 | Arabic rows | 6,348 (6,236 numbered + 112 unnumbered Bismillah rows) |
-| Translation | `en.itani` — Talal Itani, Tanzil.net |
+| Translations | `en.itani` — Talal Itani, Tanzil.net · `id.indonesian` — Indonesian Ministry of Religious Affairs, Tanzil.net · `ar.muyassar` — King Fahad Quran Complex, alquran.cloud |
 | Recitation | Saad Al-Ghamadi, versebyversequran.com, ~40 kbps |
 | Tajweed ranges | 60,841 across 18 rule identifiers |
 | Audio entries | 6,348 files (425 MB, not bundled) |
@@ -58,8 +59,13 @@ The full audit, including field names and known anomalies, is in
   the parsed JSON to `public/quran/`, preserving every string (including the one
   U+FEFF artifact in 1:1).
 - `src/data/quran-source.ts` is the server-side adapter. It validates verse
-  counts, translation keys and audio mappings, and attaches source file
-  references to every verse.
+  counts, English translation keys and audio mappings, and attaches source file
+  references to every verse. The Indonesian and Arabic datasets are copied to
+  `public/quran/translation/` and fetched by the reader only when selected, so a
+  surah page is not inflated by three datasets.
+- `src/data/translations.ts` exposes the generated list of languages and
+  directions. The reader, settings, bookmarks and legal pages read from it, so
+  adding a dataset cannot leave one surface behind.
 - `src/data/tajweed.ts` turns source ranges into render segments. It never
   rewrites the Arabic string. If ranges are out of bounds, overlap, use an
   unknown rule, or fail a final "concat equals source" guard, that verse is
@@ -102,6 +108,10 @@ The validator asserts these counts and reference sets exactly.
 | `/tajweed/` | Tajweed and marks: every highlight colour and every sign explained |
 | `/terms/` | Terms of Service |
 | `/privacy/` | Privacy Policy |
+| `/social-preview/` | Noindex preview of the Open Graph card and tags |
+| `/og.png`, `/twitter.png` | Generated 1200×630 social cards |
+| `/sitemap.xml`, `/robots.txt` | Crawler discovery and rules |
+| `/404.html` | Static 404 for unknown paths, served with HTTP 404 |
 
 ## Branding
 
@@ -201,18 +211,21 @@ node scripts/generate-brand-assets.mjs   # regenerate public/brand/ from assets/
 
 ## Testing
 
-- **Unit/integration (28 tests):** Tajweed concatenation across all 6,348 rows,
+- **Unit/integration (41 tests):** Tajweed concatenation across all 6,348 rows,
   corrupted range fixtures (bounds, overlap, unknown rule), BOM handling,
   normalization and excerpt mapping, search in both languages, storage
   validation and the pre-rename key migration, adapter coverage and audio
-  mapping.
-- **Playwright (22 tests × Chromium, Firefox and WebKit = 66 runs):** home
-  directory, reader directionality and exact strings, Tajweed toggle, bookmark
-  persistence after reload, Arabic/English search, on-demand search index,
-  theme-aware mark and browser icons, legal pages and their footer links,
-  pre-rename data migration, theme persistence, settings dialog keyboard
-  dismissal, mobile overflow, and axe WCAG 2.2 AA checks on seven routes plus a
-  dark reader.
+  mapping, all three translation datasets including the Arabic commentary's
+  missing Bismillah row, and the optical offsets that align the standalone
+  Tajweed signs.
+- **Playwright (43 tests × Chromium, Firefox and WebKit = 129 runs):** home
+  directory, reader directionality and exact strings, translation switching and
+  persistence, Tajweed toggle, bookmark persistence after reload, Arabic/English
+  search, on-demand search index, theme-aware mark and browser icons, canonical
+  and social metadata, sitemap/robots, the 404 page, legal pages and their
+  footer links, pre-rename data migration, theme persistence, settings dialog
+  keyboard dismissal, mobile overflow, and axe WCAG 2.2 AA checks on eleven
+  routes plus a dark reader.
 - **Validator:** pins the exact source revision, file hashes and anomaly set.
   Run in CI and before release.
 
@@ -222,8 +235,10 @@ into the release — is recorded in [`docs/verification.md`](docs/verification.m
 ## Accessibility
 
 - Semantic landmarks, one `h1` per route, skip link, visible focus.
-- Arabic containers use `lang="ar" dir="rtl"`; translations use
-  `lang="en" dir="ltr"`.
+- Arabic containers use `lang="ar" dir="rtl"`; English and Indonesian
+  translations use `lang="en"`/`lang="id"` with `dir="ltr"`; the Arabic
+  commentary uses `lang="ar" dir="rtl"` and is kept visually distinct from the
+  ayah text.
 - Icon-only controls have accessible names; dialogs are native `<dialog>`.
 - Tajweed is never encoded by color alone: dotted underlines and a rule key with
   labels and descriptions accompany the colors. All 18 rule colors pass 4.5:1
@@ -234,20 +249,48 @@ into the release — is recorded in [`docs/verification.md`](docs/verification.m
 - Axe runs with WCAG 2.0/2.1/2.2 A–AA tags and reports no serious or critical
   violations in light or dark mode.
 
+## Metadata, discovery and sharing
+
+- Every indexable page declares a canonical URL, a page-specific title and
+  description, Open Graph tags and a Twitter `summary_large_image` card. The
+  metadata is built once in `src/lib/metadata.ts`, so a new page cannot ship
+  with only half a social card.
+- `/og.png` and `/twitter.png` are generated at build time by
+  `src/components/social/SocialImage.tsx` from the same copy and brand mark as
+  the app. They are real 1200×630 PNGs served with `image/png`, not SVG cards
+  that some scrapers reject. `/social-preview/` is a noindex page for checking
+  the result.
+- `src/app/robots.ts` serves `robots.txt`; `src/app/sitemap.ts` lists the home
+  page, all 114 surahs and the public reference pages (121 URLs). Bookmarks,
+  settings and the social preview are excluded and marked noindex.
+- The site URL comes from `NEXT_PUBLIC_SITE_URL`, falling back to
+  `https://mushafly.com`. Set it for preview or alternate domains so canonical
+  URLs never point at the wrong host.
+- The home page emits `WebSite` + `SearchAction` JSON-LD, and the 404 route is
+  served with HTTP 404 and a `noindex` tag. Favicons and the Apple touch icon
+  are declared in the root metadata, with light and dark variants.
+
 ## Performance and deployment
 
 - Static export (`output: "export"`); every surah is prerendered from the
   pinned data at build time. No backend or runtime Quran API is used.
 - The reader bundle does not include audio. A verse's MP3 is fetched only when
   played, from an immutable raw URL at the pinned commit.
+- English is part of every statically rendered surah page. The Indonesian and
+  Arabic datasets are same-origin JSON files fetched only when selected; the
+  reader keeps the English text readable while a new language loads and reports
+  a failure instead of silently showing the wrong language.
 - Search keeps its 3.64 MiB index (1.0 MiB gzipped) off the critical path: the
   route renders instantly and the index is fetched only once a query of two or
   more characters exists. Landing on `/search/?q=…` fetches it immediately.
 - Arabic and Latin fonts are self-hosted WOFF2 with `font-display: swap` and
   preloads to limit layout shift.
-- Deploy the contents of `out/` to any static host. Audio requires network
-  access to `raw.githubusercontent.com`; reading, search, bookmarks and settings
-  work without it.
+- Deploy the contents of `out/` to any static host. Set
+  `NEXT_PUBLIC_SITE_URL` to the public origin at build time (for example
+  `https://mushafly.com`); canonicals, Open Graph URLs, `robots.txt` and the
+  sitemap all derive from it. Audio requires network access to
+  `raw.githubusercontent.com`; reading, search, bookmarks and settings work
+  without it.
 
 Measured with `npm run perf` against the gzip static preview (local machine;
 not a guarantee for every device or network):
@@ -301,6 +344,11 @@ verifies it. How to report a problem: [SECURITY.md](SECURITY.md).
 - Quran data: semarketir/quranjson, MIT, revision
   `7ca6f46ec9a1a029cdb220c2531d509f4a5b5e98`.
 - English translation: Talal Itani, `en.itani`, Tanzil.net, 2013-07-19.
+- Indonesian translation: Indonesian Ministry of Religious Affairs,
+  `id.indonesian`, Tanzil.net, 2010-06-04.
+- Arabic commentary: King Fahad Quran Complex, `ar.muyassar` (Tafsir
+  al-Muyassar), alquran.cloud. This dataset is a tafsir, not a translation of the
+  ayah, and it has no entry for the unnumbered Bismillah row.
 - Recitation: Saad Al-Ghamadi, versebyversequran.com, ~40 kbps.
 - Fonts: Amiri Quran, Source Serif 4 and Inter under the SIL Open Font License
   1.1 (license files in `public/fonts/`).
@@ -312,8 +360,10 @@ before redistribution.
 
 ## Limitations
 
-- No user accounts, cloud sync, offline audio downloads, Mushaf page images, or
-  additional translations in this release.
+- No user accounts, cloud sync, offline audio downloads or Mushaf page images.
+- Search indexes the Arabic source and the English Itani translation. The
+  Indonesian and Arabic commentary are reading options, not search fields, so
+  the on-demand index stays at 3.64 MiB instead of growing with every language.
 - The Tajweed anomalies above mean those specific verses intentionally have no
   highlighting. They are counted, surfaced, and never patched.
 - Audio availability depends on the pinned repository's raw files and the

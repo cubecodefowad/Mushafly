@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Reader } from "@/components/reader/Reader";
 import { allSurahMeta, loadSurah } from "@/data/quran-source";
+import { pageMetadata } from "@/lib/metadata";
 
 export const dynamicParams = false;
 
@@ -16,11 +17,12 @@ type PageProps = {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { number } = await params;
   const meta = allSurahMeta[Number(number) - 1];
-  if (!meta) return { title: "Surah not found" };
-  return {
+  if (!meta) return { title: "Surah not found", robots: { index: false, follow: false } };
+  return pageMetadata({
     title: `${meta.name} — Surah ${meta.number}`,
-    description: `Read Surah ${meta.name} (${meta.arabicName}) — ${meta.verseCount} verses in Arabic with the Itani English translation.`,
-  };
+    description: `Read Surah ${meta.name} (${meta.arabicName}) — ${meta.verseCount} verses in Arabic with English and Indonesian translations and an Arabic commentary.`,
+    path: `/surah/${meta.number}/`,
+  });
 }
 
 export default async function SurahPage({ params }: PageProps) {

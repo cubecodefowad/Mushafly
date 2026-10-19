@@ -70,7 +70,11 @@ describe("local storage validation", () => {
     expect(parsed.tajweed).toBe(false);
     expect(parsed.autoScroll).toBe(true);
     expect(parsed.theme).toBe("system");
+    expect(parsed.translation).toBe("en");
 
+    expect(parseSettings({ translation: "id" }).translation).toBe("id");
+    expect(parseSettings({ translation: "ar" }).translation).toBe("ar");
+    expect(parseSettings({ translation: "fr" }).translation).toBe("en");
     expect(parseSettings(null)).toEqual(DEFAULT_SETTINGS);
   });
 });

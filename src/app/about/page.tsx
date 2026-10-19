@@ -1,13 +1,14 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { AccuracyNotice } from "@/components/legal/AccuracyNotice";
 import { sourceInfo } from "@/data/attribution";
+import { pageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "About",
   description:
     "What Mushafly is, how it is built, what it stores, where its text comes from and how to report a problem.",
-};
+  path: "/about/",
+});
 
 export default function AboutPage() {
   return (
@@ -15,19 +16,19 @@ export default function AboutPage() {
       <p className="meta">About</p>
       <h1 className="display mt-3 text-4xl sm:text-5xl">About Mushafly</h1>
       <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted">
-        A quiet place to read the Quran: all 114 surahs in Arabic, an English
-        translation, source-derived Tajweed and verse-by-verse recitation, with
-        nothing between you and the page.
+        A quiet place to read the Quran: all 114 surahs in Arabic with English
+        and Indonesian translations, an Arabic commentary, source-derived Tajweed
+        and verse-by-verse recitation, with nothing between you and the page.
       </p>
 
       <section aria-labelledby="what" className="mt-12">
         <h2 id="what" className="display text-2xl">What it is</h2>
         <div className="mt-4 space-y-3 rounded-xl border border-line bg-surface p-5 text-sm leading-relaxed text-muted">
           <p>
-            Mushafly is a reading tool. It displays the Quranic text, a
-            translation, Tajweed highlighting and recitation; it is not a
-            religious authority and it does not issue rulings, tafsir or
-            guidance. Where the source data cannot be applied reliably, a verse
+            Mushafly is a reading tool. It displays the Quranic text, two
+            translations and an Arabic commentary, Tajweed highlighting and
+            recitation; it is not a religious authority and it does not issue
+            rulings or guidance. Where the source data cannot be applied reliably, a verse
             is shown as plain text rather than guessed at.
           </p>
           <p>

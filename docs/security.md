@@ -22,7 +22,8 @@ Three trust boundaries exist:
 3. **The network.** The page loads from its own origin and makes exactly one
    cross-origin request: playing a verse fetches its MP3 from
    `raw.githubusercontent.com` at a commit pinned in the source data. Fonts,
-   search index, pages and the analytics script are all same-origin.
+   the search index, all three translation datasets, pages and the analytics
+   script are all same-origin.
 
 A fourth party holds none of the reader's data but does see traffic: Vercel,
 which hosts the site and serves the analytics route. The policy below therefore
@@ -121,7 +122,8 @@ These cannot be set from the code and are worth a few minutes:
   than merging them blind.
 - The Quranic data is verified at build time: the validator checks structure,
   counts and provenance, and pins 806 file hashes when the upstream checkout is
-  present. A published copy therefore matches the recorded source.
+  present. That includes the English and Indonesian translation files and the
+  Arabic commentary; a published copy therefore matches the recorded source.
 - Audio is **not** verified at runtime. The URL is pinned to a commit, so the
   file cannot change without a new commit, but the app trusts that host to serve
   the bytes it advertises. If that matters to you, the durable fixes are to

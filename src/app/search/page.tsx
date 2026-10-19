@@ -1,11 +1,13 @@
-import type { Metadata } from "next";
 import { Suspense } from "react";
 import { SearchClient } from "@/components/search/SearchClient";
+import { pageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Search",
-  description: "Search the Arabic Quran and the Itani English translation.",
-};
+  description:
+    "Search the Arabic Quran and the Itani English translation by verse, surah or phrase.",
+  path: "/search/",
+});
 
 function SearchFallback() {
   return (

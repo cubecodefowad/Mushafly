@@ -5,6 +5,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import {
   ArrowLeft,
   ArrowRight,
+  ChevronDown,
   Highlighter,
   History,
   Languages,
@@ -21,13 +22,23 @@ import { TajweedLegend } from "@/components/tajweed/TajweedLegend";
 import { ReaderKey } from "@/components/tajweed/ReaderKey";
 import { AccuracyNotice } from "@/components/legal/AccuracyNotice";
 import { sourceInfo } from "@/data/attribution";
-import type { SurahView, VerseView } from "@/types/quran";
+import { TRANSLATIONS, translationInfo, translationUrl } from "@/data/translations";
+import type { SurahView, TranslationLanguage, VerseView } from "@/types/quran";
+
+type FetchedTranslation = {
+  language: TranslationLanguage;
+  verses: Record<string, string>;
+};
 
 export function Reader({ surah }: { surah: SurahView }) {
   const { settings, update } = useSettings();
   const { lastRead, saveLastRead } = useReadingState();
   const audio = useSurahAudio(surah);
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [translation, setTranslation] = useState<FetchedTranslation | null>(null);
+  const [translationStatus, setTranslationStatus] = useState<
+    "idle" | "loading" | "error"
+  >("idle");
   const [toast, setToast] = useState<string | null>(null);
   const toastTimer = useRef<number | null>(null);
   const lastSavedAt = useRef(0);
@@ -43,6 +54,49 @@ export function Reader({ surah }: { surah: SurahView }) {
       if (toastTimer.current) window.clearTimeout(toastTimer.current);
     };
   }, []);
+
+  // English is part of the static page. The other datasets are same-origin
+  // files fetched only when the reader selects them, so a surah page does not
+  // carry three datasets in its HTML.
+  const language = settings.translation;
+  useEffect(() => {
+    if (language === "en") {
+      setTranslation(null);
+      setTranslationStatus("idle");
+      return;
+    }
+
+    const controller = new AbortController();
+    setTranslationStatus("loading");
+    fetch(translationUrl(language, surah.meta.number), { signal: controller.signal })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Translation returned ${response.status}`);
+        }
+        return response.json() as Promise<{ verse: Record<string, string> }>;
+      })
+      .then((payload) => {
+        setTranslation({ language, verses: payload.verse });
+        setTranslationStatus("idle");
+      })
+      .catch((reason: unknown) => {
+        if (reason instanceof DOMException && reason.name === "AbortError") return;
+        setTranslation(null);
+        setTranslationStatus("error");
+      });
+
+    return () => controller.abort();
+  }, [language, surah.meta.number]);
+
+  const activeTranslation = translationInfo(language);
+  const translationFor = (verse: VerseView): string | null => {
+    if (language === "en") return verse.translation;
+    // While the selected dataset is in flight (or if it fails), the English
+    // text already in the page stays readable; the status line says why.
+    if (translation?.language !== language) return verse.translation;
+    const text = translation.verses[verse.key];
+    return typeof text === "string" && text.length > 0 ? text : null;
+  };
 
   // Persist the last visible numbered verse.
   useEffect(() => {
@@ -180,17 +234,41 @@ export function Reader({ surah }: { surah: SurahView }) {
               <Highlighter size={16} strokeWidth={1.8} aria-hidden />
               <span className="hidden text-[0.6875rem] lg:inline">Tajweed</span>
             </button>
-            <button
-              type="button"
-              className="icon-button px-2"
-              onClick={() => update({ showTranslation: !settings.showTranslation })}
-              aria-pressed={settings.showTranslation}
-              aria-label="English translation"
-              title="English translation"
+            <label
+              className="icon-button cursor-pointer px-1.5"
+              title="Translation language"
             >
               <Languages size={16} strokeWidth={1.8} aria-hidden />
-              <span className="hidden text-[0.6875rem] lg:inline">English</span>
-            </button>
+              <select
+                aria-label="Translation language"
+                value={settings.showTranslation ? settings.translation : "off"}
+                onChange={(event) => {
+                  const value = event.target.value;
+                  if (value === "off") {
+                    update({ showTranslation: false });
+                  } else {
+                    update({
+                      translation: value as TranslationLanguage,
+                      showTranslation: true,
+                    });
+                  }
+                }}
+                className="cursor-pointer appearance-none bg-transparent pr-0 text-[0.6875rem] text-current focus-visible:outline-none"
+              >
+                <option value="off">Off</option>
+                {TRANSLATIONS.map((entry) => (
+                  <option key={entry.languageCode} value={entry.languageCode}>
+                    {entry.label}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown
+                size={12}
+                strokeWidth={2}
+                className="pointer-events-none -ml-1 text-muted"
+                aria-hidden
+              />
+            </label>
             <button
               type="button"
               className="icon-button px-2"
@@ -216,6 +294,16 @@ export function Reader({ surah }: { surah: SurahView }) {
                   unavailableCount={surah.unavailableTajweedCount}
                 />
               ) : null}
+              {translationStatus === "loading" ? (
+                <p role="status" className="mt-4 text-xs text-muted">
+                  Loading {activeTranslation.name}…
+                </p>
+              ) : translationStatus === "error" ? (
+                <p role="status" className="mt-4 text-xs text-muted">
+                  The {activeTranslation.name} could not be loaded, so the English
+                  translation remains on screen. Reading is unaffected.
+                </p>
+              ) : null}
             </div>
 
             <div className="reader-column mt-2">
@@ -227,6 +315,10 @@ export function Reader({ surah }: { surah: SurahView }) {
                   active={audio.current?.key === surah.bismillah.key}
                   playing={audio.status === "playing" && audio.current?.key === surah.bismillah.key}
                   onTogglePlay={togglePlay}
+                  translation={
+                    language === "en" ? undefined : translationFor(surah.bismillah)
+                  }
+                  translationLanguage={language}
                 />
               ) : null}
 
@@ -239,6 +331,8 @@ export function Reader({ surah }: { surah: SurahView }) {
                   active={audio.current?.key === verse.key}
                   playing={audio.status === "playing" && audio.current?.key === verse.key}
                   onTogglePlay={togglePlay}
+                  translation={language === "en" ? undefined : translationFor(verse)}
+                  translationLanguage={language}
                   onBookmarkToggled={(added) =>
                     showToast(
                       added
@@ -307,9 +401,15 @@ export function Reader({ surah }: { surah: SurahView }) {
                 >
                   quranjson
                 </a>{" "}
-                at revision {sourceInfo.commit.slice(0, 7)}. English translation:{" "}
-                {sourceInfo.translation.translator} ({sourceInfo.translation.source}).
-                Recitation: {sourceInfo.audio.reciter}.
+                at revision {sourceInfo.commit.slice(0, 7)}. Translations and
+                commentary:{" "}
+                {sourceInfo.translations
+                  .map(
+                    (entry) =>
+                      `${entry.languageCode === "ar" ? "Arabic commentary" : entry.label}: ${entry.translator} (${entry.source})`,
+                  )
+                  .join("; ")}
+                . Recitation: {sourceInfo.audio.reciter}.
               </p>
               <p className="mt-2">
                 Verse text is rendered from the pinned source records. Search and

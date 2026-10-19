@@ -14,6 +14,7 @@ import {
   PUBLIC_DATA_ROOT,
   SOURCE_ROOT,
   SURAH_NUMBERS,
+  TRANSLATIONS,
   pad3,
   readJson,
   readText,
@@ -74,9 +75,19 @@ if (sourceAvailable) {
   );
   check(extra.length === 0, `unexpected unpinned source files: ${extra.slice(0, 5).join(", ")}`);
 
-  const enSources = readText(sourcePath("source/translation/en/.sources"));
-  check(/Talal Itani/.test(enSources), "English translation attribution missing Talal Itani");
-  check(/en\.itani/.test(enSources), "English translation attribution missing en.itani");
+  for (const translation of TRANSLATIONS) {
+    const sources = readText(
+      sourcePath(`source/translation/${translation.languageCode}/.sources`),
+    );
+    check(
+      sources.includes(translation.translator),
+      `${translation.languageCode} translation attribution missing ${translation.translator}`,
+    );
+    check(
+      sources.includes(translation.id),
+      `${translation.languageCode} translation attribution missing ${translation.id}`,
+    );
+  }
   const audioSources = readText(sourcePath("source/audio/.sources"));
   check(/Ghamadi/i.test(audioSources), "audio attribution missing Ghamadi");
   check(/versebyversequran/i.test(audioSources), "audio attribution missing versebyversequran.com");
@@ -95,7 +106,9 @@ const computedIssues = { outOfBounds: [], overlapping: [], bom: [] };
 const ruleCounts = {};
 let renderedSegments = 0;
 let numberedVerses = 0;
-let translationVerses = 0;
+const translationRows = Object.fromEntries(
+  TRANSLATIONS.map((translation) => [translation.languageCode, 0]),
+);
 let audioEntries = 0;
 let bismillahVerses = 0;
 const allRules = new Set(Object.keys(lock.counts.tajweedRules ?? {}));
@@ -104,7 +117,12 @@ const searchRefs = new Set();
 for (const n of SURAH_NUMBERS) {
   const meta = metadata[n - 1];
   const arabic = readJson(publicFile(`surah/${pad3(n)}.json`));
-  const english = readJson(publicFile(`translation/en/${pad3(n)}.json`));
+  const translations = Object.fromEntries(
+    TRANSLATIONS.map((translation) => [
+      translation.languageCode,
+      readJson(publicFile(`translation/${translation.languageCode}/${pad3(n)}.json`)),
+    ]),
+  );
   const tajweed = readJson(publicFile(`tajweed/${pad3(n)}.json`));
   const audio = readJson(publicFile(`audio/${pad3(n)}/index.json`));
 
@@ -144,18 +162,33 @@ for (const n of SURAH_NUMBERS) {
     if (key !== "verse_0") numberedVerses++;
   }
 
-  const expectedNumberedKeys = Array.from({ length: meta.count }, (_, i) => `verse_${i + 1}`);
-  check(String(english.index) === pad3(n), `translation index mismatch at ${n}`);
-  check(english.count === meta.count, `translation count mismatch at ${n}`);
-  check(
-    Object.keys(english.verse).length === expectedArabicKeys.size &&
-      [...expectedArabicKeys].every((key) => typeof english.verse[key] === "string"),
-    `translation keys do not map to Arabic verses at surah ${n}`,
-  );
-  for (const key of expectedArabicKeys) {
-    const text = english.verse[key];
-    check(typeof text === "string" && text.length > 0, `empty translation: ${n}:${key}`);
-    if (typeof text === "string") translationVerses++;
+  for (const translation of TRANSLATIONS) {
+    const data = translations[translation.languageCode];
+    check(
+      String(Number(data.index)) === String(n),
+      `${translation.languageCode} translation index mismatch at ${n}`,
+    );
+    check(
+      data.count === meta.count,
+      `${translation.languageCode} translation count mismatch at ${n}`,
+    );
+    // The Arabic commentary omits the unnumbered Bismillah row entirely; the
+    // English and Indonesian datasets include it. Every other key must exist.
+    const omitBismillah = translation.languageCode === "ar" && hasBismillah;
+    const expectedTranslationKeys = omitBismillah
+      ? [...expectedArabicKeys].filter((key) => key !== "verse_0")
+      : [...expectedArabicKeys];
+    check(
+      Object.keys(data.verse).length === expectedTranslationKeys.length &&
+        expectedTranslationKeys.every((key) => typeof data.verse[key] === "string"),
+      `${translation.languageCode} translation keys do not map to Arabic verses at surah ${n}`,
+    );
+    for (const key of expectedTranslationKeys) {
+      const text = data.verse[key];
+      if (typeof text !== "string") continue;
+      check(text.length > 0, `empty ${translation.languageCode} translation: ${n}:${key}`);
+      translationRows[translation.languageCode]++;
+    }
   }
 
   check(
@@ -226,9 +259,13 @@ for (const n of SURAH_NUMBERS) {
   if (sourceAvailable) {
     const pairs = [
       [arabic, readJson(sourcePath(surahFile(n))), `surah/${n}`],
-      [english, readJson(sourcePath(translationFile(n))), `translation/${n}`],
       [tajweed, readJson(sourcePath(tajweedFile(n))), `tajweed/${n}`],
       [audio, readJson(sourcePath(`source/audio/${pad3(n)}/index.json`)), `audio/${n}`],
+      ...TRANSLATIONS.map((translation) => [
+        translations[translation.languageCode],
+        readJson(sourcePath(translationFile(n, translation.languageCode))),
+        `translation/${translation.languageCode}/${n}`,
+      ]),
     ];
     for (const [published, original, label] of pairs) {
       check(isDeepStrictEqual(published, original), `public ${label} differs from pinned source`);
@@ -237,7 +274,13 @@ for (const n of SURAH_NUMBERS) {
 }
 
 check(numberedVerses === 6236, `numbered Arabic verses: ${numberedVerses}`);
-check(translationVerses === 6348, `translation rows: ${translationVerses}`);
+check(translationRows.en === 6348, `English translation rows: ${translationRows.en}`);
+check(translationRows.id === 6348, `Indonesian translation rows: ${translationRows.id}`);
+check(translationRows.ar === 6236, `Arabic translation rows: ${translationRows.ar}`);
+check(
+  isDeepStrictEqual(translationRows, lock.counts.translationRows),
+  "translation row counts differ from pinned lock",
+);
 check(bismillahVerses === 112, `unnumbered Bismillah verses: ${bismillahVerses}`);
 check(audioEntries === 6348, `audio entries: ${audioEntries}`);
 check(renderedSegments === 60841, `tajweed segments: ${renderedSegments}`);
@@ -318,7 +361,7 @@ if (fs.existsSync(searchPath)) {
 console.log(`Pinned revision: ${lock.commit} (${lock.repository})`);
 console.log(
   `Validated ${SURAH_NUMBERS.length} surahs, ${numberedVerses} numbered verses, ` +
-    `${translationVerses} translation rows (incl. ${bismillahVerses} Bismillah), ` +
+    `translations en/id/ar: ${translationRows.en}/${translationRows.id}/${translationRows.ar} rows, ` +
     `${renderedSegments} tajweed segments, ${audioEntries} audio entries.`,
 );
 console.log(

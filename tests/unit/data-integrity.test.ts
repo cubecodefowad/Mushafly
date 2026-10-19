@@ -59,9 +59,14 @@ describe("Quran data adapter", () => {
   it("keeps source and translation attribution explicit", () => {
     expect(sourceInfo.repository).toBe("https://github.com/semarketir/quranjson");
     expect(sourceInfo.commit).toHaveLength(40);
-    expect(sourceInfo.translation.id).toBe("en.itani");
-    expect(sourceInfo.translation.translator).toBe("Talal Itani");
-    expect(sourceInfo.translation.source).toBe("Tanzil.net");
+    expect(sourceInfo.translations.map((entry) => entry.id)).toEqual([
+      "en.itani",
+      "id.indonesian",
+      "ar.muyassar",
+    ]);
+    const english = sourceInfo.translations.find((entry) => entry.languageCode === "en");
+    expect(english?.translator).toBe("Talal Itani");
+    expect(english?.source).toBe("Tanzil.net");
     expect(sourceInfo.audio.reciter).toBe("Saad Al-Ghamadi");
   });
 });

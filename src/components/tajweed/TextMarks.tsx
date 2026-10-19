@@ -1,4 +1,5 @@
 import { TEXT_MARKS } from "@/data/text-marks";
+import { MarkGlyph } from "@/components/tajweed/MarkGlyph";
 
 /**
  * The symbols printed in the source text, with what each one asks the reader to
@@ -10,12 +11,11 @@ export function TextMarks({ variant = "full" }: { variant?: "full" | "compact" }
       <ul className="space-y-1.5">
         {TEXT_MARKS.map((mark) => (
           <li key={mark.glyph} className="flex items-start gap-2.5">
-            <span
-              aria-hidden="true"
-              className="font-arabic mt-[-0.15rem] w-5 shrink-0 text-center text-lg leading-6 text-ink"
-            >
-              {mark.glyph}
-            </span>
+            <MarkGlyph
+              glyph={mark.glyph}
+              optical={mark.optical}
+              className="h-4 w-5 text-lg"
+            />
             <span className="min-w-0">
               <span className="block text-[0.6875rem] leading-4 text-ink">
                 {mark.name}
@@ -34,12 +34,11 @@ export function TextMarks({ variant = "full" }: { variant?: "full" | "compact" }
     <ul className="divide-y divide-line">
       {TEXT_MARKS.map((mark) => (
         <li key={mark.glyph} className="flex items-start gap-5 py-4 first:pt-0 last:pb-0">
-          <span
-            aria-hidden="true"
-            className="font-arabic mt-1 w-9 shrink-0 text-center text-[2.1rem] leading-none text-ink"
-          >
-            {mark.glyph}
-          </span>
+          <MarkGlyph
+            glyph={mark.glyph}
+            optical={mark.optical}
+            className="mt-[3px] h-5 w-9 text-[2.1rem]"
+          />
           <span className="min-w-0">
             <span className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
               <span className="text-sm font-medium text-ink">{mark.name}</span>

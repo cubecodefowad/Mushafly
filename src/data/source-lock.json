@@ -4,14 +4,37 @@
   "commitDate": "2021-02-16",
   "license": "MIT",
   "pinnedAt": "2026-10-18",
-  "translation": {
-    "languageCode": "en",
-    "id": "en.itani",
-    "name": "Itani",
-    "translator": "Talal Itani",
-    "source": "Tanzil.net",
-    "lastUpdate": "July 19, 2013"
-  },
+  "translations": [
+    {
+      "languageCode": "en",
+      "id": "en.itani",
+      "label": "English",
+      "name": "Itani",
+      "translator": "Talal Itani",
+      "source": "Tanzil.net",
+      "lastUpdate": "July 19, 2013",
+      "direction": "ltr"
+    },
+    {
+      "languageCode": "id",
+      "id": "id.indonesian",
+      "label": "Indonesia",
+      "name": "Bahasa Indonesia",
+      "translator": "Indonesian Ministry of Religious Affairs",
+      "source": "Tanzil.net",
+      "lastUpdate": "June 4, 2010",
+      "direction": "ltr"
+    },
+    {
+      "languageCode": "ar",
+      "id": "ar.muyassar",
+      "label": "العربية",
+      "name": "Tafsir al-Muyassar",
+      "translator": "King Fahad Quran Complex",
+      "source": "alquran.cloud",
+      "direction": "rtl"
+    }
+  ],
   "audio": {
     "reciter": "Saad Al-Ghamadi",
     "source": "versebyversequran.com",
@@ -26,6 +49,11 @@
     "arabicEntries": 6348,
     "translationEntries": 6348,
     "numberedTranslations": 6236,
+    "translationRows": {
+      "en": 6348,
+      "id": 6348,
+      "ar": 6236
+    },
     "tajweedSegments": 60841,
     "tajweedRules": {
       "hamzat_wasl": 13588,

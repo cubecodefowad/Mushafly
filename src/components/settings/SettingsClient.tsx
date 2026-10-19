@@ -5,6 +5,7 @@ import { useState } from "react";
 import { ExternalLink, Monitor, Moon, Sun, Trash2 } from "lucide-react";
 import { useReadingState } from "@/components/bookmarks/ReadingStateProvider";
 import { useSettings } from "@/components/settings/SettingsProvider";
+import { TRANSLATIONS, translationInfo } from "@/data/translations";
 import type { SourceInfo, ThemePreference } from "@/types/quran";
 
 type IntegritySummary = {
@@ -14,11 +15,11 @@ type IntegritySummary = {
   counts: {
     surahs: number;
     verses: number;
-    translationEntries: number;
     tajweedSegments: number;
     audioEntries?: number;
   };
   issues: { outOfBounds: number; overlapping: number; bom: number };
+  translationRows: Record<string, number>;
 };
 
 const THEMES: Array<{ value: ThemePreference; label: string; icon: typeof Sun }> = [
@@ -36,6 +37,7 @@ export function SettingsClient({
 }) {
   const { settings, update, reset } = useSettings();
   const { bookmarks, lastRead, clearBookmarks, clearLastRead, loaded } = useReadingState();
+  const activeTranslation = translationInfo(settings.translation);
   const [confirmClear, setConfirmClear] = useState<"bookmarks" | "progress" | "settings" | null>(
     null,
   );
@@ -145,11 +147,41 @@ export function SettingsClient({
             </span>
           </div>
 
+          <div className="settings-row max-sm:flex-col max-sm:items-start">
+            <div className="min-w-0">
+              <p className="text-sm font-medium">Translation</p>
+              <p className="mt-0.5 text-xs text-muted">
+                {activeTranslation.translator} · {activeTranslation.source}
+              </p>
+            </div>
+            <div
+              className="segmented shrink-0"
+              role="group"
+              aria-label="Translation language"
+            >
+              {TRANSLATIONS.map((entry) => (
+                <button
+                  key={entry.languageCode}
+                  type="button"
+                  aria-pressed={settings.translation === entry.languageCode}
+                  onClick={() =>
+                    update({
+                      translation: entry.languageCode,
+                      showTranslation: true,
+                    })
+                  }
+                >
+                  {entry.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
           <label className="settings-row cursor-pointer">
             <span>
-              <span className="block text-sm font-medium">Show English translation</span>
+              <span className="block text-sm font-medium">Show translation</span>
               <span className="mt-0.5 block text-xs text-muted">
-                {source.translation.translator} · {source.translation.source}
+                The Arabic ayah is always shown.
               </span>
             </span>
             <input
@@ -303,14 +335,20 @@ export function SettingsClient({
               </span>
             </dd>
 
-            <dt className="text-muted">Translation</dt>
+            <dt className="text-muted">Translations</dt>
             <dd>
-              {source.translation.translator} — {source.translation.name} (
-              {source.translation.id})
-              <span className="mt-1 block text-xs text-muted">
-                Source: {source.translation.source} · Last update{" "}
-                {source.translation.lastUpdate}
-              </span>
+              <ul className="space-y-2">
+                {source.translations.map((entry) => (
+                  <li key={entry.languageCode}>
+                    <span className="text-ink">{entry.label}</span> —{" "}
+                    {entry.translator}, {entry.name} ({entry.id})
+                    <span className="mt-0.5 block text-xs text-muted">
+                      Source: {entry.source}
+                      {entry.lastUpdate ? ` · Last update ${entry.lastUpdate}` : ""}
+                    </span>
+                  </li>
+                ))}
+              </ul>
             </dd>
 
             <dt className="text-muted">Recitation</dt>
@@ -349,9 +387,14 @@ export function SettingsClient({
             <dt className="text-muted">Validated data</dt>
             <dd>
               {integrity.counts.surahs} surahs · {integrity.counts.verses.toLocaleString()}{" "}
-              verses · {integrity.counts.translationEntries.toLocaleString()}{" "}
-              translation rows · {integrity.counts.tajweedSegments.toLocaleString()}{" "}
-              Tajweed ranges
+              verses · {integrity.counts.tajweedSegments.toLocaleString()} Tajweed
+              ranges · translation rows:{" "}
+              {source.translations
+                .map(
+                  (entry) =>
+                    `${entry.label} ${(integrity.translationRows[entry.languageCode] ?? 0).toLocaleString()}`,
+                )
+                .join(" · ")}
             </dd>
           </dl>
           <p className="mt-5 border-t border-line pt-4 text-[0.6875rem] leading-relaxed text-muted">

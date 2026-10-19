@@ -11,14 +11,38 @@ export const SOURCE_ROOT = path.resolve(".quranjson");
 export const PUBLIC_DATA_ROOT = path.resolve("public/quran");
 export const LOCK_PATH = path.resolve("src/data/source-lock.json");
 
-export const TRANSLATION = {
-  languageCode: "en",
-  id: "en.itani",
-  name: "Itani",
-  translator: "Talal Itani",
-  source: "Tanzil.net",
-  lastUpdate: "July 19, 2013",
-};
+export const TRANSLATIONS = [
+  {
+    languageCode: "en",
+    id: "en.itani",
+    label: "English",
+    name: "Itani",
+    translator: "Talal Itani",
+    source: "Tanzil.net",
+    lastUpdate: "July 19, 2013",
+    direction: "ltr",
+  },
+  {
+    languageCode: "id",
+    id: "id.indonesian",
+    label: "Indonesia",
+    name: "Bahasa Indonesia",
+    translator: "Indonesian Ministry of Religious Affairs",
+    source: "Tanzil.net",
+    lastUpdate: "June 4, 2010",
+    direction: "ltr",
+  },
+  {
+    languageCode: "ar",
+    id: "ar.muyassar",
+    label: "العربية",
+    name: "Tafsir al-Muyassar",
+    translator: "King Fahad Quran Complex",
+    source: "alquran.cloud",
+    direction: "rtl",
+  },
+];
+
 
 export const AUDIO = {
   reciter: "Saad Al-Ghamadi",
@@ -71,8 +95,8 @@ export function surahFile(n) {
 export function tajweedFile(n) {
   return `source/tajweed/surah_${n}.json`;
 }
-export function translationFile(n) {
-  return `source/translation/en/en_translation_${n}.json`;
+export function translationFile(n, languageCode = "en") {
+  return `source/translation/${languageCode}/${languageCode}_translation_${n}.json`;
 }
 export function audioIndexFile(n) {
   return `source/audio/${pad3(n)}/index.json`;

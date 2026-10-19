@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { X } from "lucide-react";
 import { useSettings } from "@/components/settings/SettingsProvider";
+import { TRANSLATIONS, translationInfo } from "@/data/translations";
 
 type Props = {
   open: boolean;
@@ -13,6 +14,7 @@ type Props = {
 export function SettingsSheet({ open, onClose }: Props) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const { settings, update, reset } = useSettings();
+  const activeTranslation = translationInfo(settings.translation);
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -89,10 +91,42 @@ export function SettingsSheet({ open, onClose }: Props) {
           </div>
         </div>
 
+        <div className="settings-row max-sm:flex-col max-sm:items-start">
+          <div className="min-w-0">
+            <p className="text-sm font-medium">Translation</p>
+            <p className="mt-0.5 text-xs text-muted">
+              {activeTranslation.translator} · {activeTranslation.source}
+            </p>
+          </div>
+          <div
+            className="segmented shrink-0"
+            role="group"
+            aria-label="Translation language"
+          >
+            {TRANSLATIONS.map((entry) => (
+              <button
+                key={entry.languageCode}
+                type="button"
+                aria-pressed={settings.translation === entry.languageCode}
+                onClick={() =>
+                  update({
+                    translation: entry.languageCode,
+                    showTranslation: true,
+                  })
+                }
+              >
+                {entry.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
         <label className="settings-row cursor-pointer">
           <span>
-            <span className="block text-sm font-medium">Show English translation</span>
-            <span className="mt-0.5 block text-xs text-muted">Talal Itani, Tanzil.net</span>
+            <span className="block text-sm font-medium">Show translation</span>
+            <span className="mt-0.5 block text-xs text-muted">
+              The Arabic ayah is always shown.
+            </span>
           </span>
           <input
             type="checkbox"

@@ -1,13 +1,15 @@
-import type { Metadata } from "next";
 import { SettingsClient } from "@/components/settings/SettingsClient";
 import { sourceInfo } from "@/data/attribution";
 import lock from "@/data/source-lock.json";
+import { pageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Settings",
   description:
     "Reading preferences, local data controls, Tajweed limitations, and source attribution.",
-};
+  path: "/settings/",
+  noIndex: true,
+});
 
 export default function SettingsPage() {
   return (
@@ -20,7 +22,6 @@ export default function SettingsPage() {
         counts: {
           surahs: lock.counts.surahs,
           verses: lock.counts.verses,
-          translationEntries: lock.counts.translationEntries,
           tajweedSegments: lock.counts.tajweedSegments,
         },
         issues: {
@@ -28,6 +29,7 @@ export default function SettingsPage() {
           overlapping: lock.knownIssues.tajweedOverlapping.length,
           bom: lock.knownIssues.bomStrings.length,
         },
+        translationRows: lock.counts.translationRows,
       }}
     />
   );

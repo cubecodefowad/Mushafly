@@ -4,11 +4,14 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, Bookmark, Check, Pencil, Trash2, X } from "lucide-react";
 import { useReadingState } from "@/components/bookmarks/ReadingStateProvider";
+import { useSettings } from "@/components/settings/SettingsProvider";
 import surahMeta from "@/data/generated/surah-meta.json";
+import { translationInfo, translationUrl } from "@/data/translations";
+import type { TranslationLanguage } from "@/types/quran";
 
 type SurahTexts = {
   arabic: Record<string, string>;
-  english: Record<string, string>;
+  translation: Record<string, string>;
 };
 
 const SURAHS = surahMeta as Array<{ number: number; name: string; arabicName: string }>;
@@ -21,7 +24,10 @@ export function BookmarksClient() {
     removeBookmark,
     updateBookmarkLabel,
   } = useReadingState();
-  const cache = useRef(new Map<number, SurahTexts>());
+  const { settings } = useSettings();
+  const language = settings.translation;
+  const activeTranslation = translationInfo(language);
+  const cache = useRef(new Map<string, SurahTexts>());
   const [texts, setTexts] = useState<Record<string, { a: string; t: string }>>({});
   const [fetching, setFetching] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -32,33 +38,41 @@ export function BookmarksClient() {
   useEffect(() => {
     if (!loaded || bookmarks.length === 0) return;
     const surahs = [...new Set(bookmarks.map((bookmark) => bookmark.reference.surahNumber))];
-    const missing = surahs.filter((surah) => !cache.current.has(surah));
+    const cacheKey = (surah: number) => `${language}:${surah}`;
+    const missing = surahs.filter((surah) => !cache.current.has(cacheKey(surah)));
     if (missing.length === 0) {
-      setTexts(buildTexts(bookmarks, cache.current));
+      setTexts(buildTexts(bookmarks, cache.current, language));
       return;
     }
 
     const controller = new AbortController();
     setFetching(true);
     setError(null);
+    // Do not leave the previous language on screen while the new one loads.
+    setTexts(buildTexts(bookmarks, cache.current, language));
 
     Promise.all(
       missing.map(async (surah) => {
         const file = pad3(surah);
-        const [arabicResponse, englishResponse] = await Promise.all([
+        const [arabicResponse, translationResponse] = await Promise.all([
           fetch(`/quran/surah/${file}.json`, { signal: controller.signal }),
-          fetch(`/quran/translation/en/${file}.json`, { signal: controller.signal }),
+          fetch(translationUrl(language, surah), { signal: controller.signal }),
         ]);
-        if (!arabicResponse.ok || !englishResponse.ok) {
+        if (!arabicResponse.ok || !translationResponse.ok) {
           throw new Error(`Source files for surah ${surah} could not be loaded.`);
         }
         const arabic = (await arabicResponse.json()) as { verse: Record<string, string> };
-        const english = (await englishResponse.json()) as { verse: Record<string, string> };
-        cache.current.set(surah, { arabic: arabic.verse, english: english.verse });
+        const translated = (await translationResponse.json()) as {
+          verse: Record<string, string>;
+        };
+        cache.current.set(cacheKey(surah), {
+          arabic: arabic.verse,
+          translation: translated.verse,
+        });
       }),
     )
       .then(() => {
-        setTexts(buildTexts(bookmarks, cache.current));
+        setTexts(buildTexts(bookmarks, cache.current, language));
         setFetching(false);
       })
       .catch((reason: unknown) => {
@@ -72,12 +86,12 @@ export function BookmarksClient() {
       });
 
     return () => controller.abort();
-  }, [bookmarks, loaded]);
+  }, [bookmarks, loaded, language]);
 
   useEffect(() => {
     if (!loaded) return;
-    setTexts(buildTexts(bookmarks, cache.current));
-  }, [bookmarks, loaded]);
+    setTexts(buildTexts(bookmarks, cache.current, language));
+  }, [bookmarks, loaded, language]);
 
   if (!loaded) {
     return (
@@ -238,7 +252,13 @@ export function BookmarksClient() {
                     >
                       {text.a}
                     </p>
-                    <p lang="en" dir="ltr" className="mt-2 line-clamp-2 text-sm leading-relaxed text-muted">
+                    <p
+                      lang={language}
+                      dir={activeTranslation.direction}
+                      className={`mt-2 line-clamp-2 text-sm leading-relaxed text-muted ${
+                        activeTranslation.direction === "rtl" ? "font-arabic" : ""
+                      }`}
+                    >
                       {text.t}
                     </p>
                   </>
@@ -281,17 +301,18 @@ export function BookmarksClient() {
 
 function buildTexts(
   bookmarks: Array<{ reference: { surahNumber: number; verseNumber: number } }>,
-  cache: Map<number, SurahTexts>,
+  cache: Map<string, SurahTexts>,
+  language: TranslationLanguage,
 ): Record<string, { a: string; t: string }> {
   const output: Record<string, { a: string; t: string }> = {};
   for (const bookmark of bookmarks) {
     const { surahNumber, verseNumber } = bookmark.reference;
-    const source = cache.get(surahNumber);
+    const source = cache.get(`${language}:${surahNumber}`);
     if (!source) continue;
     const key = `verse_${verseNumber}`;
     const a = source.arabic[key];
-    const t = source.english[key];
-    if (typeof a === "string" && typeof t === "string") {
+    const t = source.translation[key];
+    if (typeof a === "string" && typeof t === "string" && t.length > 0) {
       output[`${surahNumber}:${verseNumber}`] = { a, t };
     }
   }

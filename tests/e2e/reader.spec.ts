@@ -27,6 +27,42 @@ test("surah reader keeps Arabic and English separate and aligned to source", asy
   await expect(page.locator(".tajweed-mark").first()).toBeVisible();
 });
 
+test("the reader switches translation language and remembers it", async ({ page }) => {
+  await page.goto("/surah/1/");
+  const select = page.getByRole("combobox", { name: "Translation language" });
+  await expect(select).toHaveValue("en");
+
+  const verse = page.locator("#verse-1 .translation-text");
+  await expect(verse).toHaveAttribute("lang", "en");
+  await expect(verse).toHaveAttribute("dir", "ltr");
+
+  await select.selectOption("id");
+  await expect(verse).toHaveAttribute("lang", "id");
+  await expect(verse).toContainText("Dengan menyebut nama Allah");
+
+  await select.selectOption("ar");
+  await expect(verse).toHaveAttribute("lang", "ar");
+  await expect(verse).toHaveAttribute("dir", "rtl");
+  await expect(verse).toContainText("سورة الفاتحة");
+
+  await page.reload();
+  await expect(select).toHaveValue("ar");
+  await expect(page.locator("#verse-1 .translation-text")).toHaveAttribute("lang", "ar");
+
+  await select.selectOption("off");
+  await expect(page.locator("#verse-1 .translation-text")).toHaveCount(0);
+  await select.selectOption("en");
+  await expect(page.locator("#verse-1 .translation-text")).toHaveAttribute("lang", "en");
+
+  // The reading-settings sheet offers the same choice and updates the toolbar.
+  await page.getByRole("button", { name: "Open reading settings" }).click();
+  const dialog = page.getByRole("dialog", { name: "Reading settings" });
+  await dialog.getByRole("button", { name: "Indonesia" }).click();
+  await page.keyboard.press("Escape");
+  await expect(select).toHaveValue("id");
+  await expect(page.locator("#verse-1 .translation-text")).toHaveAttribute("lang", "id");
+});
+
 test("tajweed can be disabled and restored", async ({ page }) => {
   await page.goto("/surah/1/");
   await expect(page.locator(".tajweed-mark").first()).toBeVisible();
@@ -118,10 +154,12 @@ test("the Mushafly mark follows the theme and browser icons are declared", async
       return mark ? getComputedStyle(mark).backgroundImage : "none";
     });
 
-  expect(await markFor()).toContain("mark-light.png");
+  // The theme is applied by a layout effect, so poll instead of reading the
+  // computed style in the same tick as the click.
+  await expect.poll(markFor).toContain("mark-light.png");
 
   await page.getByRole("button", { name: "Switch to dark theme" }).click();
-  expect(await markFor()).toContain("mark-dark.png");
+  await expect.poll(markFor).toContain("mark-dark.png");
 
   const markLoads = await page.evaluate(async () => {
     const url = "/brand/mark-dark.png";

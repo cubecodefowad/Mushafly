@@ -4,7 +4,13 @@ import Link from "next/link";
 import type { CSSProperties } from "react";
 import { Link2, Pause, Play } from "lucide-react";
 import { BookmarkButton } from "@/components/bookmarks/BookmarkButton";
-import type { ReaderSettings, SurahView, VerseView } from "@/types/quran";
+import { translationInfo } from "@/data/translations";
+import type {
+  ReaderSettings,
+  SurahView,
+  TranslationLanguage,
+  VerseView,
+} from "@/types/quran";
 
 type Props = {
   surah: SurahView;
@@ -14,6 +20,9 @@ type Props = {
   playing: boolean;
   onTogglePlay: (verse: VerseView) => void;
   onBookmarkToggled?: (added: boolean) => void;
+  /** Text in the selected language; English comes from the static page. */
+  translation?: string | null;
+  translationLanguage?: TranslationLanguage;
 };
 
 function TajweedText({
@@ -56,8 +65,12 @@ export function Verse({
   playing,
   onTogglePlay,
   onBookmarkToggled,
+  translation = verse.translation,
+  translationLanguage = "en",
 }: Props) {
   const isBismillah = verse.number === 0;
+  const info = translationInfo(translationLanguage);
+  const rtl = info.direction === "rtl";
   const label = isBismillah
     ? "Bismillah"
     : `Surah ${surah.meta.name}, verse ${verse.number}`;
@@ -145,15 +158,17 @@ export function Verse({
       ) : null}
 
       {settings.showTranslation ? (
-        verse.translation ? (
+        translation ? (
           <p
-            lang="en"
-            dir="ltr"
-            className={`translation-text mt-3 ${isBismillah ? "text-center" : ""}`}
+            lang={translationLanguage}
+            dir={info.direction}
+            className={`translation-text mt-3 ${rtl ? "translation-arabic" : ""} ${
+              isBismillah ? "text-center" : ""
+            }`}
           >
-            {verse.translation}
+            {translation}
           </p>
-        ) : (
+        ) : isBismillah ? null : (
           <p className="mt-3 text-xs text-muted">
             Translation unavailable in the selected dataset.
           </p>

@@ -6,6 +6,18 @@
  */
 export type TextMarkKind = "pause" | "structure" | "prostration" | "orthographic";
 
+/**
+ * Optical offset in `em`, applied when the sign is shown on its own.
+ *
+ * The Uthmani signs are drawn to sit above a letter that is not present in a
+ * key, so their ink floats at the height the font gives each glyph: a pause
+ * mark near the cap height, a hizb divider near the baseline. These values
+ * move each sign's ink to the centre of its key cell, and the x value centres
+ * the ink rather than the (usually zero-width) advance box. They were measured
+ * from the bundled Amiri Quran font; the same em values work at both key sizes.
+ */
+export type MarkOptical = { x: number; y: number };
+
 export type TextMark = {
   glyph: string;
   name: string;
@@ -15,11 +27,13 @@ export type TextMark = {
   /** Fuller explanation, used on the reference page. */
   detail: string;
   kind: TextMarkKind;
+  optical: MarkOptical;
 };
 
 export const TEXT_MARKS: TextMark[] = [
   {
     glyph: "\u06D6",
+    optical: { x: -0.24, y: 0.94 },
     name: "Wasl awlā",
     arabic: "الوصل أولى",
     short: "Continue if you can",
@@ -29,6 +43,7 @@ export const TEXT_MARKS: TextMark[] = [
   },
   {
     glyph: "\u06D7",
+    optical: { x: -0.24, y: 0.96 },
     name: "Waqf awlā",
     arabic: "الوقف أولى",
     short: "Stop if you can",
@@ -38,6 +53,7 @@ export const TEXT_MARKS: TextMark[] = [
   },
   {
     glyph: "\u06D8",
+    optical: { x: -0.16, y: 0.83 },
     name: "Waqf lāzim",
     arabic: "الوقف اللازم",
     short: "Stop here",
@@ -47,6 +63,7 @@ export const TEXT_MARKS: TextMark[] = [
   },
   {
     glyph: "\u06D9",
+    optical: { x: -0.15, y: 0.94 },
     name: "Lā waqf",
     arabic: "لا",
     short: "Do not stop",
@@ -56,6 +73,7 @@ export const TEXT_MARKS: TextMark[] = [
   },
   {
     glyph: "\u06DA",
+    optical: { x: -0.19, y: 0.93 },
     name: "Waqf jā'iz",
     arabic: "الوقف الجائز",
     short: "Stop or continue",
@@ -65,6 +83,7 @@ export const TEXT_MARKS: TextMark[] = [
   },
   {
     glyph: "\u06DB",
+    optical: { x: -0.18, y: 0.82 },
     name: "Mu'ānaqah",
     arabic: "المعانقة",
     short: "Stop at one, not both",
@@ -74,6 +93,7 @@ export const TEXT_MARKS: TextMark[] = [
   },
   {
     glyph: "\u06DC",
+    optical: { x: -0.25, y: 0.88 },
     name: "Saktah",
     arabic: "السكتة",
     short: "Pause without breathing",
@@ -83,6 +103,7 @@ export const TEXT_MARKS: TextMark[] = [
   },
   {
     glyph: "\u06DE",
+    optical: { x: 0, y: -0.44 },
     name: "Rub' al-ḥizb",
     arabic: "ربع الحزب",
     short: "Quarter-hizb divider",
@@ -92,6 +113,7 @@ export const TEXT_MARKS: TextMark[] = [
   },
   {
     glyph: "\u06E9",
+    optical: { x: 0, y: -0.43 },
     name: "Sajdah",
     arabic: "سجدة التلاوة",
     short: "Verse of prostration",
@@ -105,25 +127,36 @@ export const TEXT_MARKS: TextMark[] = [
  * The small superscript signs. They belong to the Uthmani spelling rather than
  * to the pause system, so they are described together instead of one by one.
  */
-export const ORTHOGRAPHIC_MARKS: Array<{
-  glyph: string;
+export type OrthographicMark = {
+  /** Variants are shown side by side, each centred in its own cell. */
+  glyphs: Array<{ glyph: string; optical: MarkOptical }>;
   name: string;
   detail: string;
-}> = [
+};
+
+export const ORTHOGRAPHIC_MARKS: OrthographicMark[] = [
   {
-    glyph: "\u06DF \u06E0",
+    glyphs: [
+      { glyph: "\u06DF", optical: { x: -0.18, y: 0.34 } },
+      { glyph: "\u06E0", optical: { x: -0.18, y: 0.39 } },
+    ],
     name: "Small zero",
     detail:
       "Marks a letter that is written in the Uthmani spelling but not sounded when the verse is recited continuously.",
   },
   {
-    glyph: "\u06E5 \u06E6",
+    glyphs: [
+      // Unlike the zero-width signs, these have an advance; their advance box
+      // is already centred, so only a hair of horizontal correction is needed.
+      { glyph: "\u06E5", optical: { x: 0, y: -0.47 } },
+      { glyph: "\u06E6", optical: { x: 0, y: -0.44 } },
+    ],
     name: "Small waw and yeh",
     detail:
       "A written sign with no sound of its own; it belongs to the spelling of the word, not to the pause rules.",
   },
   {
-    glyph: "\u06E2",
+    glyphs: [{ glyph: "\u06E2", optical: { x: -0.12, y: 0.37 } }],
     name: "Small meem",
     detail:
       "Placed above a noon or tanween to mark iqlab, where the sound becomes a meem.",

@@ -1,13 +1,14 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { AccuracyNotice } from "@/components/legal/AccuracyNotice";
 import { sourceInfo } from "@/data/attribution";
+import { pageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Accuracy and Sources",
   description:
     "Where Mushafly's Quranic text, translation, Tajweed and recitation come from, and how to report a discrepancy.",
-};
+  path: "/accuracy/",
+});
 
 export default function AccuracyPage() {
   return (
@@ -46,10 +47,15 @@ export default function AccuracyPage() {
           </p>
           <ul className="list-disc space-y-1.5 pl-5">
             <li>Arabic text and surah metadata: the dataset&apos;s verse records.</li>
-            <li>
-              English translation: {sourceInfo.translation.translator} (
-              {sourceInfo.translation.source}).
-            </li>
+            {sourceInfo.translations.map((translation) => (
+              <li key={translation.languageCode}>
+                {translation.languageCode === "ar"
+                  ? "Arabic commentary"
+                  : `${translation.label} translation`}
+                : {translation.translator} — {translation.name} ({translation.id},{" "}
+                {translation.source}).
+              </li>
+            ))}
             <li>
               Tajweed highlighting: the dataset&apos;s annotated ranges, applied to
               the characters they describe.

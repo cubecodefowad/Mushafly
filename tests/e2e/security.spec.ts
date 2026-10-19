@@ -42,8 +42,9 @@ test("the app runs under its Content-Security-Policy without violations", async 
   await page.getByRole("button", { name: "Open reading settings" }).click();
   await page.keyboard.press("Escape");
 
-  await page.goto("/search/");
-  await page.getByRole("searchbox").fill("mercy");
+  // Land with the query already in the URL so the index fetch starts on mount
+  // instead of depending on a fill event that may arrive before hydration.
+  await page.goto("/search/?q=mercy");
   await expect(page.locator("main li").first()).toBeVisible();
 
   const appViolations = await page.evaluate(

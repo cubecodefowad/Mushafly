@@ -12,7 +12,7 @@ import {
   PUBLIC_DATA_ROOT,
   SOURCE_ROOT,
   SURAH_NUMBERS,
-  TRANSLATION,
+  TRANSLATIONS,
   audioIndexFile,
   pad3,
   readJson,
@@ -87,7 +87,14 @@ for (const n of SURAH_NUMBERS) {
   const audio = readJson(sourcePath(audioIndexFile(n)));
 
   writeJson(`surah/${pad3(n)}.json`, ar);
-  writeJson(`translation/en/${pad3(n)}.json`, en);
+  for (const translation of TRANSLATIONS) {
+    writeJson(
+      `translation/${translation.languageCode}/${pad3(n)}.json`,
+      translation.languageCode === "en"
+        ? en
+        : readJson(sourcePath(translationFile(n, translation.languageCode))),
+    );
+  }
   writeJson(`tajweed/${pad3(n)}.json`, tajweed);
   writeJson(`audio/${pad3(n)}/index.json`, audio);
 
@@ -114,7 +121,7 @@ fs.writeFileSync(
       repository: lock.repository,
       commit: lock.commit,
       license: lock.license,
-      translation: TRANSLATION,
+      translations: TRANSLATIONS,
       audio: AUDIO,
     },
     null,
@@ -126,7 +133,7 @@ writeJson("manifest.json", {
   repository: lock.repository,
   commit: lock.commit,
   license: lock.license,
-  translation: TRANSLATION,
+  translations: TRANSLATIONS,
   audio: AUDIO,
   counts: lock.counts,
   knownIssues: {

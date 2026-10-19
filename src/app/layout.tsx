@@ -6,16 +6,33 @@ import { Footer } from "@/components/layout/Footer";
 import { ReadingStateProvider } from "@/components/bookmarks/ReadingStateProvider";
 import { SettingsProvider } from "@/components/settings/SettingsProvider";
 import { ThemeScript } from "@/components/settings/ThemeScript";
+import {
+  SITE_DESCRIPTION,
+  SITE_KEYWORDS,
+  SITE_NAME,
+  SITE_OG_DESCRIPTION,
+  SITE_TITLE,
+  SITE_URL,
+  SOCIAL_IMAGE_ALT,
+  SOCIAL_IMAGE_HEIGHT,
+  SOCIAL_IMAGE_WIDTH,
+  assetUrl,
+} from "@/lib/site";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "Mushafly — A quiet place to read the Quran",
-    template: "%s · Mushafly",
+    default: SITE_TITLE,
+    template: `%s · ${SITE_NAME}`,
   },
-  description:
-    "Read all 114 surahs with Arabic text, the Itani English translation, source-derived Tajweed highlighting, recitation and local bookmarks.",
-  applicationName: "Mushafly",
-  authors: [{ name: "Mushafly" }],
+  description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
+  authors: [{ name: SITE_NAME, url: SITE_URL }],
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
+  category: "education",
+  keywords: SITE_KEYWORDS,
+  formatDetection: { telephone: false, address: false, email: false },
   // Two browser icons, one per colour scheme. Chromium honours the `media`
   // query; Firefox (browsers-compat-data issue 24213) and Safari ignore it and
   // use the first icon, so the light variant is declared first and stays
@@ -33,11 +50,58 @@ export const metadata: Metadata = {
     apple: [{ url: "/brand/apple-touch-icon-180.png", sizes: "180x180", type: "image/png" }],
   },
   openGraph: {
-    title: "Mushafly — A quiet place to read the Quran",
-    description:
-      "An elegant, source-faithful Quran reader with Arabic, English, Tajweed and audio.",
+    title: SITE_TITLE,
+    description: SITE_OG_DESCRIPTION,
     type: "website",
-    locale: "en",
+    locale: "en_US",
+    url: "/",
+    siteName: SITE_NAME,
+    images: [
+      {
+        url: assetUrl("/og.png"),
+        type: "image/png",
+        width: SOCIAL_IMAGE_WIDTH,
+        height: SOCIAL_IMAGE_HEIGHT,
+        alt: SOCIAL_IMAGE_ALT,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_TITLE,
+    description: SITE_OG_DESCRIPTION,
+    images: [
+      {
+        url: assetUrl("/twitter.png"),
+        type: "image/png",
+        width: SOCIAL_IMAGE_WIDTH,
+        height: SOCIAL_IMAGE_HEIGHT,
+        alt: SOCIAL_IMAGE_ALT,
+      },
+    ],
+  },
+};
+
+const WEBSITE_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: SITE_NAME,
+  url: SITE_URL,
+  description: SITE_DESCRIPTION,
+  inLanguage: "en",
+  publisher: {
+    "@type": "Organization",
+    name: SITE_NAME,
+    url: SITE_URL,
+    logo: assetUrl("/brand/mark-light.png"),
+  },
+  potentialAction: {
+    "@type": "SearchAction",
+    target: {
+      "@type": "EntryPoint",
+      urlTemplate: `${SITE_URL}/search/?q={search_term_string}`,
+    },
+    "query-input": "required name=search_term_string",
   },
 };
 
@@ -54,6 +118,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
       <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(WEBSITE_SCHEMA) }}
+        />
         <ThemeScript />
         <link
           rel="preload"

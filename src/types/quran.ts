@@ -1,3 +1,17 @@
+export type TranslationLanguage = "en" | "id" | "ar";
+
+export type TranslationInfo = {
+  languageCode: TranslationLanguage;
+  id: string;
+  /** Short, stable name for compact controls. */
+  label: string;
+  name: string;
+  translator: string;
+  source: string;
+  lastUpdate?: string;
+  direction: "ltr" | "rtl";
+};
+
 export type SurahMeta = {
   number: number;
   name: string;
@@ -46,6 +60,7 @@ export type VerseView = {
   number: number;
   key: string;
   arabic: string;
+  /** English, rendered into the static page as the default translation. */
   translation: string | null;
   arabicFile: string;
   translationFile: string;
@@ -69,14 +84,7 @@ export type SourceInfo = {
   repository: string;
   commit: string;
   license: string;
-  translation: {
-    languageCode: string;
-    id: string;
-    name: string;
-    translator: string;
-    source: string;
-    lastUpdate: string;
-  };
+  translations: TranslationInfo[];
   audio: {
     reciter: string;
     source: string;
@@ -102,6 +110,7 @@ export type ThemePreference = "system" | "light" | "dark";
 export type ReaderSettings = {
   arabicSize: number;
   translationSize: number;
+  translation: TranslationLanguage;
   showTranslation: boolean;
   tajweed: boolean;
   autoScroll: boolean;

@@ -35,8 +35,8 @@ describe("text mark reference", () => {
       expect(present.get(mark.glyph), `${mark.name} (${mark.glyph})`).toBeGreaterThan(0);
     }
     for (const mark of ORTHOGRAPHIC_MARKS) {
-      for (const glyph of mark.glyph.split(" ")) {
-        expect(present.get(glyph), `${mark.name} (${glyph})`).toBeGreaterThan(0);
+      for (const part of mark.glyphs) {
+        expect(present.get(part.glyph), `${mark.name} (${part.glyph})`).toBeGreaterThan(0);
       }
     }
   });

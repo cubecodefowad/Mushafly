@@ -1,12 +1,13 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { sourceInfo } from "@/data/attribution";
+import { pageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Terms of Service",
   description:
     "The terms for using Mushafly, and what the app does and does not claim about the text it displays.",
-};
+  path: "/terms/",
+});
 
 export default function TermsPage() {
   return (
@@ -25,8 +26,9 @@ export default function TermsPage() {
         <h2 id="what" className="display text-2xl">What Mushafly is</h2>
         <div className="mt-4 space-y-3 rounded-xl border border-line bg-surface p-5 text-sm leading-relaxed text-muted">
           <p>
-            Mushafly displays Quranic text, an English translation, source-derived
-            Tajweed highlighting and verse-by-verse recitation. It is a reading
+            Mushafly displays Quranic text with English and Indonesian
+            translations and an Arabic commentary, source-derived Tajweed
+            highlighting and verse-by-verse recitation. It is a reading
             tool. It is not a religious authority and it does not issue rulings,
             tafsir or religious guidance.
           </p>
@@ -41,9 +43,10 @@ export default function TermsPage() {
         <h2 id="text" className="display text-2xl">The text you read here</h2>
         <div className="mt-4 space-y-3 rounded-xl border border-line bg-surface p-5 text-sm leading-relaxed text-muted">
           <p>
-            All Quranic content — Arabic text, surah metadata, the English
-            translation, Tajweed ranges and audio — is taken unmodified from a
-            single pinned open dataset and its upstream sources, currently
+            All Quranic content — Arabic text, surah metadata, the English and
+            Indonesian translations, the Arabic commentary, Tajweed ranges and
+            audio — is taken unmodified from a single pinned open dataset and
+            its upstream sources, currently
             revision{" "}
             <code className="rounded bg-surface-muted px-1 py-0.5 text-[0.75rem]">
               {sourceInfo.commit.slice(0, 7)}
@@ -62,9 +65,12 @@ export default function TermsPage() {
             it.
           </p>
           <p>
-            The dataset is a third-party work. Its English translation is{" "}
-            {sourceInfo.translation.translator} ({sourceInfo.translation.id}) and
-            recitation is by {sourceInfo.audio.reciter} from{" "}
+            The dataset is a third-party work. Its translations and commentary
+            are by{" "}
+            {sourceInfo.translations
+              .map((entry) => `${entry.translator} (${entry.id})`)
+              .join(", ")}
+            , and recitation is by {sourceInfo.audio.reciter} from{" "}
             {sourceInfo.audio.source}. These are separate works with their own
             terms; see{" "}
             <Link href="/settings/#attribution" className="underline decoration-line underline-offset-4">

@@ -14,7 +14,7 @@ authentic or free of errors; it documents how Mushafly handles the data faithful
 | License | MIT (Copyright 2015 Semar Ketir) |
 | Source files (non-MP3) | 806, hashed in `src/data/source-lock.json` |
 | MP3 files | 6,348 (425 MB), not bundled |
-| Runtime translation | `en.itani` |
+| Runtime translations | `en.itani`, `id.indonesian`, `ar.muyassar` |
 | Runtime audio | Ghamadi, `versebyversequran.com` |
 
 No other Quran content source, API, fallback repository or generated text is
@@ -28,7 +28,8 @@ source/
 ├── juz.json                           30 records
 ├── surah/surah_<1..114>.json          Arabic
 ├── translation/en/en_translation_<n>.json
-├── translation/ar/…, translation/id/… (present upstream, not used)
+├── translation/id/id_translation_<n>.json
+├── translation/ar/ar_translation_<n>.json   (commentary; no verse_0)
 ├── tajweed/surah_<1..114>.json
 └── audio/<001..114>/index.json + <verse>.mp3
 ```
@@ -91,12 +92,12 @@ Findings:
 - Strings are not trimmed, normalized, diacritic-stripped or reconstructed.
   `white-space: pre-wrap` preserves internal spacing in the browser.
 
-## Translation — `source/translation/en/en_translation_<n>.json`
+## Translations — `source/translation/<lang>/<lang>_translation_<n>.json`
 
 ```jsonc
 {
-  "name": "al-Fatihah",
-  "index": "001",
+  "name": "al-Fatihah",        // en and id only
+  "index": "001",              // ar stores a JSON number instead
   "verse": { "verse_0": "…", "verse_1": "…", "…": "…" },
   "count": 7
 }
@@ -104,15 +105,27 @@ Findings:
 
 Findings:
 
-- Translation coverage is **6,348 rows**: 6,236 numbered + the same 112
-  unnumbered Bismillah rows.
-- Every numbered Arabic verse has a non-empty English record; every key maps to
-  an Arabic key. The adapter fails at build time on any missing record rather
+- Three datasets are copied to the runtime tree and offered by the reader:
+
+  | File | Rows | Attribution |
+  |---|---|---|
+  | `en/en_translation_<n>.json` | 6,348 | Itani / Talal Itani / `en.itani` / Tanzil.net / 2013-07-19 |
+  | `id/id_translation_<n>.json` | 6,348 | Indonesian Ministry of Religious Affairs / `id.indonesian` / Tanzil.net / 2010-06-04 |
+  | `ar/ar_translation_<n>.json` | 6,236 | King Fahad Quran Complex / `ar.muyassar` / alquran.cloud |
+
+- English and Indonesian include the same 112 unnumbered Bismillah rows as the
+  Arabic source. The Arabic dataset is **Tafsir al-Muyassar**, a commentary: it
+  has no `verse_0` key at all and 6,236 numbered rows. The adapter treats a
+  missing Arabic Bismillah as absent commentary; it never substitutes text.
+- Every numbered Arabic verse has a non-empty record in every language; every
+  key maps to an Arabic key. The validator fails on any missing record rather
   than substituting text.
-- Attribution in `source/translation/en/.sources`: **Itani / Talal Itani /
-  en.itani / Tanzil.net / last update 2013-07-19**.
-- Only the English dataset is loaded. The upstream `ar` and `id` directories
-  exist but are out of scope.
+- The Arabic file's `index` is a number (`1`), while the English and Indonesian
+  files use the padded string (`"001"`). The validator normalizes before
+  comparing.
+- The English dataset is rendered into each static page. Indonesian and Arabic
+  are copied to `public/quran/translation/` and fetched by the reader on demand,
+  keeping the surah HTML from carrying three datasets.
 
 ## Tajweed — `source/tajweed/surah_<n>.json`
 
@@ -197,7 +210,7 @@ Findings:
 ```text
 Pinned revision: 7ca6f46ec9a1a029cdb220c2531d509f4a5b5e98
 Validated 114 surahs, 6236 numbered verses,
-6348 translation rows (incl. 112 Bismillah),
+translations en/id/ar: 6348/6348/6236 rows,
 60841 tajweed segments, 6348 audio entries.
 Known pinned anomalies: 108 out-of-bounds verses,
 39 overlapping verses, 1 BOM string.

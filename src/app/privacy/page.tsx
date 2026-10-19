@@ -1,11 +1,12 @@
-import type { Metadata } from "next";
 import Link from "next/link";
+import { pageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Privacy Policy",
   description:
     "What Mushafly stores, what it never collects, and which network requests the app makes.",
-};
+  path: "/privacy/",
+});
 
 export default function PrivacyPage() {
   return (
@@ -26,7 +27,7 @@ export default function PrivacyPage() {
         <div className="mt-4 space-y-3 rounded-xl border border-line bg-surface p-5 text-sm leading-relaxed text-muted">
           <p>
             Bookmarks, your last-read position, and reading preferences (text
-            sizes, theme, translation and Tajweed toggles) are written to your
+            sizes, theme, translation language and Tajweed toggles) are written to your
             browser&apos;s <code className="rounded bg-surface-muted px-1 py-0.5 text-[0.75rem]">localStorage</code>{" "}
             under the keys{" "}
             <code className="rounded bg-surface-muted px-1 py-0.5 text-[0.75rem]">mushafly.bookmarks.v1</code>,{" "}
@@ -76,10 +77,12 @@ export default function PrivacyPage() {
         <div className="mt-4 space-y-3 rounded-xl border border-line bg-surface p-5 text-sm leading-relaxed text-muted">
           <p>
             <span className="text-ink">This site.</span> Pages, styles, scripts,
-            fonts and the derived search index are served from the host you are
-            reading from. As with any web server, that host can see your IP
-            address, user agent, the page you requested and the time of the
-            request, and may keep access logs.
+            fonts, the derived search index and the translation files are served
+            from the host you are reading from. The English translation is part
+            of the page; the Indonesian and Arabic datasets are fetched from
+            this same host only when you select them. As with any web server,
+            that host can see your IP address, user agent, the page you
+            requested and the time of the request, and may keep access logs.
           </p>
           <p>
             <span className="text-ink">Recitation audio.</span> Verses are read

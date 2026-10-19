@@ -263,9 +263,9 @@ into the release — is recorded in [`docs/verification.md`](docs/verification.m
 - `src/app/robots.ts` serves `robots.txt`; `src/app/sitemap.ts` lists the home
   page, all 114 surahs and the public reference pages (121 URLs). Bookmarks,
   settings and the social preview are excluded and marked noindex.
-- The site URL comes from `NEXT_PUBLIC_SITE_URL`, falling back to
-  `https://mushafly.com`. Set it for preview or alternate domains so canonical
-  URLs never point at the wrong host.
+- The site URL comes from `NEXT_PUBLIC_SITE_URL`, falling back to the canonical
+  `https://www.mushafly.com`. Set it for preview or alternate domains so
+  canonical URLs never point at the wrong host.
 - The home page emits `WebSite` + `SearchAction` JSON-LD, and the 404 route is
   served with HTTP 404 and a `noindex` tag. Favicons and the Apple touch icon
   are declared in the root metadata, with light and dark variants.
@@ -287,7 +287,7 @@ into the release — is recorded in [`docs/verification.md`](docs/verification.m
   preloads to limit layout shift.
 - Deploy the contents of `out/` to any static host. Set
   `NEXT_PUBLIC_SITE_URL` to the public origin at build time (for example
-  `https://mushafly.com`); canonicals, Open Graph URLs, `robots.txt` and the
+  `https://www.mushafly.com`); canonicals, Open Graph URLs, `robots.txt` and the
   sitemap all derive from it. Audio requires network access to
   `raw.githubusercontent.com`; reading, search, bookmarks and settings work
   without it.

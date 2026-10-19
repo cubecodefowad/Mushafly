@@ -121,7 +121,7 @@ this project redistributes.
 ## SEO and social metadata (added after the release pass)
 
 - `src/lib/site.ts` owns the canonical origin (`NEXT_PUBLIC_SITE_URL`, falling
-  back to `https://mushafly.com`) and the shared copy. `src/lib/metadata.ts`
+  back to `https://www.mushafly.com`) and the shared copy. `src/lib/metadata.ts`
   builds the canonical, Open Graph and Twitter fields together, so the home
   page, the dynamic surah routes and every static page carry their own URL and
   card rather than inheriting the home page's.

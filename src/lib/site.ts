@@ -2,15 +2,16 @@
  * Canonical site identity.
  *
  * `NEXT_PUBLIC_SITE_URL` lets a preview deployment advertise its own origin,
- * while production falls back to the public domain. The URL is normalised to
- * an origin so callers can safely append paths.
+ * while production falls back to the canonical www host. The URL is normalised
+ * to an origin so callers can safely append paths.
  */
 function resolveSiteUrl(): string {
-  const candidate = process.env.NEXT_PUBLIC_SITE_URL?.trim() || "https://mushafly.com";
+  const candidate =
+    process.env.NEXT_PUBLIC_SITE_URL?.trim() || "https://www.mushafly.com";
   try {
     return new URL(candidate).origin;
   } catch {
-    return "https://mushafly.com";
+    return "https://www.mushafly.com";
   }
 }
 

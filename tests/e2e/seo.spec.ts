@@ -2,9 +2,9 @@ import { expect, test, type Page } from "@playwright/test";
 
 const ORIGIN = (() => {
   try {
-    return new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://mushafly.com").origin;
+    return new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.mushafly.com").origin;
   } catch {
-    return "https://mushafly.com";
+    return "https://www.mushafly.com";
   }
 })();
 

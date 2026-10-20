@@ -105,10 +105,10 @@ export function SearchClient() {
       <p className="meta">Search</p>
       <h1 className="display mt-3 text-4xl sm:text-5xl">Find a verse.</h1>
       <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted">
-        Search the Arabic source text or the Itani English translation.
-        Indonesian and Arabic commentary are reading options and are not
-        indexed. Diacritics and common Arabic letter variants are matched on a
-        derived index; the displayed Quranic text is never altered.
+        Search the Arabic source text or the Itani English translation. Other
+        translations, including the Urdu datasets, are reading options and are
+        not indexed. Diacritics and common Arabic letter variants are matched on
+        a derived index; the displayed Quranic text is never altered.
       </p>
 
       <form

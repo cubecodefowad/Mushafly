@@ -21,8 +21,14 @@ import { useSettings } from "@/components/settings/SettingsProvider";
 import { TajweedLegend } from "@/components/tajweed/TajweedLegend";
 import { ReaderKey } from "@/components/tajweed/ReaderKey";
 import { AccuracyNotice } from "@/components/legal/AccuracyNotice";
+import { TranslationSelect } from "@/components/settings/TranslationSelect";
 import { sourceInfo } from "@/data/attribution";
-import { TRANSLATIONS, translationInfo, translationUrl } from "@/data/translations";
+import {
+  TANZIL_TRANSLATIONS,
+  translationInfo,
+  translationLabel,
+  translationUrl,
+} from "@/data/translations";
 import type { SurahView, TranslationLanguage, VerseView } from "@/types/quran";
 
 type FetchedTranslation = {
@@ -55,9 +61,9 @@ export function Reader({ surah }: { surah: SurahView }) {
     };
   }, []);
 
-  // English is part of the static page. The other datasets are same-origin
-  // files fetched only when the reader selects them, so a surah page does not
-  // carry three datasets in its HTML.
+  // English is part of the static page. Every other dataset is a same-origin
+  // file fetched only when the reader selects it, so a surah page does not
+  // carry the whole corpus in its HTML.
   const language = settings.translation;
   useEffect(() => {
     if (language === "en") {
@@ -239,29 +245,19 @@ export function Reader({ surah }: { surah: SurahView }) {
               title="Translation language"
             >
               <Languages size={16} strokeWidth={1.8} aria-hidden />
-              <select
-                aria-label="Translation language"
+              <TranslationSelect
+                ariaLabel="Translation language"
                 value={settings.showTranslation ? settings.translation : "off"}
-                onChange={(event) => {
-                  const value = event.target.value;
+                includeOff
+                onChange={(value) => {
                   if (value === "off") {
                     update({ showTranslation: false });
                   } else {
-                    update({
-                      translation: value as TranslationLanguage,
-                      showTranslation: true,
-                    });
+                    update({ translation: value, showTranslation: true });
                   }
                 }}
-                className="cursor-pointer appearance-none bg-transparent pr-0 text-[0.6875rem] text-current focus-visible:outline-none"
-              >
-                <option value="off">Off</option>
-                {TRANSLATIONS.map((entry) => (
-                  <option key={entry.languageCode} value={entry.languageCode}>
-                    {entry.label}
-                  </option>
-                ))}
-              </select>
+                className="max-w-[10rem] cursor-pointer appearance-none bg-transparent pr-0 text-[0.6875rem] text-current focus-visible:outline-none"
+              />
               <ChevronDown
                 size={12}
                 strokeWidth={2}
@@ -296,12 +292,12 @@ export function Reader({ surah }: { surah: SurahView }) {
               ) : null}
               {translationStatus === "loading" ? (
                 <p role="status" className="mt-4 text-xs text-muted">
-                  Loading {activeTranslation.name}…
+                  Loading {translationLabel(activeTranslation)}…
                 </p>
               ) : translationStatus === "error" ? (
                 <p role="status" className="mt-4 text-xs text-muted">
-                  The {activeTranslation.name} could not be loaded, so the English
-                  translation remains on screen. Reading is unaffected.
+                  The {translationLabel(activeTranslation)} could not be loaded, so
+                  the English translation remains on screen. Reading is unaffected.
                 </p>
               ) : null}
             </div>
@@ -403,12 +399,11 @@ export function Reader({ surah }: { surah: SurahView }) {
                 </a>{" "}
                 at revision {sourceInfo.commit.slice(0, 7)}. Translations and
                 commentary:{" "}
-                {sourceInfo.translations
-                  .map(
-                    (entry) =>
-                      `${entry.languageCode === "ar" ? "Arabic commentary" : entry.label}: ${entry.translator} (${entry.source})`,
-                  )
-                  .join("; ")}
+                {sourceInfo.translations.length} quranjson datasets and{" "}
+                {TANZIL_TRANSLATIONS.length} Tanzil datasets. Full attribution is in{" "}
+                <Link href="/settings/#attribution" className="underline decoration-line underline-offset-2 hover:text-ink">
+                  settings
+                </Link>
                 . Recitation: {sourceInfo.audio.reciter}.
               </p>
               <p className="mt-2">

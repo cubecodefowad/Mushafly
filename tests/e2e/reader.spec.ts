@@ -1,4 +1,22 @@
+import fs from "node:fs";
+import path from "node:path";
 import { expect, test } from "@playwright/test";
+
+/** Reads a packaged translation so the assertion uses the source text itself. */
+function translationVerse(id: string, surah: number, verse: number): string {
+  const file = path.join(
+    process.cwd(),
+    "public",
+    "quran",
+    "translation",
+    id,
+    `${String(surah).padStart(3, "0")}.json`,
+  );
+  const payload = JSON.parse(fs.readFileSync(file, "utf8")) as {
+    verse: Record<string, string>;
+  };
+  return payload.verse[`verse_${verse}`];
+}
 
 test("home lists all 114 surahs and offers a starting point", async ({ page }) => {
   await page.goto("/");
@@ -57,10 +75,36 @@ test("the reader switches translation language and remembers it", async ({ page 
   // The reading-settings sheet offers the same choice and updates the toolbar.
   await page.getByRole("button", { name: "Open reading settings" }).click();
   const dialog = page.getByRole("dialog", { name: "Reading settings" });
-  await dialog.getByRole("button", { name: "Indonesia" }).click();
+  await dialog
+    .getByRole("combobox", { name: "Translation" })
+    .selectOption("id.indonesian");
   await page.keyboard.press("Escape");
-  await expect(select).toHaveValue("id");
+  await expect(select).toHaveValue("id.indonesian");
   await expect(page.locator("#verse-1 .translation-text")).toHaveAttribute("lang", "id");
+});
+
+test("the reader offers the Tanzil datasets and renders their own text", async ({
+  page,
+}) => {
+  await page.goto("/surah/1/");
+  const select = page.getByRole("combobox", { name: "Translation language" });
+  const verse = page.locator("#verse-1 .translation-text");
+
+  await select.selectOption("ur.junagarhi");
+  await expect(verse).toHaveAttribute("lang", "ur");
+  await expect(verse).toHaveAttribute("dir", "rtl");
+  await expect(verse).toHaveText(translationVerse("ur.junagarhi", 1, 1));
+
+  await select.selectOption("bn.bengali");
+  await expect(verse).toHaveAttribute("lang", "bn");
+  await expect(verse).toHaveAttribute("dir", "ltr");
+  await expect(verse).toHaveText(translationVerse("bn.bengali", 1, 1));
+
+  await page.reload();
+  await expect(select).toHaveValue("bn.bengali");
+  await expect(page.locator("#verse-1 .translation-text")).toHaveText(
+    translationVerse("bn.bengali", 1, 1),
+  );
 });
 
 test("tajweed can be disabled and restored", async ({ page }) => {

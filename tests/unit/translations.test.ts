@@ -1,7 +1,14 @@
 import fs from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import { TRANSLATIONS, translationInfo, translationUrl } from "@/data/translations";
+import {
+  TANZIL_TRANSLATIONS,
+  TRANSLATIONS,
+  groupedTranslations,
+  translationInfo,
+  translationLabel,
+  translationUrl,
+} from "@/data/translations";
 import { ORTHOGRAPHIC_MARKS, TEXT_MARKS } from "@/data/text-marks";
 
 const pad3 = (n: number) => String(n).padStart(3, "0");
@@ -16,16 +23,46 @@ function readJson(...parts: string[]) {
 }
 
 describe("translation datasets", () => {
-  it("lists the three pinned languages with their own attribution", () => {
-    expect(TRANSLATIONS.map((entry) => entry.languageCode)).toEqual(["en", "id", "ar"]);
-    expect(TRANSLATIONS.map((entry) => entry.id)).toEqual([
+  it("keeps the three pinned datasets first and adds the Tanzil corpus", () => {
+    expect(TRANSLATIONS.slice(0, 3).map((entry) => entry.languageCode)).toEqual([
+      "en",
+      "id",
+      "ar",
+    ]);
+    expect(TRANSLATIONS.slice(0, 3).map((entry) => entry.id)).toEqual([
       "en.itani",
       "id.indonesian",
       "ar.muyassar",
     ]);
+    expect(TANZIL_TRANSLATIONS).toHaveLength(65);
+    expect(TRANSLATIONS).toHaveLength(68);
     expect(translationInfo("ar").direction).toBe("rtl");
     expect(translationInfo("id").direction).toBe("ltr");
+    expect(translationInfo("ur.junagarhi").direction).toBe("rtl");
+    expect(translationInfo("ur.junagarhi").htmlLang).toBe("ur");
+    expect(translationInfo("en.sahih").direction).toBe("ltr");
     expect(translationUrl("id", 2)).toBe("/quran/translation/id/002.json");
+    expect(translationUrl("ur.junagarhi", 2)).toBe(
+      "/quran/translation/ur.junagarhi/002.json",
+    );
+  });
+
+  it("groups translations by language without losing datasets", () => {
+    const groups = groupedTranslations();
+    const urdu = groups.find((group) => group.label === "Urdu");
+    expect(urdu?.translations).toHaveLength(6);
+    expect(urdu?.translations.map((entry) => entry.languageCode)).toEqual([
+      "ur.maududi",
+      "ur.kanzuliman",
+      "ur.ahmedali",
+      "ur.jalandhry",
+      "ur.qadri",
+      "ur.junagarhi",
+    ]);
+    expect(groups.reduce((total, group) => total + group.translations.length, 0)).toBe(
+      TRANSLATIONS.length,
+    );
+    expect(translationLabel(translationInfo("ur.junagarhi"))).toBe("Junagarhi");
   });
 
   it("covers every Arabic key in Indonesian and every numbered key in Arabic", () => {

@@ -75,7 +75,7 @@ export function SocialImage() {
               maxWidth: 900,
             }}
           >
-            All 114 surahs in Arabic, with English and Indonesian translations,
+            All 114 surahs in Arabic, with 68 translations across 29 languages,
             an Arabic commentary, source-derived Tajweed and recitation.
           </div>
         </div>

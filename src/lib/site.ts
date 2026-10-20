@@ -19,9 +19,9 @@ export const SITE_URL = resolveSiteUrl();
 export const SITE_NAME = "Mushafly";
 export const SITE_TITLE = "Mushafly — A quiet place to read the Quran";
 export const SITE_DESCRIPTION =
-  "Read all 114 surahs with Arabic text, English and Indonesian translations, an Arabic commentary, source-derived Tajweed highlighting, recitation and local bookmarks.";
+  "Read all 114 surahs with Arabic text, 68 translations across 29 languages, an Arabic commentary, source-derived Tajweed highlighting, recitation and local bookmarks.";
 export const SITE_OG_DESCRIPTION =
-  "An elegant, source-faithful Quran reader with Arabic, English and Indonesian translations, Arabic commentary, Tajweed and audio.";
+  "An elegant, source-faithful Quran reader with Arabic, 68 translations across 29 languages, Arabic commentary, Tajweed and audio.";
 export const SOCIAL_IMAGE_ALT =
   "Mushafly — a quiet place to read the Quran, with Arabic text, translations and Tajweed";
 export const SOCIAL_IMAGE_WIDTH = 1200;
@@ -31,6 +31,7 @@ export const SITE_KEYWORDS = [
   "read Quran online",
   "Quran with Tajweed",
   "Quran translation",
+  "Urdu Quran translation",
   "Indonesian Quran translation",
   "Arabic tafsir",
   "Mushafly",

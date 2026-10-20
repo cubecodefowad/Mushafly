@@ -1,0 +1,23 @@
+[
+  {
+    "id": "sq.mehdiu",
+    "name": "Feti Mehdiu",
+    "translator": "Feti Mehdiu",
+    "language": "Albanian",
+    "reason": "Tanzil XML has empty translations at 21:56 and 77:14.",
+    "emptyVerses": [
+      "21:56",
+      "77:14"
+    ]
+  },
+  {
+    "id": "ku.asan",
+    "name": "ته‌فسیری ئاسان",
+    "translator": "Burhan Muhammad-Amin",
+    "language": "Kurdish",
+    "reason": "Tanzil XML has an empty translation at 108:3.",
+    "emptyVerses": [
+      "108:3"
+    ]
+  }
+]

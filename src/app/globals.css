@@ -30,6 +30,15 @@
     U+02DC, U+2000-206F, U+20AC, U+2122, U+2212, U+2215;
 }
 @font-face {
+  font-family: "Noto Nastaliq Urdu";
+  src: url("/fonts/noto-nastaliq-urdu-arabic.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0600-06FF, U+0750-077F, U+0870-0891, U+0897-08E1, U+08E3-08FF,
+    U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC;
+}
+@font-face {
   font-family: "Inter";
   src: url("/fonts/inter-latin.woff2") format("woff2");
   font-weight: 400 600;
@@ -53,6 +62,7 @@
   --font-serif: "Source Serif 4", Georgia, "Times New Roman", serif;
   --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-arabic: "Amiri Quran", "Scheherazade New", "Traditional Arabic", serif;
+  --font-urdu: "Noto Nastaliq Urdu", "Amiri Quran", serif;
 }
 
 :root {
@@ -174,6 +184,10 @@
     font-family: var(--font-arabic);
   }
 
+  .font-urdu {
+    font-family: var(--font-urdu);
+  }
+
   .display {
     font-family: var(--font-serif);
     font-weight: 400;
@@ -217,11 +231,19 @@
     color: var(--text-secondary);
   }
 
-  /* Arabic commentary uses the Quranic font's Arabic coverage but the prose
-     rhythm of a translation, not the tight leading of the ayah text. */
-  .translation-arabic {
+  /* Right-to-left translations use the Quranic font's Arabic coverage but the
+     prose rhythm of a translation, not the tight leading of the ayah text. */
+  .translation-rtl {
     font-family: var(--font-arabic);
     line-height: 2.05;
+    text-align: right;
+  }
+
+  /* Urdu uses Nastaliq, which needs more vertical room than the Arabic naskh
+     face used for the commentary. */
+  .translation-urdu {
+    font-family: var(--font-urdu);
+    line-height: 2.9;
     text-align: right;
   }
 

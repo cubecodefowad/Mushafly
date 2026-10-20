@@ -97,19 +97,41 @@ this project redistributes.
 
 ## Translations and sign alignment (added after the release pass)
 
-- The reader now offers English, Indonesian and an Arabic commentary. English is part of the
-  statically rendered page; the other two are copied from the same pinned
-  revision to `public/quran/translation/` and fetched same-origin only when
-  selected. That keeps Al-Baqara's HTML from carrying three datasets.
-- The validator checks all three datasets: 6,348 English rows, 6,348 Indonesian
-  rows and 6,236 Arabic rows. The Arabic file is Tafsir al-Muyassar, a
-  commentary, and has no `verse_0`; the reader shows the Bismillah row without a
-  translation rather than substituting one. Unit tests walk all 114 files for
-  both added languages.
-- The reader's toolbar select and the settings sheet share the same generated
-  language list, and the choice is stored in `mushafly.settings.v1`. The
-  bookmarks page renders previews in the selected language and clears stale
-  previews while a new dataset loads.
+- The reader offers **68 datasets in 29 language groups**: the three quranjson
+  editions (`en`, `id`, `ar`) plus 65 Tanzil editions converted from the XML in
+  `data/tanzil/`. Only English is part of the statically rendered page; every
+  other dataset is a per-surah file under
+  `public/quran/translation/<tanzil-id>/NNN.json`, fetched same-origin only when
+  selected, so Al-Baqara's HTML does not carry 68 datasets.
+- `scripts/download-tanzil-translations.mjs` downloads the XML and records any
+  repair it had to make (Tanzil's metadata comment uses `--` runs that XML
+  forbids; `ps.abdulwali` also carried four illegal control characters, which are
+  listed in `data/tanzil/manifest.json`).
+  `scripts/lib/tanzil.mjs` converts each document to `{name, index, verse,
+  count}` per surah, refuses mismatched headers, verse counts or ordering, and
+  writes `src/data/generated/tanzil-translations.json`, `tanzil-keys.ts` and
+  `tanzil-excluded.json`. The raw XML stays out of the deployed bundle.
+- Every integrated dataset holds 114 surah files and 6,236 non-empty verses.
+  Two requested editions are excluded because Tanzil's own XML has empty verse
+  records — `sq.mehdiu` (21:56, 77:14) and `ku.asan` (108:3). No text was filled
+  in or copied from another edition; the exclusions are listed with their reason
+  in `/settings/` and in `docs/tanzil-validation.md`.
+- `npm run data:validate:tanzil` re-parses the XML, compares every verse string
+  with the generated file, checks each count against `surah-meta.json` and fails
+  on any drift (65 datasets / 405,340 rows / 0 errors at the current pin).
+  `tests/unit/tanzil-translations.test.ts` walks all 114 files of every dataset
+  through the app registry, and the Playwright reader test selects an Urdu and a
+  Bengali dataset and compares the rendered verse with the packaged file.
+- Urdu renders in the bundled Nastaliq face while the other right-to-left
+  editions (Arabic, Persian, Pashto, Sindhi, Uyghur) use the Arabic face. Each
+  translation paragraph takes its `lang` and `dir` from the registry. Browser
+  check: `ur.junagarhi` renders `dir="rtl" lang="ur"` in Nastaliq, `bn.bengali`
+  and `tr.yazir` render `dir="ltr"`, and the selection survives navigation to
+  another surah through `mushafly.settings.v1`.
+- The reader toolbar and the reading-settings sheet share one grouped select
+  (29 `optgroup`s, 68 options plus Off); `/settings/` lists every dataset with
+  its translator and source. The footer and the settings attribution link to
+  Tanzil.net/trans, as its terms require for more than three translations.
 - The standalone Tajweed signs in the reader's side key and on `/tajweed/` were
   optically centred in their cells. The source glyphs are superscript marks
   designed for a base letter that a key does not have, so their natural ink sat
@@ -175,8 +197,8 @@ back to the untouched source string.
   Latin text may briefly show the system fallback. Arabic text uses a preloaded
   45 KiB subset and is unaffected.
 - Search indexes the Arabic source and the English Itani translation only. The
-  Indonesian and Arabic commentary are reading options, not search fields, so
-  the on-demand index does not grow with each language.
+  other 65 datasets are reading options, not search fields, so the on-demand
+  index does not grow with each translation.
 - The Arabic translation option is a commentary (tafsir), not a translation of
   the ayah, and it carries no text for the unnumbered Bismillah. The interface
   labels it as Arabic and the attribution names Tafsir al-Muyassar.

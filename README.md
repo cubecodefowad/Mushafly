@@ -1,10 +1,10 @@
 # Mushafly
 
 An elegant, source-faithful Quran reading experience. All 114 surahs in
-Arabic, with English and Indonesian translations and an Arabic commentary
-(Tafsir al-Muyassar), repository-derived Tajweed highlighting, verse-by-verse
-recitation, local bookmarks and Arabic/English search. No account, no cookies, no generated
-Quranic content.
+Arabic, with 68 selectable translation datasets across 29 languages and an
+Arabic commentary (Tafsir al-Muyassar), repository-derived Tajweed
+highlighting, verse-by-verse recitation, local bookmarks and Arabic/English
+search. No account, no cookies, no generated Quranic content.
 
 Built with Next.js 16 (App Router, static export), React 19, TypeScript and
 Tailwind CSS 4.
@@ -25,9 +25,10 @@ clone can run without the upstream checkout. To re-pin or audit the data:
 ```bash
 git clone https://github.com/semarketir/quranjson.git .quranjson
 git -C .quranjson checkout 7ca6f46ec9a1a029cdb220c2531d509f4a5b5e98
-npm run data:prepare   # verifies revision + 806 file hashes, copies runtime JSON
+npm run data:prepare   # verifies revision + hashes, copies runtime JSON, converts Tanzil XML
 npm run data:search    # rebuilds the derived search index
-npm run data:validate  # release-blocking integrity checks
+npm run data:validate  # release-blocking integrity checks for quranjson and Tanzil
+npm run data:tanzil    # re-downloads the Tanzil XML corpus (optional)
 ```
 
 `npm run build` runs validation and search-index generation before the static
@@ -43,7 +44,7 @@ export. Output is written to `out/`.
 | Surahs | 114 |
 | Numbered verses | 6,236 |
 | Arabic rows | 6,348 (6,236 numbered + 112 unnumbered Bismillah rows) |
-| Translations | `en.itani` — Talal Itani, Tanzil.net · `id.indonesian` — Indonesian Ministry of Religious Affairs, Tanzil.net · `ar.muyassar` — King Fahad Quran Complex, alquran.cloud |
+| Translations | 68 datasets: `en.itani`, `id.indonesian`, `ar.muyassar` (quranjson) plus 65 Tanzil datasets across 29 languages, including six Urdu translations. See Settings → Attribution. |
 | Recitation | Saad Al-Ghamadi, versebyversequran.com, ~40 kbps |
 | Tajweed ranges | 60,841 across 18 rule identifiers |
 | Audio entries | 6,348 files (425 MB, not bundled) |
@@ -60,12 +61,16 @@ The full audit, including field names and known anomalies, is in
   U+FEFF artifact in 1:1).
 - `src/data/quran-source.ts` is the server-side adapter. It validates verse
   counts, English translation keys and audio mappings, and attaches source file
-  references to every verse. The Indonesian and Arabic datasets are copied to
-  `public/quran/translation/` and fetched by the reader only when selected, so a
-  surah page is not inflated by three datasets.
-- `src/data/translations.ts` exposes the generated list of languages and
-  directions. The reader, settings, bookmarks and legal pages read from it, so
-  adding a dataset cannot leave one surface behind.
+  references to every verse. Non-English datasets are fetched by the reader only
+  when selected, so a surah page is not inflated by the whole corpus.
+- `scripts/lib/tanzil.mjs` converts the downloaded Tanzil XML into the same
+  per-surah JSON shape. It removes the malformed leading XML comment in memory,
+  never edits the source file, rejects unexpected structure, and preserves the
+  translation text exactly. Two datasets with empty source verses are excluded
+  and recorded in `src/data/generated/tanzil-excluded.json`.
+- `src/data/translations.ts` exposes the generated list of datasets, languages,
+  directions and selector groups. The reader, settings, bookmarks and legal
+  pages read from it, so adding a dataset cannot leave one surface behind.
 - `src/data/tajweed.ts` turns source ranges into render segments. It never
   rewrites the Arabic string. If ranges are out of bounds, overlap, use an
   unknown rule, or fail a final "concat equals source" guard, that verse is
@@ -75,6 +80,10 @@ The full audit, including field names and known anomalies, is in
   search-index provenance, hashes, and the exact set of known anomalies. Any new
   anomaly fails the run; any known anomaly that disappears also fails the run so
   the lock is updated deliberately.
+- `scripts/validate-tanzil-data.mjs` re-parses every source XML and compares
+  each of the 405,340 generated verse rows to the decoded source text. It fails
+  on a missing file, duplicate or missing key, empty entry, changed text, or a
+  stale exclusion, and writes `docs/tanzil-validation.md`.
 - `public/quran/search-index.json` is a derived index. It contains normalized
   copies for matching plus the original display strings for excerpts. It never
   feeds the reader.
@@ -211,16 +220,17 @@ node scripts/generate-brand-assets.mjs   # regenerate public/brand/ from assets/
 
 ## Testing
 
-- **Unit/integration (41 tests):** Tajweed concatenation across all 6,348 rows,
+- **Unit/integration (46 tests):** Tajweed concatenation across all 6,348 rows,
   corrupted range fixtures (bounds, overlap, unknown rule), BOM handling,
   normalization and excerpt mapping, search in both languages, storage
   validation and the pre-rename key migration, adapter coverage and audio
-  mapping, all three translation datasets including the Arabic commentary's
-  missing Bismillah row, and the optical offsets that align the standalone
-  Tajweed signs.
-- **Playwright (43 tests × Chromium, Firefox and WebKit = 129 runs):** home
+  mapping, all three quranjson datasets including the Arabic commentary's
+  missing Bismillah row, all 65 generated Tanzil datasets and their 405,340
+  non-empty rows, Urdu text preservation and direction metadata, and the optical
+  offsets that align the standalone Tajweed signs.
+- **Playwright (44 tests × Chromium, Firefox and WebKit = 132 runs):** home
   directory, reader directionality and exact strings, translation switching and
-  persistence, Tajweed toggle, bookmark persistence after reload, Arabic/English
+  persistence, Tanzil datasets rendering their own text, Tajweed toggle, bookmark persistence after reload, Arabic/English
   search, on-demand search index, theme-aware mark and browser icons, canonical
   and social metadata, sitemap/robots, the 404 page, legal pages and their
   footer links, pre-rename data migration, theme persistence, settings dialog
@@ -235,10 +245,10 @@ into the release — is recorded in [`docs/verification.md`](docs/verification.m
 ## Accessibility
 
 - Semantic landmarks, one `h1` per route, skip link, visible focus.
-- Arabic containers use `lang="ar" dir="rtl"`; English and Indonesian
-  translations use `lang="en"`/`lang="id"` with `dir="ltr"`; the Arabic
-  commentary uses `lang="ar" dir="rtl"` and is kept visually distinct from the
-  ayah text.
+- Arabic containers use `lang="ar" dir="rtl"`; every translation declares its
+  own `lang` and `dir` from the registry. Right-to-left translations use the
+  Arabic face, Urdu uses Nastaliq, and left-to-right translations use the serif
+  face. The Arabic commentary is kept visually distinct from the ayah text.
 - Icon-only controls have accessible names; dialogs are native `<dialog>`.
 - Tajweed is never encoded by color alone: dotted underlines and a rule key with
   labels and descriptions accompany the colors. All 18 rule colors pass 4.5:1
@@ -276,10 +286,10 @@ into the release — is recorded in [`docs/verification.md`](docs/verification.m
   pinned data at build time. No backend or runtime Quran API is used.
 - The reader bundle does not include audio. A verse's MP3 is fetched only when
   played, from an immutable raw URL at the pinned commit.
-- English is part of every statically rendered surah page. The Indonesian and
-  Arabic datasets are same-origin JSON files fetched only when selected; the
-  reader keeps the English text readable while a new language loads and reports
-  a failure instead of silently showing the wrong language.
+- English is part of every statically rendered surah page. Every other dataset
+  is a same-origin JSON file fetched only when selected; the reader keeps the
+  English text readable while a new translation loads and reports a failure
+  instead of silently showing the wrong one.
 - Search keeps its 3.64 MiB index (1.0 MiB gzipped) off the critical path: the
   route renders instantly and the index is fetched only once a query of two or
   more characters exists. Landing on `/search/?q=…` fetches it immediately.
@@ -349,9 +359,12 @@ verifies it. How to report a problem: [SECURITY.md](SECURITY.md).
 - Arabic commentary: King Fahad Quran Complex, `ar.muyassar` (Tafsir
   al-Muyassar), alquran.cloud. This dataset is a tafsir, not a translation of the
   ayah, and it has no entry for the unnumbered Bismillah row.
+- Tanzil corpus: 65 translations across 29 languages, downloaded from
+  <https://tanzil.net/trans/>. Non-commercial use only; see
+  `THIRD_PARTY_NOTICES.md` and Settings → Attribution.
 - Recitation: Saad Al-Ghamadi, versebyversequran.com, ~40 kbps.
-- Fonts: Amiri Quran, Source Serif 4 and Inter under the SIL Open Font License
-  1.1 (license files in `public/fonts/`).
+- Fonts: Amiri Quran, Source Serif 4, Inter and Noto Nastaliq Urdu under the SIL
+  Open Font License 1.1 (license files in `public/fonts/`).
 
 See [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md) and the in-app
 Settings → Attribution panel. The repository's MIT license does not by itself

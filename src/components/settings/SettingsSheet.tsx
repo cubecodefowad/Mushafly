@@ -4,7 +4,8 @@ import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { X } from "lucide-react";
 import { useSettings } from "@/components/settings/SettingsProvider";
-import { TRANSLATIONS, translationInfo } from "@/data/translations";
+import { TranslationSelect } from "@/components/settings/TranslationSelect";
+import { translationInfo } from "@/data/translations";
 
 type Props = {
   open: boolean;
@@ -98,27 +99,14 @@ export function SettingsSheet({ open, onClose }: Props) {
               {activeTranslation.translator} · {activeTranslation.source}
             </p>
           </div>
-          <div
-            className="segmented shrink-0"
-            role="group"
-            aria-label="Translation language"
-          >
-            {TRANSLATIONS.map((entry) => (
-              <button
-                key={entry.languageCode}
-                type="button"
-                aria-pressed={settings.translation === entry.languageCode}
-                onClick={() =>
-                  update({
-                    translation: entry.languageCode,
-                    showTranslation: true,
-                  })
-                }
-              >
-                {entry.label}
-              </button>
-            ))}
-          </div>
+          <TranslationSelect
+            ariaLabel="Translation"
+            value={settings.translation}
+            onChange={(value) => {
+              if (value !== "off") update({ translation: value, showTranslation: true });
+            }}
+            className="input w-full max-w-[18rem] text-xs"
+          />
         </div>
 
         <label className="settings-row cursor-pointer">

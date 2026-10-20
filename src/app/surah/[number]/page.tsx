@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!meta) return { title: "Surah not found", robots: { index: false, follow: false } };
   return pageMetadata({
     title: `${meta.name} — Surah ${meta.number}`,
-    description: `Read Surah ${meta.name} (${meta.arabicName}) — ${meta.verseCount} verses in Arabic with English and Indonesian translations and an Arabic commentary.`,
+    description: `Read Surah ${meta.name} (${meta.arabicName}) — ${meta.verseCount} verses in Arabic with 68 translations across 29 languages and an Arabic commentary.`,
     path: `/surah/${meta.number}/`,
   });
 }

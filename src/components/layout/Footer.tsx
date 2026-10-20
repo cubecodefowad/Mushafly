@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { BrandMark } from "@/components/layout/BrandMark";
 import { sourceInfo } from "@/data/attribution";
+import { TANZIL_TRANSLATIONS } from "@/data/translations";
 
 export function Footer() {
   return (
@@ -63,6 +64,18 @@ export function Footer() {
                 {entry.translator} ({entry.source}).
               </span>
             ))}
+          </p>
+          <p className="mt-2">
+            {TANZIL_TRANSLATIONS.length} translations from{" "}
+            <a
+              className="underline decoration-line underline-offset-4 hover:text-ink"
+              href="https://tanzil.net/trans/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Tanzil.net/trans
+            </a>{" "}
+            (non-commercial).
           </p>
           <p className="mt-1">Recitation: {sourceInfo.audio.reciter}.</p>
           <Link

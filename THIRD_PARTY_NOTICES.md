@@ -82,6 +82,28 @@ unnumbered Bismillah row. The upstream `.sources` file records no last-update
 date; the application does not invent one. Anyone redistributing this
 application should verify the current terms for the commentary text.
 
+## Tanzil translation corpus
+
+Source: <https://tanzil.net/trans/>
+Downloaded: October 2026
+Integrated: 65 translation datasets across 29 languages
+Excluded: `ku.asan` and `sq.mehdiu` (empty verse records in Tanzil's XML)
+
+Tanzil's terms state that the translations are for non-commercial purposes
+only; other use requires permission from the translator or publisher. When more
+than three translations are used in an application, Tanzil requires a link back
+to <https://tanzil.net/trans/>. Mushafly links back in the reader footer, the
+Settings attribution panel, the Accuracy page and the Terms page.
+
+The source XML is not modified. The conversion pipeline removes the leading
+metadata comment in memory because `--` is illegal inside an XML comment. The
+comment separators are not part of any translation. Verse text is decoded from
+XML entities and written unchanged. The two excluded datasets remain in
+`data/tanzil/xml/` with their source text; no verses were inferred, copied from
+another edition, or silently dropped. The exact per-dataset attribution and
+the excluded verse references are in `data/tanzil/manifest.json`,
+`src/data/generated/tanzil-excluded.json` and `docs/tanzil-validation.md`.
+
 ## Recitation — Saad Al-Ghamadi
 
 From `source/audio/.sources` in the pinned revision:
@@ -106,3 +128,6 @@ served with the application and included in `public/fonts/`.
   [`public/fonts/OFL-SourceSerif4.txt`](public/fonts/OFL-SourceSerif4.txt).
 - **Inter** — The Inter Project Authors. License:
   [`public/fonts/OFL-Inter.txt`](public/fonts/OFL-Inter.txt).
+- **Noto Nastaliq Urdu** — Copyright 2022 The Noto Project Authors
+  (<https://github.com/notofonts/nastaliq>). License:
+  [`public/fonts/OFL-NotoNastaliqUrdu.txt`](public/fonts/OFL-NotoNastaliqUrdu.txt).

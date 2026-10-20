@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { sourceInfo } from "@/data/attribution";
+import { TANZIL_EXCLUDED, TANZIL_TRANSLATIONS } from "@/data/translations";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata({
@@ -26,11 +27,11 @@ export default function TermsPage() {
         <h2 id="what" className="display text-2xl">What Mushafly is</h2>
         <div className="mt-4 space-y-3 rounded-xl border border-line bg-surface p-5 text-sm leading-relaxed text-muted">
           <p>
-            Mushafly displays Quranic text with English and Indonesian
-            translations and an Arabic commentary, source-derived Tajweed
-            highlighting and verse-by-verse recitation. It is a reading
-            tool. It is not a religious authority and it does not issue rulings,
-            tafsir or religious guidance.
+            Mushafly displays Quranic text with translations in 29 languages,
+            including English, Indonesian, Urdu and an Arabic commentary,
+            source-derived Tajweed highlighting and verse-by-verse recitation.
+            It is a reading tool. It is not a religious authority and it does not
+            issue rulings, tafsir or religious guidance.
           </p>
           <p>
             The application is free. There is no subscription, no advertising and
@@ -71,8 +72,20 @@ export default function TermsPage() {
               .map((entry) => `${entry.translator} (${entry.id})`)
               .join(", ")}
             , and recitation is by {sourceInfo.audio.reciter} from{" "}
-            {sourceInfo.audio.source}. These are separate works with their own
-            terms; see{" "}
+            {sourceInfo.audio.source}. A further {TANZIL_TRANSLATIONS.length}{" "}
+            translations come from{" "}
+            <a
+              className="underline decoration-line underline-offset-4 hover:text-ink"
+              href="https://tanzil.net/trans/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Tanzil.net/trans
+            </a>{" "}
+            under Tanzil&apos;s non-commercial terms;{" "}
+            {TANZIL_EXCLUDED.length} additional datasets were not integrated
+            because their source contained empty verse records. These are
+            separate works with their own terms; see{" "}
             <Link href="/settings/#attribution" className="underline decoration-line underline-offset-4">
               full attribution
             </Link>

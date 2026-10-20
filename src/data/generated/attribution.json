@@ -8,29 +8,44 @@
       "id": "en.itani",
       "label": "English",
       "name": "Itani",
+      "shortName": "Itani",
       "translator": "Talal Itani",
       "source": "Tanzil.net",
       "lastUpdate": "July 19, 2013",
-      "direction": "ltr"
+      "direction": "ltr",
+      "htmlLang": "en",
+      "language": "English",
+      "group": "English",
+      "rows": 6348
     },
     {
       "languageCode": "id",
       "id": "id.indonesian",
       "label": "Indonesia",
       "name": "Bahasa Indonesia",
+      "shortName": "Bahasa Indonesia",
       "translator": "Indonesian Ministry of Religious Affairs",
       "source": "Tanzil.net",
       "lastUpdate": "June 4, 2010",
-      "direction": "ltr"
+      "direction": "ltr",
+      "htmlLang": "id",
+      "language": "Indonesian",
+      "group": "Indonesian",
+      "rows": 6348
     },
     {
       "languageCode": "ar",
       "id": "ar.muyassar",
       "label": "العربية",
       "name": "Tafsir al-Muyassar",
+      "shortName": "Muyassar",
       "translator": "King Fahad Quran Complex",
       "source": "alquran.cloud",
-      "direction": "rtl"
+      "direction": "rtl",
+      "htmlLang": "ar",
+      "language": "Arabic",
+      "group": "Arabic",
+      "rows": 6236
     }
   ],
   "audio": {

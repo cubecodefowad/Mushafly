@@ -5,6 +5,7 @@
  */
 import fs from "node:fs";
 import path from "node:path";
+import { convertTanzilTranslations } from "./lib/tanzil.mjs";
 import {
   AUDIO,
   COMMIT,
@@ -129,13 +130,26 @@ fs.writeFileSync(
   ) + "\n",
 );
 
+// 4. Convert the Tanzil XML corpus into the same per-surah JSON shape. This
+//    runs after quranjson because the surah names and verse counts live in the
+//    generated metadata above, and after the public tree is cleared.
+const tanzilTranslations = convertTanzilTranslations();
+
 writeJson("manifest.json", {
   repository: lock.repository,
   commit: lock.commit,
   license: lock.license,
-  translations: TRANSLATIONS,
+  translations: [...TRANSLATIONS, ...tanzilTranslations],
   audio: AUDIO,
-  counts: lock.counts,
+  counts: {
+    ...lock.counts,
+    translationRows: {
+      ...lock.counts.translationRows,
+      ...Object.fromEntries(
+        tanzilTranslations.map((translation) => [translation.languageCode, translation.rows]),
+      ),
+    },
+  },
   knownIssues: {
     tajweedOutOfBounds: lock.knownIssues.tajweedOutOfBounds,
     tajweedOverlapping: lock.knownIssues.tajweedOverlapping,
@@ -143,4 +157,7 @@ writeJson("manifest.json", {
   },
 });
 
-console.log(`Prepared ${SURAH_NUMBERS.length} surahs, ${lock.counts.verses} numbered verses.`);
+console.log(
+  `Prepared ${SURAH_NUMBERS.length} surahs, ${lock.counts.verses} numbered verses, ` +
+    `${tanzilTranslations.length} Tanzil translations.`,
+);

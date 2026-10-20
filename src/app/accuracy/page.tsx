@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { AccuracyNotice } from "@/components/legal/AccuracyNotice";
 import { sourceInfo } from "@/data/attribution";
+import { TANZIL_EXCLUDED, TANZIL_TRANSLATIONS } from "@/data/translations";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata({
@@ -56,6 +57,21 @@ export default function AccuracyPage() {
                 {translation.source}).
               </li>
             ))}
+            <li>
+              {TANZIL_TRANSLATIONS.length} translations from{" "}
+              <a
+                className="underline decoration-line underline-offset-4 hover:text-ink"
+                href="https://tanzil.net/trans/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Tanzil.net/trans
+              </a>
+              , converted from Tanzil XML without rewriting their text.{" "}
+              {TANZIL_EXCLUDED.length > 0
+                ? `${TANZIL_EXCLUDED.length} further Tanzil datasets were not integrated because their source has empty verse records (${TANZIL_EXCLUDED.map((entry) => `${entry.id}: ${entry.emptyVerses.join(", ")}`).join("; ")}).`
+                : ""}
+            </li>
             <li>
               Tajweed highlighting: the dataset&apos;s annotated ranges, applied to
               the characters they describe.

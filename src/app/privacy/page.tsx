@@ -78,9 +78,9 @@ export default function PrivacyPage() {
           <p>
             <span className="text-ink">This site.</span> Pages, styles, scripts,
             fonts, the derived search index and the translation files are served
-            from the host you are reading from. The English translation is part
-            of the page; the Indonesian and Arabic datasets are fetched from
-            this same host only when you select them. As with any web server,
+            from the host you are reading from. The default English translation
+            is part of the page; every other translation is fetched from this
+            same host only when you select it. As with any web server,
             that host can see your IP address, user agent, the page you
             requested and the time of the request, and may keep access logs.
           </p>

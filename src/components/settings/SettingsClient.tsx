@@ -5,7 +5,13 @@ import { useState } from "react";
 import { ExternalLink, Monitor, Moon, Sun, Trash2 } from "lucide-react";
 import { useReadingState } from "@/components/bookmarks/ReadingStateProvider";
 import { useSettings } from "@/components/settings/SettingsProvider";
-import { TRANSLATIONS, translationInfo } from "@/data/translations";
+import { TranslationSelect } from "@/components/settings/TranslationSelect";
+import {
+  TANZIL_TRANSLATIONS,
+  groupedTranslations,
+  translationInfo,
+  translationLabel,
+} from "@/data/translations";
 import type { SourceInfo, ThemePreference } from "@/types/quran";
 
 type IntegritySummary = {
@@ -154,27 +160,14 @@ export function SettingsClient({
                 {activeTranslation.translator} · {activeTranslation.source}
               </p>
             </div>
-            <div
-              className="segmented shrink-0"
-              role="group"
-              aria-label="Translation language"
-            >
-              {TRANSLATIONS.map((entry) => (
-                <button
-                  key={entry.languageCode}
-                  type="button"
-                  aria-pressed={settings.translation === entry.languageCode}
-                  onClick={() =>
-                    update({
-                      translation: entry.languageCode,
-                      showTranslation: true,
-                    })
-                  }
-                >
-                  {entry.label}
-                </button>
-              ))}
-            </div>
+            <TranslationSelect
+              ariaLabel="Translation"
+              value={settings.translation}
+              onChange={(value) => {
+                if (value !== "off") update({ translation: value, showTranslation: true });
+              }}
+              className="input w-full max-w-[18rem] text-xs"
+            />
           </div>
 
           <label className="settings-row cursor-pointer">
@@ -337,15 +330,27 @@ export function SettingsClient({
 
             <dt className="text-muted">Translations</dt>
             <dd>
-              <ul className="space-y-2">
-                {source.translations.map((entry) => (
-                  <li key={entry.languageCode}>
-                    <span className="text-ink">{entry.label}</span> —{" "}
-                    {entry.translator}, {entry.name} ({entry.id})
-                    <span className="mt-0.5 block text-xs text-muted">
-                      Source: {entry.source}
-                      {entry.lastUpdate ? ` · Last update ${entry.lastUpdate}` : ""}
-                    </span>
+              <ul className="space-y-3">
+                {groupedTranslations().map((group) => (
+                  <li key={group.label}>
+                    <p className="text-ink">
+                      {group.label}{" "}
+                      <span className="text-xs text-muted">
+                        ({group.translations.length})
+                      </span>
+                    </p>
+                    <ul className="mt-1 space-y-1 text-xs text-muted">
+                      {group.translations.map((entry) => (
+                        <li key={entry.languageCode}>
+                          <span className="text-ink">{translationLabel(entry)}</span>{" "}
+                          — {entry.translator}
+                          <span className="block">
+                            {entry.name} ({entry.id}) · {entry.source}
+                            {entry.lastUpdate ? ` · Last update ${entry.lastUpdate}` : ""}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
                   </li>
                 ))}
               </ul>
@@ -369,8 +374,8 @@ export function SettingsClient({
 
             <dt className="text-muted">Fonts</dt>
             <dd>
-              Amiri Quran, Source Serif 4 and Inter under the SIL Open Font
-              License 1.1.
+              Amiri Quran, Source Serif 4, Inter and Noto Nastaliq Urdu under
+              the SIL Open Font License 1.1.
               <span className="mt-1 flex flex-wrap gap-3 text-xs text-muted">
                 <a href="/fonts/OFL-AmiriQuran.txt" className="underline decoration-line underline-offset-2">
                   Amiri license
@@ -380,6 +385,9 @@ export function SettingsClient({
                 </a>
                 <a href="/fonts/OFL-Inter.txt" className="underline decoration-line underline-offset-2">
                   Inter license
+                </a>
+                <a href="/fonts/OFL-NotoNastaliqUrdu.txt" className="underline decoration-line underline-offset-2">
+                  Urdu font license
                 </a>
               </span>
             </dd>
@@ -394,15 +402,25 @@ export function SettingsClient({
                   (entry) =>
                     `${entry.label} ${(integrity.translationRows[entry.languageCode] ?? 0).toLocaleString()}`,
                 )
-                .join(" · ")}
+                .join(" · ")}{" "}
+              · {TANZIL_TRANSLATIONS.length} Tanzil translations (6,236 rows each)
             </dd>
           </dl>
           <p className="mt-5 border-t border-line pt-4 text-[0.6875rem] leading-relaxed text-muted">
-            The repository&apos;s MIT license covers the software. Translation
-            and audio attributions are preserved from the dataset
-            <code className="mx-1">.sources</code> files. This application adds no
-            other Quranic content. The only measurement the app makes is an
-            anonymous, cookieless page count.
+            The repository&apos;s MIT license covers the software, not the
+            translation texts. Tanzil translations are used under{" "}
+            <a
+              href="https://tanzil.net/trans/"
+              target="_blank"
+              rel="noreferrer"
+              className="text-accent underline decoration-line underline-offset-4"
+            >
+              Tanzil&apos;s terms
+            </a>
+            : non-commercial use only, with a link back to the translations
+            page. Attribution for each dataset is preserved from its Tanzil
+            header. This application adds no other Quranic content. The only
+            measurement the app makes is an anonymous, cookieless page count.
           </p>
         </div>
       </section>

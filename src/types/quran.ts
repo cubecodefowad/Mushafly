@@ -1,15 +1,28 @@
-export type TranslationLanguage = "en" | "id" | "ar";
+import type { TanzilTranslationKey } from "@/data/generated/tanzil-keys";
+
+/** Unique selection key for every translation dataset. */
+export type TranslationLanguage = "en" | "id" | "ar" | TanzilTranslationKey;
 
 export type TranslationInfo = {
   languageCode: TranslationLanguage;
   id: string;
-  /** Short, stable name for compact controls. */
+  /** Language label used by older controls and attribution. */
   label: string;
+  /** Short dataset name (for example "Saheeh International"). */
+  shortName?: string;
   name: string;
   translator: string;
   source: string;
   lastUpdate?: string;
   direction: "ltr" | "rtl";
+  /** BCP 47 code for the translation text itself. */
+  htmlLang?: string;
+  /** Display name of the language, used to group the selector. */
+  language?: string;
+  /** Selector group label. */
+  group?: string;
+  /** Non-empty verse rows in the dataset. */
+  rows?: number;
 };
 
 export type SurahMeta = {
@@ -60,7 +73,7 @@ export type VerseView = {
   number: number;
   key: string;
   arabic: string;
-  /** English, rendered into the static page as the default translation. */
+  /** Default (English) translation rendered into the static page. */
   translation: string | null;
   arabicFile: string;
   translationFile: string;

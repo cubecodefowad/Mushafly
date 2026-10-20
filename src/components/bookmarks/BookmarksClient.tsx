@@ -253,10 +253,14 @@ export function BookmarksClient() {
                       {text.a}
                     </p>
                     <p
-                      lang={language}
+                      lang={activeTranslation.htmlLang ?? language}
                       dir={activeTranslation.direction}
                       className={`mt-2 line-clamp-2 text-sm leading-relaxed text-muted ${
-                        activeTranslation.direction === "rtl" ? "font-arabic" : ""
+                        activeTranslation.direction === "rtl"
+                          ? activeTranslation.htmlLang === "ur"
+                            ? "font-urdu"
+                            : "font-arabic"
+                          : ""
                       }`}
                     >
                       {text.t}

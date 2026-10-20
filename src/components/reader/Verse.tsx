@@ -71,6 +71,8 @@ export function Verse({
   const isBismillah = verse.number === 0;
   const info = translationInfo(translationLanguage);
   const rtl = info.direction === "rtl";
+  const htmlLang = info.htmlLang ?? translationLanguage;
+  const urdu = htmlLang === "ur";
   const label = isBismillah
     ? "Bismillah"
     : `Surah ${surah.meta.name}, verse ${verse.number}`;
@@ -160,11 +162,11 @@ export function Verse({
       {settings.showTranslation ? (
         translation ? (
           <p
-            lang={translationLanguage}
+            lang={htmlLang}
             dir={info.direction}
-            className={`translation-text mt-3 ${rtl ? "translation-arabic" : ""} ${
-              isBismillah ? "text-center" : ""
-            }`}
+            className={`translation-text mt-3 ${rtl ? "translation-rtl" : ""} ${
+              urdu ? "translation-urdu" : ""
+            } ${isBismillah ? "text-center" : ""}`}
           >
             {translation}
           </p>

@@ -1,0 +1,1141 @@
+{
+  "generatedAt": "2026-10-20T14:50:48.062Z",
+  "summary": {
+    "integrated": 65,
+    "excluded": 2,
+    "surahs": 114,
+    "versesPerTranslation": 6236,
+    "totalRows": 405340,
+    "errors": 0
+  },
+  "integrated": [
+    {
+      "id": "ar.jalalayn",
+      "language": "Arabic",
+      "translator": "Jalal ad-Din al-Mahalli and Jalal ad-Din as-Suyuti",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 1995765,
+      "xmlBytes": 2083228,
+      "direction": "rtl",
+      "htmlLang": "ar"
+    },
+    {
+      "id": "ar.muyassar",
+      "language": "Arabic",
+      "translator": "King Fahad Quran Complex",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 2588054,
+      "xmlBytes": 2676926,
+      "direction": "rtl",
+      "htmlLang": "ar"
+    },
+    {
+      "id": "en.maududi",
+      "language": "English",
+      "translator": "Abul Ala Maududi",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 1013510,
+      "xmlBytes": 1105243,
+      "direction": "ltr",
+      "htmlLang": "en"
+    },
+    {
+      "id": "en.hilali",
+      "language": "English",
+      "translator": "Muhammad Taqi-ud-Din al-Hilali and Muhammad Muhsin Khan",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 1200292,
+      "xmlBytes": 1300838,
+      "direction": "ltr",
+      "htmlLang": "en"
+    },
+    {
+      "id": "en.mubarakpuri",
+      "language": "English",
+      "translator": "Safi-ur-Rahman al-Mubarakpuri",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 963067,
+      "xmlBytes": 1065254,
+      "direction": "ltr",
+      "htmlLang": "en"
+    },
+    {
+      "id": "en.yusufali",
+      "language": "English",
+      "translator": "Abdullah Yusuf Ali",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 994273,
+      "xmlBytes": 1095175,
+      "direction": "ltr",
+      "htmlLang": "en"
+    },
+    {
+      "id": "en.pickthall",
+      "language": "English",
+      "translator": "Mohammed Marmaduke William Pickthall",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 915858,
+      "xmlBytes": 1001672,
+      "direction": "ltr",
+      "htmlLang": "en"
+    },
+    {
+      "id": "en.ahmedali",
+      "language": "English",
+      "translator": "Ahmed Ali",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 880141,
+      "xmlBytes": 979885,
+      "direction": "ltr",
+      "htmlLang": "en"
+    },
+    {
+      "id": "en.ahmedraza",
+      "language": "English",
+      "translator": "Ahmed Raza Khan",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 1008835,
+      "xmlBytes": 1094462,
+      "direction": "ltr",
+      "htmlLang": "en"
+    },
+    {
+      "id": "en.daryabadi",
+      "language": "English",
+      "translator": "Abdul Majid Daryabadi",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 932257,
+      "xmlBytes": 1017866,
+      "direction": "ltr",
+      "htmlLang": "en"
+    },
+    {
+      "id": "en.qaribullah",
+      "language": "English",
+      "translator": "Hasan al-Fatih Qaribullah and Ahmad Darwish",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 866037,
+      "xmlBytes": 951913,
+      "direction": "ltr",
+      "htmlLang": "en"
+    },
+    {
+      "id": "en.sahih",
+      "language": "English",
+      "translator": "Saheeh International",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 952359,
+      "xmlBytes": 1051593,
+      "direction": "ltr",
+      "htmlLang": "en"
+    },
+    {
+      "id": "en.wahiduddin",
+      "language": "English",
+      "translator": "Wahiduddin Khan",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 914885,
+      "xmlBytes": 1014289,
+      "direction": "ltr",
+      "htmlLang": "en"
+    },
+    {
+      "id": "ur.maududi",
+      "language": "Urdu",
+      "translator": "Abul A'ala Maududi",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 1608763,
+      "xmlBytes": 1702804,
+      "direction": "rtl",
+      "htmlLang": "ur"
+    },
+    {
+      "id": "ur.kanzuliman",
+      "language": "Urdu",
+      "translator": "Ahmed Raza Khan",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 1286099,
+      "xmlBytes": 1371628,
+      "direction": "rtl",
+      "htmlLang": "ur"
+    },
+    {
+      "id": "ur.ahmedali",
+      "language": "Urdu",
+      "translator": "Ahmed Ali",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 1349333,
+      "xmlBytes": 1434848,
+      "direction": "rtl",
+      "htmlLang": "ur"
+    },
+    {
+      "id": "ur.jalandhry",
+      "language": "Urdu",
+      "translator": "Fateh Muhammad Jalandhry",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 1501256,
+      "xmlBytes": 1586790,
+      "direction": "rtl",
+      "htmlLang": "ur"
+    },
+    {
+      "id": "ur.qadri",
+      "language": "Urdu",
+      "translator": "Tahir ul Qadri",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 1887431,
+      "xmlBytes": 1972980,
+      "direction": "rtl",
+      "htmlLang": "ur"
+    },
+    {
+      "id": "ur.junagarhi",
+      "language": "Urdu",
+      "translator": "Muhammad Junagarhi",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 1502133,
+      "xmlBytes": 1587667,
+      "direction": "rtl",
+      "htmlLang": "ur"
+    },
+    {
+      "id": "fa.khorramdel",
+      "language": "Persian",
+      "translator": "Mostafa Khorramdel",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 4921084,
+      "xmlBytes": 5006607,
+      "direction": "rtl",
+      "htmlLang": "fa"
+    },
+    {
+      "id": "tr.yazir",
+      "language": "Turkish",
+      "translator": "Elmalili Hamdi Yazir",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 999087,
+      "xmlBytes": 1100494,
+      "direction": "ltr",
+      "htmlLang": "tr"
+    },
+    {
+      "id": "tr.bulac",
+      "language": "Turkish",
+      "translator": "Alİ Bulaç",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 1018814,
+      "xmlBytes": 1121963,
+      "direction": "ltr",
+      "htmlLang": "tr"
+    },
+    {
+      "id": "tr.ozturk",
+      "language": "Turkish",
+      "translator": "Yasar Nuri Ozturk",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 987437,
+      "xmlBytes": 1089755,
+      "direction": "ltr",
+      "htmlLang": "tr"
+    },
+    {
+      "id": "tr.yildirim",
+      "language": "Turkish",
+      "translator": "Suat Yildirim",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 1324387,
+      "xmlBytes": 1409913,
+      "direction": "ltr",
+      "htmlLang": "tr"
+    },
+    {
+      "id": "tr.ates",
+      "language": "Turkish",
+      "translator": "Suleyman Ates",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 962300,
+      "xmlBytes": 1059976,
+      "direction": "ltr",
+      "htmlLang": "tr"
+    },
+    {
+      "id": "tr.diyanet",
+      "language": "Turkish",
+      "translator": "Diyanet Isleri",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 1069003,
+      "xmlBytes": 1173568,
+      "direction": "ltr",
+      "htmlLang": "tr"
+    },
+    {
+      "id": "tr.vakfi",
+      "language": "Turkish",
+      "translator": "Diyanet Vakfi",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 987177,
+      "xmlBytes": 1078820,
+      "direction": "ltr",
+      "htmlLang": "tr"
+    },
+    {
+      "id": "de.aburida",
+      "language": "German",
+      "translator": "Abu Rida Muhammad ibn Ahmad ibn Rassoul",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 1020519,
+      "xmlBytes": 1120125,
+      "direction": "ltr",
+      "htmlLang": "de"
+    },
+    {
+      "id": "de.bubenheim",
+      "language": "German",
+      "translator": "A. S. F. Bubenheim and N. Elyas",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 1035973,
+      "xmlBytes": 1132729,
+      "direction": "ltr",
+      "htmlLang": "de"
+    },
+    {
+      "id": "de.zaidan",
+      "language": "German",
+      "translator": "Amir Zaidan",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 1062231,
+      "xmlBytes": 1161196,
+      "direction": "ltr",
+      "htmlLang": "de"
+    },
+    {
+      "id": "fr.hamidullah",
+      "language": "French",
+      "translator": "Muhammad Hamidullah",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 998988,
+      "xmlBytes": 1084510,
+      "direction": "ltr",
+      "htmlLang": "fr"
+    },
+    {
+      "id": "ru.abuadel",
+      "language": "Russian",
+      "translator": "Abu Adel",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 2862691,
+      "xmlBytes": 2948268,
+      "direction": "ltr",
+      "htmlLang": "ru"
+    },
+    {
+      "id": "ru.kuliev",
+      "language": "Russian",
+      "translator": "Elmir Kuliev",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 1505238,
+      "xmlBytes": 1590767,
+      "direction": "ltr",
+      "htmlLang": "ru"
+    },
+    {
+      "id": "ru.kuliev-alsaadi",
+      "language": "Russian",
+      "translator": "Elmir Kuliev (with Abd ar-Rahman as-Saadi's commentaries)",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 10512425,
+      "xmlBytes": 10598027,
+      "direction": "ltr",
+      "htmlLang": "ru"
+    },
+    {
+      "id": "ru.osmanov",
+      "language": "Russian",
+      "translator": "Magomed-Nuri Osmanovich Osmanov",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 1561579,
+      "xmlBytes": 1661209,
+      "direction": "ltr",
+      "htmlLang": "ru"
+    },
+    {
+      "id": "ru.kalam",
+      "language": "Russian",
+      "translator": "Muslim Religious Board of the Republiс of Tatarstan",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 1865782,
+      "xmlBytes": 1951345,
+      "direction": "ltr",
+      "htmlLang": "ru"
+    },
+    {
+      "id": "ru.muntahab",
+      "language": "Russian",
+      "translator": "Ministry of Awqaf, Egypt",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 3205122,
+      "xmlBytes": 3305336,
+      "direction": "ltr",
+      "htmlLang": "ru"
+    },
+    {
+      "id": "id.indonesian",
+      "language": "Indonesian",
+      "translator": "Indonesian Ministry of Religious Affairs",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 1213674,
+      "xmlBytes": 1312678,
+      "direction": "ltr",
+      "htmlLang": "id"
+    },
+    {
+      "id": "id.muntakhab",
+      "language": "Indonesian",
+      "translator": "Muhammad Quraish Shihab et al.",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 2595545,
+      "xmlBytes": 2696158,
+      "direction": "ltr",
+      "htmlLang": "id"
+    },
+    {
+      "id": "ms.basmeih",
+      "language": "Malay",
+      "translator": "Abdullah Muhammad Basmeih",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 1543674,
+      "xmlBytes": 1645487,
+      "direction": "ltr",
+      "htmlLang": "ms"
+    },
+    {
+      "id": "sq.nahi",
+      "language": "Albanian",
+      "translator": "Hasan Efendi Nahi",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 1067905,
+      "xmlBytes": 1153424,
+      "direction": "ltr",
+      "htmlLang": "sq"
+    },
+    {
+      "id": "sq.ahmeti",
+      "language": "Albanian",
+      "translator": "Sherif Ahmeti",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 1036921,
+      "xmlBytes": 1122444,
+      "direction": "ltr",
+      "htmlLang": "sq"
+    },
+    {
+      "id": "ha.gumi",
+      "language": "Hausa",
+      "translator": "Abubakar Mahmoud Gumi",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 1001078,
+      "xmlBytes": 1103791,
+      "direction": "ltr",
+      "htmlLang": "ha"
+    },
+    {
+      "id": "hi.farooq",
+      "language": "Hindi",
+      "translator": "Muhammad Farooq Khan and Muhammad Ahmed",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 2232180,
+      "xmlBytes": 2332008,
+      "direction": "ltr",
+      "htmlLang": "hi"
+    },
+    {
+      "id": "hi.hindi",
+      "language": "Hindi",
+      "translator": "Suhel Farooq Khan and Saifur Rahman Nadwi",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 2463876,
+      "xmlBytes": 2549447,
+      "direction": "ltr",
+      "htmlLang": "hi"
+    },
+    {
+      "id": "ml.abdulhameed",
+      "language": "Malayalam",
+      "translator": "Cheriyamundam Abdul Hameed and Kunhi Mohammed Parappoor",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 3282158,
+      "xmlBytes": 3367780,
+      "direction": "ltr",
+      "htmlLang": "ml"
+    },
+    {
+      "id": "ml.karakunnu",
+      "language": "Malayalam",
+      "translator": "Muhammad Karakunnu and Vanidas Elayavoor",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 2891140,
+      "xmlBytes": 2985137,
+      "direction": "ltr",
+      "htmlLang": "ml"
+    },
+    {
+      "id": "ps.abdulwali",
+      "language": "Pashto",
+      "translator": "Abdulwali Khan",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 1618231,
+      "xmlBytes": 1703753,
+      "direction": "rtl",
+      "htmlLang": "ps"
+    },
+    {
+      "id": "sd.amroti",
+      "language": "Sindhi",
+      "translator": "Taj Mehmood Amroti",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 1448310,
+      "xmlBytes": 1533829,
+      "direction": "rtl",
+      "htmlLang": "sd"
+    },
+    {
+      "id": "so.abduh",
+      "language": "Somali",
+      "translator": "Mahmud Muhammad Abduh",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 830791,
+      "xmlBytes": 916307,
+      "direction": "ltr",
+      "htmlLang": "so"
+    },
+    {
+      "id": "sw.barwani",
+      "language": "Swahili",
+      "translator": "Ali Muhsin Al-Barwani",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 851313,
+      "xmlBytes": 936933,
+      "direction": "ltr",
+      "htmlLang": "sw"
+    },
+    {
+      "id": "sv.bernstrom",
+      "language": "Swedish",
+      "translator": "Knut Bernström",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 1081376,
+      "xmlBytes": 1180384,
+      "direction": "ltr",
+      "htmlLang": "sv"
+    },
+    {
+      "id": "tt.nugman",
+      "language": "Tatar",
+      "translator": "Yakub Ibn Nugman",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 2272235,
+      "xmlBytes": 2370681,
+      "direction": "ltr",
+      "htmlLang": "tt"
+    },
+    {
+      "id": "ug.saleh",
+      "language": "Uyghur",
+      "translator": "Muhammad Saleh",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 2152732,
+      "xmlBytes": 2238250,
+      "direction": "rtl",
+      "htmlLang": "ug"
+    },
+    {
+      "id": "uz.sodik",
+      "language": "Uzbek",
+      "translator": "Muhammad Sodik Muhammad Yusuf",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 2579461,
+      "xmlBytes": 2665436,
+      "direction": "ltr",
+      "htmlLang": "uz"
+    },
+    {
+      "id": "bn.hoque",
+      "language": "Bengali",
+      "translator": "Zohurul Hoque",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 2397295,
+      "xmlBytes": 2482834,
+      "direction": "ltr",
+      "htmlLang": "bn"
+    },
+    {
+      "id": "bn.bengali",
+      "language": "Bengali",
+      "translator": "Muhiuddin Khan",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 2208410,
+      "xmlBytes": 2293988,
+      "direction": "ltr",
+      "htmlLang": "bn"
+    },
+    {
+      "id": "am.sadiq",
+      "language": "Amharic",
+      "translator": "Muhammed Sadiq and Muhammed Sani Habib",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 1394152,
+      "xmlBytes": 1479681,
+      "direction": "ltr",
+      "htmlLang": "am"
+    },
+    {
+      "id": "az.mammadaliyev",
+      "language": "Azerbaijani",
+      "translator": "Vasim Mammadaliyev and Ziya Bunyadov",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 1411169,
+      "xmlBytes": 1496731,
+      "direction": "ltr",
+      "htmlLang": "az"
+    },
+    {
+      "id": "az.musayev",
+      "language": "Azerbaijani",
+      "translator": "Alikhan Musayev",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 1018373,
+      "xmlBytes": 1103900,
+      "direction": "ltr",
+      "htmlLang": "az"
+    },
+    {
+      "id": "bs.korkut",
+      "language": "Bosnian",
+      "translator": "Besim Korkut",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 851650,
+      "xmlBytes": 953437,
+      "direction": "ltr",
+      "htmlLang": "bs"
+    },
+    {
+      "id": "bs.mlivo",
+      "language": "Bosnian",
+      "translator": "Mustafa Mlivo",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 804259,
+      "xmlBytes": 903552,
+      "direction": "ltr",
+      "htmlLang": "bs"
+    },
+    {
+      "id": "es.garcia",
+      "language": "Spanish",
+      "translator": "Muhammad Isa García",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 980262,
+      "xmlBytes": 1079214,
+      "direction": "ltr",
+      "htmlLang": "es"
+    },
+    {
+      "id": "it.piccardo",
+      "language": "Italian",
+      "translator": "Hamza Roberto Piccardo",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 899122,
+      "xmlBytes": 984886,
+      "direction": "ltr",
+      "htmlLang": "it"
+    },
+    {
+      "id": "pt.elhayek",
+      "language": "Portuguese",
+      "translator": "Samir El-Hayek",
+      "status": "ok",
+      "suras": 114,
+      "rows": 6236,
+      "bytes": 902677,
+      "xmlBytes": 988369,
+      "direction": "ltr",
+      "htmlLang": "pt"
+    }
+  ],
+  "excluded": [
+    {
+      "id": "sq.mehdiu",
+      "language": "Albanian",
+      "translator": "Feti Mehdiu",
+      "status": "excluded",
+      "reason": "Tanzil XML has empty translations at 21:56 and 77:14.",
+      "rows": 0,
+      "bytes": 1035548
+    },
+    {
+      "id": "ku.asan",
+      "language": "Kurdish",
+      "translator": "Burhan Muhammad-Amin",
+      "status": "excluded",
+      "reason": "Tanzil XML has an empty translation at 108:3.",
+      "rows": 0,
+      "bytes": 2699738
+    }
+  ],
+  "samples": {
+    "ar.jalalayn": {
+      "1:1": "«بسم الله الرحمن الرحيم»",
+      "2:255": "«الله لا إله» أي لا معبود بحق في الوجود «إلا هو الحيُّ» الدائم بالبقاء «القيوم» المبالغ في القيام بتدبير خلقه «لاتأخذه سنة» نعاس «ولا نوم له ما في السماوات وما في الأرض» ملكا وخلقا وعبيدا «من ذا الذي» أي لا أحد «يشفع عنده إلا بإذنه» له فيها «يعلم ما بين أيديهم» أي الخلق «وما خلفهم» أي من أمر الدنيا والآخرة «ولا يحيطون بشيء من علمه» أي لا يعلمون شيئا من معلوماته «إلا بما شاء» أن يعلمهم به منها بأخبار الرسل «وسع كرسيه السماوات والأرض» قيل أحاط علمه بهما وقيل ملكه وقيل الكرسي نفسه مشتمل عليهما لعظمته، لحديث: ما السماوات السبع في الكرسى إلا كدارهم سبعة ألقيت في ترس «ولا يئوده» يثقله «حفظهما» أي السماوات والأرض «وهو العلي» فوق خلقه بالقهر «العظيم» الكبير.",
+      "114:6": "(من الجنة والناس) بيان للشيطان الموسوس أنه جني وإنسي، كقوله تعالى: \"\" شياطين الإنس والجن \"\" أو من الجنة بيان له والناس عطف على الوسواس وعلى كل يشتمل شر لبيد وبناته المذكورين، واعترض الأول بأن الناس لا يوسوس في صدورهم الناس إنما يوسوس في صدورهم الجن، وأجيب بأن الناس يوسوسون أيضاً بمعنى يليق بهم في الظاهر ثم تصل وسوستهم إلى القلب وتثبت فيه بالطريق المؤدي إلى ذلك والله تعالى أعلم."
+    },
+    "ar.muyassar": {
+      "1:1": "سورة الفاتحة سميت هذه السورة بالفاتحة؛ لأنه يفتتح بها القرآن العظيم، وتسمى المثاني؛ لأنها تقرأ في كل ركعة، ولها أسماء أخر. أبتدئ قراءة القرآن باسم الله مستعينا به، (اللهِ) علم على الرب -تبارك وتعالى- المعبود بحق دون سواه، وهو أخص أسماء الله تعالى، ولا يسمى به غيره سبحانه. (الرَّحْمَنِ) ذي الرحمة العامة الذي وسعت رحمته جميع الخلق، (الرَّحِيمِ) بالمؤمنين، وهما اسمان من أسمائه تعالى، يتضمنان إثبات صفة الرحمة لله تعالى كما يليق بجلاله.",
+      "2:255": "الله الذي لا يستحق الألوهية والعبودية إلا هو، الحيُّ الذي له جميع معاني الحياة الكاملة كما يليق بجلاله، القائم على كل شيء، لا تأخذه سِنَة أي: نعاس، ولا نوم، كل ما في السماوات وما في الأرض ملك له، ولا يتجاسر أحد أن يشفع عنده إلا بإذنه، محيط علمه بجميع الكائنات ماضيها وحاضرها ومستقبلها، يعلم ما بين أيدي الخلائق من الأمور المستقبلة، وما خلفهم من الأمور الماضية، ولا يَطَّلعُ أحد من الخلق على شيء من علمه إلا بما أعلمه الله وأطلعه عليه. وسع كرسيه السماوات والأرض، والكرسي: هو موضع قدمي الرب -جل جلاله- ولا يعلم كيفيته إلا الله سبحانه، ولا يثقله سبحانه حفظهما، وهو العلي بذاته وصفاته على جميع مخلوقاته، الجامع لجميع صفات العظمة والكبرياء. وهذه الآية أعظم آية في القرآن، وتسمى: (آية الكرسي).",
+      "114:6": "من شياطين الجن والإنس."
+    },
+    "en.maududi": {
+      "1:1": "In the name of Allah, the Merciful, the Compassionate",
+      "2:255": "Allah: the Everlasting, the Sustainer of the whole Universe; there is no god but He. He does neither slumber nor sleep. Whatsoever is in the heavens and in the earth is His. Who is there that can intercede with Him except by His own permission.? He knows what is before the people and also what is hidden from them. And they cannot comprehend anything of His knowledge save whatever He Himself pleases to reveal. His Kingdom spreads over the heavens and the earth and the guarding of these does not weary Him. He alone is the Supreme and the Exalted.",
+      "114:6": "whether he be from the jinn or humans.”"
+    },
+    "en.hilali": {
+      "1:1": "In the Name of Allah, the Most Beneficent, the Most Merciful.",
+      "2:255": "Allah! La ilaha illa Huwa (none has the right to be worshipped but He), the Ever Living, the One Who sustains and protects all that exists. Neither slumber, nor sleep overtake Him. To Him belongs whatever is in the heavens and whatever is on earth. Who is he that can intercede with Him except with His Permission? He knows what happens to them (His creatures) in this world, and what will happen to them in the Hereafter. And they will never compass anything of His Knowledge except that which He wills. His Kursi extends over the heavens and the earth, and He feels no fatigue in guarding and preserving them. And He is the Most High, the Most Great. [This Verse 2:255 is called Ayat-ul-Kursi.]",
+      "114:6": "\"Of jinns and men.\""
+    },
+    "en.mubarakpuri": {
+      "1:1": "In the Name of Allah, the Most Gracious, the Most Merciful.",
+      "2:255": "Allah! None has the right to be worshipped but He, the Ever Living, the One Who sustains and protects all that exists. Neither slumber nor sleep overtakes Him. To Him belongs whatever is in the heavens and whatever is on the earth. Who is he that can intercede with Him except with His permission He knows what happens to them (His creatures) in this world, and what will happen to them in the Hereafter. And they will never compass anything of His Knowledge except that which He wills. His Kursi extends over the heavens and the earth, and He feels no fatigue in guarding and preserving them. And He is the Most High, the Most Great.",
+      "114:6": "\"Of Jinn and An-Nas.\""
+    },
+    "en.yusufali": {
+      "1:1": "In the name of Allah, Most Gracious, Most Merciful.",
+      "2:255": "Allah! There is no god but He,-the Living, the Self-subsisting, Eternal. No slumber can seize Him nor sleep. His are all things in the heavens and on earth. Who is there can intercede in His presence except as He permitteth? He knoweth what (appeareth to His creatures as) before or after or behind them. Nor shall they compass aught of His knowledge except as He willeth. His Throne doth extend over the heavens and the earth, and He feeleth no fatigue in guarding and preserving them for He is the Most High, the Supreme (in glory).",
+      "114:6": "Among Jinns and among men."
+    },
+    "en.pickthall": {
+      "1:1": "In the name of Allah, the Beneficent, the Merciful.",
+      "2:255": "Allah! There is no deity save Him, the Alive, the Eternal. Neither slumber nor sleep overtaketh Him. Unto Him belongeth whatsoever is in the heavens and whatsoever is in the earth. Who is he that intercedeth with Him save by His leave? He knoweth that which is in front of them and that which is behind them, while they encompass nothing of His knowledge save what He will. His throne includeth the heavens and the earth, and He is never weary of preserving them. He is the Sublime, the Tremendous.",
+      "114:6": "Of the jinn and of mankind."
+    },
+    "en.ahmedali": {
+      "1:1": "In the name of Allah, most benevolent, ever-merciful.",
+      "2:255": "God: There is no god but He, the living, eternal, self-subsisting, ever sustaining. Neither does somnolence affect Him nor sleep. To Him belongs all that is in the heavens and the earth: and who can intercede with Him except by His leave? Known to Him is all that is present before men and what is hidden (in time past and time future), and not even a little of His knowledge can they grasp except what He will. His seat extends over heavens and the earth, and He tires not protecting them: He alone is all high and supreme.",
+      "114:6": "From among the jinns and men."
+    },
+    "en.ahmedraza": {
+      "1:1": "Allah - beginning with the name of - the Most Gracious, the Most Merciful.",
+      "2:255": "Allah – there is no God except Him; He is Alive (eternally, on His own) and the Upholder (keeps others established); He never feels drowsy nor does He sleep; to Him only belongs all whatever is in the heavens and all whatever is in the earth; who is he that can intercede* with Him except by His command? He knows what is in front of them and what is behind them; and they do not achieve anything of His knowledge except what He wills; His Throne (of Sovereignty) encompasses the heavens and the earth; and it is not difficult for Him to guard them; and He is the Supreme, the Greatest. (This Verse is popularly known as Ayat Al-Kursi. It has a special status and reciting it carries great reward. *Prophet Mohammed – peace and blessings be upon him – will be the first one to be granted the permission to intercede, others will follow.)",
+      "114:6": "“Among the jinns and men.”"
+    },
+    "en.daryabadi": {
+      "1:1": "In the name of Allah, the Compassionate, the Merciful.",
+      "2:255": "Allah! There is no God but he, the Living, the Sustainer Slumber taketh hold of Him not, nor sleep. His is whatsoever is in the heavens and whatsoever is on the earth. Who is he that shall intercede With Him except with His leave! He knoweth that which was before them and that which shall he after them, and they encompass not aught of His knowledge save that which He willeth. His throne comprehendeth the heavens and the earth, and the guarding of the twain wearieth Him not. And He is the High, the Supreme.",
+      "114:6": "Whether of Jinn or of mankind."
+    },
+    "en.qaribullah": {
+      "1:1": "In the Name of Allah, the Merciful, the Most Merciful",
+      "2:255": "Allah, there is no god except He, the Living, the Everlasting. Neither dozing, nor sleep overtakes Him. To Him belongs all that is in the heavens and the earth. Who is he that shall intercede with Him except by His permission! He knows what will be before their hands and what was behind them, and they do not comprehend anything of His Knowledge except what He willed. His Seat embraces the heavens and the earth, and the preserving of them does not weary Him. He is the High, the Great.",
+      "114:6": "both jinn and people.'"
+    },
+    "en.sahih": {
+      "1:1": "In the name of Allah, the Entirely Merciful, the Especially Merciful.",
+      "2:255": "Allah - there is no deity except Him, the Ever-Living, the Sustainer of [all] existence. Neither drowsiness overtakes Him nor sleep. To Him belongs whatever is in the heavens and whatever is on the earth. Who is it that can intercede with Him except by His permission? He knows what is [presently] before them and what will be after them, and they encompass not a thing of His knowledge except for what He wills. His Kursi extends over the heavens and the earth, and their preservation tires Him not. And He is the Most High, the Most Great.",
+      "114:6": "From among the jinn and mankind.\""
+    },
+    "en.wahiduddin": {
+      "1:1": "﻿In the name of God, the Most Gracious, the Most Merciful.",
+      "2:255": "God: there is no deity save Him, the Living, the Eternal One. Neither slumber nor sleep overtakes Him. To Him belong whatsoever is in the heavens and whatsoever is on the earth. Who can intercede with Him except by His permission? He knows all that is before them and all that is behind them. They can grasp only that part of His knowledge which He wills. His throne extends over the heavens and the earth; and their upholding does not weary Him. He is the Sublime, the Almighty One!",
+      "114:6": "from jinn and men.\""
+    },
+    "ur.maududi": {
+      "1:1": "اللہ کے نام سے جو رحمان و رحیم ہے",
+      "2:255": "اللہ، وہ زندہ جاوید ہستی، جو تمام کائنات کو سنبھالے ہوئے ہے، اُس کے سوا کوئی خدا نہیں ہے وہ نہ سوتا ہے اور نہ اُسے اونگھ لگتی ہے زمین اور آسمانوں میں جو کچھ ہے، اُسی کا ہے کون ہے جو اُس کی جناب میں اُس کی اجازت کے بغیر سفارش کر سکے؟ جو کچھ بندوں کے سامنے ہے اسے بھی وہ جانتا ہے اور جو کچھ اُن سے اوجھل ہے، اس سے بھی وہ واقف ہے اور اُس کی معلومات میں سے کوئی چیز اُن کی گرفت ادراک میں نہیں آسکتی الّا یہ کہ کسی چیز کا علم وہ خود ہی اُن کو دینا چاہے اُس کی حکومت آسمانوں اور زمین پر چھائی ہوئی ہے اور اُن کی نگہبانی اس کے لیے کوئی تھکا دینے والا کام نہیں ہے بس وہی ایک بزرگ و برتر ذات ہے",
+      "114:6": "خواہ وہ جنوں میں سے ہو یا انسانوں میں سے"
+    },
+    "ur.kanzuliman": {
+      "1:1": "اللہ کے نام سے شروع جو بہت مہربان رحمت والا",
+      "2:255": "اللہ ہے جس کے سوا کوئی معبود نہیں وہ آپ زندہ اور اوروں کا قائم رکھنے والا اسے نہ اونگھ آئے نہ نیند اسی کا ہے جو کچھ آسمانوں میں ہے اور جو کچھ زمین میں وہ کون ہے جو اس کے یہاں سفارش کرے بغیر اس کے حکم کے جانتا ہے جو کچھ ان کے آگے ہے اور جو کچھ ان کے پیچھے اور وہ نہیں پاتے اس کے علم میں سے مگر جتنا وہ چاہے اس کی کرسی میں سمائے ہوئے آسمان اور زمین اور اسے بھاری نہیں ان کی نگہبانی اور وہی ہے بلند بڑائی والا",
+      "114:6": "جن اور آدمی"
+    },
+    "ur.ahmedali": {
+      "1:1": "شروع الله کا نام لے کر جو بڑا مہربان نہایت رحم والا ہے",
+      "2:255": "الله کے سوا کوئی معبود نہیں زندہ ہےسب کا تھامنے والا نہ اس کی اونگھ دبا سکتی ہے نہ نیند آسمانوں اور زمین میں جو کچھ بھی ہے سب اسی کا ہے ایسا کون ہے جو اس کی اجازت کے سوا اس کے ہاں سفارش کر سکے مخلوقات کے تمام حاضر اور غائب حالات کو جانتا ہے اور وہ سب اس کی معلومات میں سےکسی چیز کا احاطہ نہیں کر سکتے مگر جتنا کہ وہ چاہے اس کی کرسی نے سب آسمانوں اور زمین کو اپنے اندر لے رکھا ہے اور الله کو ان دونوں کی حفاظت کچھ گراں نہیں گزرتی اور وہی سب سےبرتر عظمت والا ہے",
+      "114:6": "جنوں اور انسانوں میں سے"
+    },
+    "ur.jalandhry": {
+      "1:1": "شروع الله کا نام لے کر جو بڑا مہربان نہایت رحم والا ہے",
+      "2:255": "خدا (وہ معبود برحق ہے کہ) اس کے سوا کوئی عبادت کے لائق نہیں زندہ ہمیشہ رہنے والا اسے نہ اونگھ آتی ہے نہ نیند جو کچھ آسمانوں میں اور جو کچھ زمین میں ہیں سب اسی کا ہے کون ہے جو اس کی اجازت کے بغیر اس سے (کسی کی) سفارش کر سکے جو کچھ لوگوں کے روبرو ہو رہا ہے اور جو کچھ ان کے پیچھے ہوچکا ہے اسے سب معلوم ہے اور وہ اس کی معلومات میں سے کسی چیز پر دسترس حاصل نہیں کر سکتے ہاں جس قدر وہ چاہتا ہے (اسی قدر معلوم کرا دیتا ہے) اس کی بادشاہی (اور علم) آسمان اور زمین سب پر حاوی ہے اور اسے ان کی حفاظت کچھ بھی دشوار نہیں وہ بڑا عالی رتبہ اور جلیل القدر ہے",
+      "114:6": "وہ جنّات میں سے (ہو) یا انسانوں میں سے"
+    },
+    "ur.qadri": {
+      "1:1": "اللہ کے نام سےشروع جو نہایت مہربان ہمیشہ رحم فرمانےوالا ہے ‎",
+      "2:255": "اﷲ، اس کے سوا کوئی عبادت کے لائق نہیں، ہمیشہ زندہ رہنے والا ہے (سارے عالم کو اپنی تدبیر سے) قائم رکھنے والا ہے، نہ اس کو اُونگھ آتی ہے اور نہ نیند جو کچھ آسمانوں میں ہے اور جو کچھ زمین میں ہے سب اسی کا ہے، کون ایسا شخص ہے جو اس کے حضور اس کے اِذن کے بغیر سفارش کر سکے، جو کچھ مخلوقات کے سامنے (ہو رہا ہے یا ہو چکا) ہے اور جو کچھ ان کے بعد (ہونے والا) ہے (وہ) سب جانتا ہے، اور وہ اس کی معلومات میں سے کسی چیز کا بھی احاطہ نہیں کر سکتے مگر جس قدر وہ چاہے، اس کی کرسیء (سلطنت و قدرت) تمام آسمانوں اور زمین کو محیط ہے، اور اس پر ان دونوں (یعنی زمین و آسمان) کی حفاظت ہرگز دشوار نہیں، وہی سب سے بلند رتبہ بڑی عظمت والا ہے،",
+      "114:6": "خواہ وہ (وسوسہ انداز شیطان) جنات میں سے ہو یا انسانوں میں سے،"
+    },
+    "ur.junagarhi": {
+      "1:1": "شروع کرتا ہوں اللہ تعالیٰ کے نام سے جو بڑا مہربان نہایت رحم واﻻ ہے",
+      "2:255": "اللہ تعالیٰ ہی معبود برحق ہے جس کے سوا کوئی معبود نہیں جو زنده اور سب کا تھامنے واﻻ ہے، جسے نہ اونگھ آئے نہ نیند، اس کی ملکیت میں زمین اور آسمانوں کی تمام چیزیں ہیں۔ کون ہے جو اس کی اجازت کے بغیر اس کے سامنے شفاعت کرسکے، وه جانتا ہے جو ان کے سامنے ہے اور جو ان کے پیچھے ہے اور وه اس کے علم میں سے کسی چیز کا احاطہ نہیں کرسکتے مگر جتنا وه چاہے، اس کی کرسی کی وسعت نے زمین و آسمان کو گھیر رکھا ہے اور اللہ تعالیٰ ان کی حفاﻇت سے نہ تھکتا اور نہ اکتاتا ہے، وه تو بہت بلند اور بہت بڑا ہے",
+      "114:6": "(خواه) وه جن میں سے ہو یا انسان میں سے"
+    },
+    "fa.khorramdel": {
+      "1:1": "به نام خداوند بخشنده‌ی مهربان. [[«بِسْمِ»: فراهم آمده است از (بِ) و (اِسْمِ). یعنی: کارم را با نام خدا آغاز می‌کنم؛ نه به نام چیز دیگری، و نه به فرمان دل یا کس دیگری. واژه (اِسْم) از ماده (سُمُوّ) به معنی عُلُوّ، یا (وسم) به معنی علامت و نشانه است. «اللهِ»: اسم خاصّ است برای خدا. اصل آن (إِلاه) بوده و مصدری است بر وزن (فِعال) به معنی مفعول، یعنی (مَأْلُوه) به معنی معبود می‌باشد. همان گونه که مصدر (خَلْق) به معنی مخلوق است (نگا: لقمان / 11). «الرَّحْمنِ»: دارای مهر فراوان (نگا: أعراف / 156). «الرَّحِیمِ»: دارای مهر همیشگی.]]",
+      "2:255": "خدائی بجز الله وجود ندارد و او زنده‌ی پایدار (و جهان هستی را) نگهدار است. او را نه چرتی و نه خوابی فرا نمی‌گیرد (و همواره بیدار است و سستی و رخوت بدو راه ندارد). از آنِ او است آنچه در آسمانها و آنچه در زمین است (و در ملک کائنات، او را انبازی نیست). کیست آن که در پیشگاه او میانجیگری کند مگر با اجازه‌ی او؟ می‌داند آنچه را که در پیش روی مردمان است و آنچه را که در پشت سر آنان است (و مطّلع بر گذشته و حال و آینده، و آگاه بر بود و نبود جهان است و اصلاً همه‌ی زمانها و مکانها در پیشگاه علم او یکسان است. مردمان) چیزی از علم او را فراچنگ نمی‌آورند جز آن مقداری را که وی بخواهد. (علم و دانش محدود دیگران، پرتوی از علم بی‌پایان و بی‌کران او است). فرماندهی و فرمانروائی او آسمانها و زمین را دربر گرفته است، و نگاهداری آن دو (برای او گران نیست و) وی را درمانده نمی‌سازد و او بلندمرتبه و سترگ است. [[«حَیّ»: زنده جاوید و باقی پایدار. «قَیُّوم»: نگهدار جهان و گرداننده امور آن. (الْحَیُّ) و (الْقَیُّومُ): صفت یا بدل، و یا خبر مبتدای محذوف می‌باشد. «سِنَةٌ»: چرت. از ماده (وسن). «مَا بَیْنَ أَیْدِیهِمْ»: آنچه در پیش روی آنان است که امور مربوط به این جهان است. «مَا خَلْفَهُمْ»: آنچه در پشت سر آنان است که امور مربوط به آن جهان یعنی آخرت است. «لا یُحِیطُونَ»: احاطه نمی‌کنند. فراچنگ نمی‌آورند. «کُرْسِیُّ»: تخت سلطنت. عرش. در اینجا مراد علم و عظمت و قدرت خدا است. «لا یَؤُودُهُ»: او را درمانده و ناتوان نمی‌سازد و بر او سنگینی نمی‌کند. از ماده (أود).]]",
+      "114:6": "(در سینه‌های مردمانی) از جنّیها و انسانها. [[«مِنْ»: این حرف، بیانیّه است. یا بیان (ناس) در آیه پنجم است که معنی آن گذشت، و یا بیان (وسواس) که معنی چنین خواهد بود: وسوسه‌گری که از شیاطین جنّی است، و یا از انسانهای شیطان صفت (نگا: بقره / 14، انعام / 112، مؤمنون / 97).]]"
+    },
+    "tr.yazir": {
+      "1:1": "Rahmân ve Rahîm olan Allah'ın ismiyle.",
+      "2:255": "Allah'tan başka hiçbir ilâh yoktur. O daima diridir (hayydır), bütün varlığın idaresini yürüten (kayyum)dir. O'nu ne gaflet basar, ne de uyku. Göklerde ve yerde ne varsa hepsi O'nundur. İzni olmadan huzurunda şefaat edecek olan kimdir? O, kullarının önlerinde ve arkalarında ne varsa hepsini bilir. Onlar ise, O'nun dilediği kadarından başka ilminden hiç bir şey kavrayamazlar. O'nun kürsisi, bütün gökleri ve yeri kucaklamıştır. Onların her ikisini de görüp gözetmek O'na bir ağırlık vermez. O çok yücedir, çok büyüktür.",
+      "114:6": "Gerek cinlerden, gerek insanlardan."
+    },
+    "tr.bulac": {
+      "1:1": "Rahman Rahim olan Allah'ın adıyla",
+      "2:255": "Allah... O'ndan başka İlah yoktur. Diridir, Kaimdir. O'nu uyuklama ve uyku tutmaz. Göklerde ve yerde ne varsa hepsi O'nundur. İzni olmaksızın O'nun Katında şefaatte bulunacak kimdir? O, önlerindekini ve arkalarındakini bilir. (Onlar ise) Dilediği kadarının dışında, O'nun ilminden hiçbir şeyi kavrayıp-kuşatamazlar. O'nun kürsüsü, bütün gökleri ve yeri kaplayıp-kuşatmıştır. Onların korunması O'na güç gelmez. O, pek Yücedir, pek büyüktür.",
+      "114:6": "Gerek cinlerden, gerekse insanlardan (olan her hannas'tan Allah'a sığınırım)."
+    },
+    "tr.ozturk": {
+      "1:1": "Rahman ve Rahîm Allah'ın adıyla...",
+      "2:255": "Allah'tan başka ilah yok. Hayy'dır O, sürekli diridir; Kayyûm'dur O, kudretin kaynağıdır. Ne gaflet yaklaşır O'na ne kendinden geçme ne de uyku. Göklerde ne var, yerde ne varsa yalnız O'nundur. O'nun huzurunda, bizzat O'nun izni olmadıkça, kim şefaat edebilir! O, insanların önden gönderdiklerini de bilir, arkada bıraktıklarını da!... İnsanlar O'nun bilgisinden, bizzat kendisinin dilediği dışında, hiçbir şeyi kavrayıp kuşatamazlar. O'nun kürsüsü, gökleri ve yeri çepeçevre kuşatmıştır. Göklerin ve yerin korunması O'na hiç de zor gelmez. Aliyy'dir O, yüceliği sınırsızdır; Azim'dir O, büyüklüğü sınırsızdır.",
+      "114:6": "Cinlerden de insanlardan da olur o!\""
+    },
+    "tr.yildirim": {
+      "1:1": "Rahmân ve rahîm olan Allah'ın adıyla [59,22-24]",
+      "2:255": "Allah o İlâhtır ki Kendisinden başka ilâh yoktur. Haydır, kayyûmdur kendisini ne bir uyuklama, ne uyku tutamaz. Göklerde ve yerde ne varsa O'nundur. İzni olmadan huzurunda şefaat etmek kimin haddine? Yarattığı mahlûkların önünde ardında ne var, hepsini bilir. Mahlûklar ise O’nun dilediğinden başka, ilminden hiçbir şey kavrayamazlar. O’nun kürsüsü gökleri ve yeri kaplamıştır. Gökleri ve yeri koruyup gözetmek O’na ağır gelmez, O öyle ulu, öyle büyüktür. [19,93-95; 53,26; 21,28; 20,110] [KM, Tesniye 5,26; Tekvin 21,33; Çıkış 3,15]",
+      "114:6": "O şeytan, cinlerden de olur, insanlardan da olur. [6,112]"
+    },
+    "tr.ates": {
+      "1:1": "Rahman ve Rahim Allah'ın adıyla",
+      "2:255": "Allah, ki O'ndan başka tanrı yoktur, daima diri ve yaratıklarını koruyup yöneticidir. Kendisini ne bir uyuklama, ne de uyku tutmaz. Göklerde ve yerde olanların hepsi O'nundur. O'nun izni olmadan kendisinin katında kim şefaat edebilir? Onların önlerinde ve arkalarında olanı bilir. O'nun ilminden, ancak kendisinin dilediği kadarından başka bir şey kavrayamazlar. O'nun Kürsüsü, gökleri ve yeri kaplamıştır (O yüce padişah, göklere, yere, bütün kainata hükmetmektedir). Onları koru(yup gözet)mek, kendisine ağır gelmez. O yücedir, büyüktür.",
+      "114:6": "Gerek cinlerden, gerek insanlardan (olan bütün vesvesecilerin şerrinden Allah'a sığınırım)."
+    },
+    "tr.diyanet": {
+      "1:1": "Rahman ve Rahim olan Allah'ın adıyla:",
+      "2:255": "Allah, O'ndan başka tanrı olmayan, kendisini uyuklama ve uyku tutmayan, diri, her an yaratıklarını gözetip durandır. Göklerde olan ve yerde olan ancak O'nundur. O'nun izni olmadan katında şefaat edecek kimdir? Onların işlediklerini ve işleyeceklerini bilir, dilediğinden başka ilminden hiçbir şeyi kavrayamazlar. Hükümranlığı gökleri ve yeri kaplamıştır, onların gözetilmesi O'na ağır gelmez. O yücedir, büyüktür.",
+      "114:6": "De ki: \"İnsanlardan ve cinlerden ve insanların gönüllerine vesvese veren o sinsi vesvesecinin şerrinden, insanların Tanrısı, insanların Hükümranı ve insanların Rabbi olan Allah'a sığınırım.\""
+    },
+    "tr.vakfi": {
+      "1:1": "Rahman (ve) rahim (olan) Allah'ın adıyla.",
+      "2:255": "Allah, O'ndan başka tanrı yoktur; O, hayydir, kayyumdur. Kendisine ne uyku gelir ne de uyuklama. Göklerde ve yerdekilerin hepsi O'nundur. İzni olmadan O'nun katında kim şefaat edebilir? O, kullarının yaptıklarını ve yapacaklarını bilir. (O'na hiçbir şey gizli kalmaz.) O'nun bildirdiklerinin dışında insanlar O'nun ilminden hiçbir şeyi tam olarak bilemezler. O'nun kürsüsü gökleri ve yeri içine alır, onları koruyup gözetmek kendisine zor gelmez. O, yücedir, büyüktür.",
+      "114:6": "Gerek cinlerden, gerek insanlardan(olan bütün vesvesecilerin şerrinden Allah'a sığınırım!"
+    },
+    "de.aburida": {
+      "1:1": "Im Namen Allahs, des Allerbarmers, des Barmherzigen!",
+      "2:255": "Allah kein Gott ist da außer Ihm, dem Lebendigen, dem Ewigen. Ihn ergreift weder Schlummer noch Schlaf. Ihm gehört, was in den Himmeln und was auf der Erde ist. Wer ist es, der bei Ihm Fürsprache einlegen könnte außer mit Seiner Erlaubnis? Er weiß, was vor ihnen und was hinter ihnen liegt; sie aber begreifen nichts von Seinem Wissen, es sei denn das, was Er will. Weit reicht Sein Thron über die Himmel und die Erde, und es fällt Ihm nicht schwer, sie (beide) zu bewahren. Und Er ist der Hohe, der Erhabene.",
+      "114:6": "sei dieser aus den Ginn oder den Menschen\""
+    },
+    "de.bubenheim": {
+      "1:1": "Im Namen Allahs, des Allerbarmers, des Barmherzigen.",
+      "2:255": "Allah - es gibt keinen Gott außer Ihm, dem Lebendigen und Beständigen. Ihn überkommt weder Schlummer noch Schlaf. Ihm gehört (alles), was in den Himmeln und was auf der Erde ist. Wer ist es denn, der bei Ihm Fürsprache einlegen könnte - außer mit Seiner Erlaubnis? Er weiß, was vor ihnen und was hinter ihnen liegt, sie aber umfassen nichts von Seinem Wissen - außer, was Er will. Sein Thronschemel umfaßt die Himmel und die Erde, und ihre Behütung beschwert Ihn nicht. Er ist der Erhabene und Allgewaltige.",
+      "114:6": "von den Ginn und den Menschen."
+    },
+    "de.zaidan": {
+      "1:1": "Bismil-lahir-rahmanir-rahim: Mit dem Namen ALLAHs, Des Allgnade Erweisenden, Des Allgnädigen, (rezitiere ich).",
+      "2:255": "ALLAH ist ER, es gibt keine Gottheit außer Ihm, Der Lebendige (ohne Ende), Der Allverantwortliche. Ihm kommt weder Schläfrigkeit noch Schlaf bei. Ihm gehört, was in den Himmeln und was auf Erden ist. Wer ist dieser, der bei Ihm Fürsprache einlegen könnte außer mit Seiner Zustimmung?! ER weiß, was vor ihnen und was hinter ihnen ist, doch sie umfassen nichts von Seinem Wissen außer dem, was ER will. Das Kursi von Ihm umfaßt die Himmel und die Erde, und Ihm fällt es nicht schwer, sie zu bewahren. Und ER ist Der Allhöchste, Der Allerhabene.",
+      "114:6": "von den Dschinn und den Menschen.\""
+    },
+    "fr.hamidullah": {
+      "1:1": "Au nom d'Allah, le Tout Miséricordieux, le Très Miséricordieux.",
+      "2:255": "Allah! Point de divinité à part Lui, le Vivant, Celui qui subsiste par lui-même «Al-Qayyûm». Ni somnolence ni sommeil ne Le saisissent. A Lui appartient tout ce qui est dans les cieux et sur la terre. Qui peut intercéder auprès de Lui sans Sa permission? Il connaît leur passé et leur futur. Et, de Sa science, ils n'embrassent que ce qu'Il veut. Son Trône «Kursiy», déborde les cieux et la terre, dont la garde ne Lui coûte aucune peine. Et Il est le Très Haut, le Très Grand.",
+      "114:6": "qu'il (le conseiller) soit un djinn, ou un être humain»."
+    },
+    "ru.abuadel": {
+      "1:1": "С именем Аллаха Милостивого, Милосердного!",
+      "2:255": "Аллах – нет бога [заслуживающего поклонение], кроме Него, (Он) – Живейший [извечный и вечно живой], Сущий [существует без нужды в ком-либо, и все нуждаются в Нем]; не берет Его ни дремота [полусон], ни сон; (только) Ему принадлежит (все) то, что в небесах и то, что на земле. Кто (может) заступится (за кого-либо) пред Ним, без Его позволения? Знает Он то, что будет впереди их [будущее] и что было позади их [прошлое], а они не постигают ничего из Его знания (о Нем Самом и то, что Он знает), кроме (только) того, что Он пожелает (чтобы они узнали). Объемлет Престол Его [аль-Курсий – место Его ступней] небеса и землю, и не тяготит Его [Ему не трудно] охрана их [небес и земли]; поистине, Он – Высочайший [выше всего сущего], Великий (Своей сущностью, властью и отличиями)!",
+      "114:6": "(И сатана бывает) из (числа) джиннов и людей [[Сатана-джин внушает в сознание людей, как это уже было разъяснено в предыдущем аяте. Внушение сатаны-человека происходит, когда он является в образе советчика к человеку. То, что внушил советчику сатана-джин, сатана-советчик передает человеку.]]."
+    },
+    "ru.kuliev": {
+      "1:1": "Во имя Аллаха, Милостивого, Милосердного!",
+      "2:255": "Аллах - нет божества, кроме Него, Живого, Вседержителя. Им не овладевают ни дремота, ни сон. Ему принадлежит то, что на небесах, и то, что на земле. Кто станет заступаться перед Ним без Его дозволения? Он знает их будущее и прошлое. Они постигают из Его знания только то, что Он пожелает. Его Престол (Подножие Трона) объемлет небеса и землю, и не тяготит Его оберегание их. Он - Возвышенный, Великий.",
+      "114:6": "и бывает из джиннов и людей»."
+    },
+    "ru.kuliev-alsaadi": {
+      "1:1": "Во имя Аллаха, Милостивого, Милосердного! [[Это означает: я начинаю во имя Аллаха. Из лексического анализа этого словосочетания ясно, что подразумеваются все прекрасные имена Всевышнего Господа. Аллах - одно из этих имен, означающее «Бог, Которого обожествляют и Которому поклоняются, Единственный, Кто заслуживает поклонения в силу Своих божественных качеств - качеств совершенства и безупречности». Прекрасные имена Милостивый и Милосердный свидетельствуют о Его великом милосердии, объемлющем всякую вещь и всякую тварь. Милосердия Аллаха в полной мере будут удостоены Его богобоязненные рабы, которые следуют путем Божьих пророков и посланников. А все остальные творения получат лишь часть Божьей милости. Следует знать, что все праведные богословы единодушно говорили о необходимости веры в Аллаха и Его божественные качества. Господь - Милостивый и Милосердный, то есть обладает милосердием, которое проявляется на Его рабах. Все блага и щедроты являются одним из многочисленных проявлений Его милости и сострадания. То же самое можно сказать и об остальных именах Аллаха. Он всеведущ, то есть обладает знанием обо всем сущем. Он всемогущ, то есть обладает могуществом и властен над всякой тварью.]]",
+      "2:255": "Аллах - нет божества, кроме Него, Живого, Вседержителя. Им не овладевают ни дремота, ни сон. Ему принадлежит то, что на небесах, и то, что на земле. Кто станет заступаться перед Ним без Его дозволения? Он знает их будущее и прошлое. Они постигают из Его знания только то, что Он пожелает. Его Престол (Подножие Трона) объемлет небеса и землю, и не тяготит Его оберегание их. Он - Возвышенный, Великий. [[Как сказал Пророк Мухаммад, да благословит его Аллах и приветствует, это - величайший из коранических аятов, потому что он содержит в себе свидетельства единобожия, а также величия и безграничности качеств Всевышнего Создателя. Аллах обладает всеми божественные качества и является Единственным, Кто заслуживает обожествления и поклонения, и поэтому обожествление других существ несправедливо и бесполезно. Живой - одно из прекрасных имен Аллаха. Оно означает, что Аллах объединяет в Себе самые прекрасные признаки жизни, среди которых - слух, зрение, могущество, воля и другие качества, связанные с Его сущностью. Поддерживающий жизнь - еще одно прекрасное имя Аллаха. Оно означает, что Он совершает самые совершенные дела. Он является Самодостаточным Властелином и не нуждается в творениях, но создает их, поддерживает их существование и обеспечивает их всем необходимым. Совершенная жизнь и самодостаточность Аллаха проявляются в том, что Его никогда не одолевают ни дремота, ни сон. Эти явления свойственны творениям - им присущи усталость, слабость и бессилие. Однако они совершенно чужды Аллаху, обладающему величием, могуществом и великолепием. Аллах сообщил, что Ему принадлежит власть над небесами и землей. Все творения - рабы Аллаха, и никто из них не способен избавиться от этой зависимости. Всевышний сказал: «Каждый, кто на небесах и на земле, явится к Милостивому только в качестве раба» (19:93). Аллах владеет Своими рабами и обладает властью, могуществом, величием и другими качествами Властелина и Правителя. Совершенство Его власти проявляется в том, что никто не способен ходатайствовать перед Ним без Его позволения. Все славные творения и заступники являются Его рабами и не могут заступиться за других, пока Аллах не позволит им сделать это. Всевышний сказал: «Скажи: “Аллаху принадлежит заступничество целиком. Ему принадлежит власть над небесами и землей, и к Нему вы будете возвращены”» (39:44). Аллах позволяет ходатайствовать только за тех, кем Он доволен, а доволен Он только теми, кто исповедует единобожие и следует путем Его посланников, и если человек не обладает этими качествами, то для него нет никакой доли в заступничестве. Затем Аллах поведал о Своем безграничном и всеобъемлющем знании, благодаря которому Ему известно обо всем, что ожидает творения в будущем, каким бы далеким оно не представлялось, и обо всем, что произошло с творениями в прошлом, каким бы далеким оно не было. Ничто нельзя утаить от Аллаха, Которому известно даже то, что украдкой подсматривают взоры, и то, что сокрыто в сердцах. Что же касается творений, то они способны постичь из недр Божьего знания только то, что пожелает Аллах. Он научил их религиозным предписаниям и вселенским законам, однако эти познания - всего лишь крошечная частица, которая буквально исчезает в океане божественного знания Великого Творца. Именно поэтому посланники и ангелы, которые лучше всех остальных творений осведомлены об Аллахе, говорили: «Пречист Ты! Мы знаем только то, чему Ты научил нас. Воистину, Ты - Знающий, Мудрый» (2:32). Затем Аллах возвестил о Своем могуществе и величии, свидетельством которого является Престол, объемлющий небеса и землю. Аллах оберегает небеса и землю, а также населяющие их творения благодаря установленному вселенскому порядку и определенным законам, по которым живут творения. Однако это совершенно не обременяет Его, поскольку Его могущество совершенно, власть безгранична, а предписания преисполнены мудрости. Одним из Его прекрасных имен является имя Возвышенный. Своей сущностью Он находится над творениями, Его качества преисполнены величия, Его могуществу покорны все создания и существа, Ему подвластны и послушны все рабы. Еще одним Его именем является имя Великий. Он объединяет в себе все качества величия, почета, великолепия и славы, благодаря чему сердца проникаются к Нему любовью, а души - почтением. Обладающие истинным знанием прекрасно знают, что величие любого творения, пусть даже самого прославленного и великого, ничтожно по сравнению с величием Возвышенного и Великого Господа. Этот аят действительно обладает славным и восхитительным смыслом и заслуживает называться самым великим из коранических аятов. И если человек читает его, размышляя над его значением и постигая его смысл, то его сердце наполняется убежденностью, знанием и верой, благодаря чему он защищает себя от злых происков сатаны.]]",
+      "114:6": "и бывает из джиннов и людей». [[В этой суре мусульманам повелевается прибегать к защите Господа, Царя и Бога всех людей от сатаны, который является прародителем всего зла. Он искушает людей, приукрашивает в их глазах зло и порок и возбуждает в них желание совершить грех. Наряду с этим он мешает людям творить добро и представляет его в дурном свете. Сатана непрестанно искушает людей, но отступает и исчезает, когда раб Божий вспоминает своего Господа и молит Его о помощи в борьбе с этим врагом. Вот почему правоверные должны прибегать за помощью к Тому, кто властен над людьми и всеми другими творениями и ради поклонения кому они были сотворены. Люди не обретут счастья, пока не избавятся от своего врага, который жаждет отрезать их от всех благ и встать между ними, который стремится обратить их в своих клевретов и превратить в обитателей Ада. Но следует помнить, что искушению можно поддаться не только под влиянием сатаны, но и под воздействием людей. Хвала Аллаху, Господу миров, обращенная к Нему Одному прежде всякой вещи и в завершении всего!]]"
+    },
+    "ru.osmanov": {
+      "1:1": "Во имя Аллаха, Милостивого, Милосердного.",
+      "2:255": "Аллах - нет божества, кроме Него, вечно живого, вечно сущего. Не властны над Ним ни дремота, ни сон. Ему принадлежит то, что на небесах, и то, что на земле. Кто же станет без Его соизволения заступничать перед Ним [за кого бы то ни было]? Он знает то, что было до людей и что будет после них. Люди же постигают из Его знания лишь то, что Он пожелает. Ему подвластны небеса и земля, Ему не в тягость их охранять. Он - всевышний, великий.",
+      "114:6": "как джиннов, так и людей [представляющего]\"."
+    },
+    "ru.kalam": {
+      "1:1": "Хвала Аллаху – Господу миров [создавшему мир и управляющему им],",
+      "2:255": "Аллах – нет бога [достойного поклонения], кроме Него, Живого, Вечного [чье существование не имеет ни начала, ни конца]. Им не овладевают ни дремота, ни сон. Ему принадлежит все, что на небесах, и все, что на земле. Кто может заступиться перед Ним без Его дозволения? Он знает их [творений] будущее и прошлое. Они постигают из Его знания только то, что Он пожелает [им открыть]. Его Курси объемлет небеса и землю, и Ему не трудно сохранять их [в порядке]. Он – Возвышенный [не имеющий недостатков и сходства с творениями], Великий.",
+      "114:6": "[Шайтан бывает] Из джиннов и людей»."
+    },
+    "ru.muntahab": {
+      "1:1": "Сура начинается именем Аллаха Единого, Совершенного, Всемогущего, Безупречного. Он - Милостивый, Податель Блага (великого и малого, общего и частного) и вечно Милосердный. [[Во имя Аллаха Милостивого, Милосердного! Эта сура мекканского происхождения. Она была ниспослана пророку Мухаммаду - да благословит его Аллах и приветствует! - до хиджры. Сура состоит из 7 айатов. Она называется \"Открывающая Книгу\" (аль-Фатиха), потому что это первая сура по порядку расположения в Благородном Коране и первая сура, ниспосланная полностью. В этой суре говорится о совокупности идей и общем значении Корана, который подтверждает единобожие, является благой вестью для верующих, предупреждает о наказании неверующих и грешников, указывает на необходимость поклонения Господу, на путь к счастью в настоящей и будущей жизни и рассказывает о тех, которые повиновались Аллаху и обрели блаженство, и о тех, которые не повиновались Ему и оказались в убытке, и поэтому эта сура называется \"Мать Книги\".]]",
+      "2:255": "Аллах - нет божества, кроме Него, и только Ему мы должны поклоняться. Аллах - Живой, Сущий и хранит существование всех людей. Его не объемлет ни дремота, ни сон; Он один владеет тем, что в небесах и на земле; и нет Ему равных. Кто заступится за другого перед Ним без Его дозволения? Аллах - слава Ему Всевышнему! - знает всё, что было и что будет. Никто не может постигнуть ничего из Его мудрости и знания, кроме того, что Он дозволит. Трон Аллаха, Его знания и Его власть обширнее небес и земли, и не тяготит Его охрана их. Поистине, Он - Всевышний, Единый и Великий!",
+      "114:6": "будь искуситель джинном или человеком."
+    },
+    "id.indonesian": {
+      "1:1": "Dengan menyebut nama Allah Yang Maha Pemurah lagi Maha Penyayang.",
+      "2:255": "Allah, tidak ada Tuhan (yang berhak disembah) melainkan Dia Yang Hidup kekal lagi terus menerus mengurus (makhluk-Nya); tidak mengantuk dan tidak tidur. Kepunyaan-Nya apa yang di langit dan di bumi. Tiada yang dapat memberi syafa'at di sisi Allah tanpa izin-Nya? Allah mengetahui apa-apa yang di hadapan mereka dan di belakang mereka, dan mereka tidak mengetahui apa-apa dari ilmu Allah melainkan apa yang dikehendaki-Nya. Kursi Allah meliputi langit dan bumi. Dan Allah tidak merasa berat memelihara keduanya, dan Allah Maha Tinggi lagi Maha Besar.",
+      "114:6": "dari (golongan) jin dan manusia."
+    },
+    "id.muntakhab": {
+      "1:1": "[[1 ~ FATIHAH AL-KITAB (PEMBUKA KITAB SUCI) Pendahuluan: Makkiyyah, 7 ayat ~ Surat al-Fâtihah ini termasuk kelompok surat Makkiyyah yang turun di Mekah sebelum hijrah. Disebut al-Fâtihah (pembuka), karena letaknya yang berada urutan pertama surat-surat al-Qur'ân. Surat yang pertama diturunkan secara lengkap di antara surat-surat yang ada dalam al-Qur'ân ini merupakan intisari dari seluruh kandungan al-Qur'ân yang kemudian diperinci oleh surat-surat sesudahnya. Tema-tema pokok al-Qur'ân--seperti penjelasan tawhid dan keimanan, janji dan kabar gembira bagi orang-orang Mukmin, ancaman dan peringatan bagi orang-orang kafir dan pelaku kejahatan, tentang ibadah, kisah orang-orang yang beruntung karena taat kepada Allah dan sengsara karena mengingkari-Nya--semua itu tercermin secara singkat dalam surat ini. Oleh sebab itu, surat ini juga disebut dengan nama Umm al-Kitâb (induk al-Qur'ân).]] Surat ini dimulai dengan menyebut nama Allah--satu-satunya Tuhan yang berhak disembah--Yang memiliki seluruh sifat kesempurnaan dan tersucikan dari segala bentuk kekurangan. Dialah Pemilik rahmah (sifat kasih) yang tak habis-habisnya, Yang menganugerahkan segala macam kenikmatan, baik besar maupun kecil.",
+      "2:255": "Hanya Allahlah yang berhak untuk disembah. Dia hidup kekal dan terus-menerus mengurus makhluk ciptaan-Nya tanpa pernah lalai. Dia tidak pernah ceroboh atau tidur, sebab Dia tidak memiliki sifat kekurangan. Hanya Dialah yang memiliki langit dan bumi, tidak ada seorang pun yang menyertai-Nya. Maka dari itu, tak seorang makhluk pun dapat memberi syafaat kepada yang lainnya kecuali dengan izin Allah. Allah Swt. mengetahui segala sesuatu yang telah dan akan terjadi. Tidak ada seorang pun mampu mengetahui ilmu Allah kecuali orang-orang yang dipilih-Nya. Kekuasaan-Nya sangat luas, meliputi langit dan bumi. Tidak sulit bagi-Nya mengatur itu semua, sebab Dia terhindar dari sifat kurang dan lemah, dan Mahaagung dengan kekuasaan-Nya.",
+      "114:6": "Yaitu jin dan manusia."
+    },
+    "ms.basmeih": {
+      "1:1": "Dengan nama Allah, Yang Maha Pemurah, lagi Maha Mengasihani.",
+      "2:255": "Allah, tiada Tuhan (yang berhak disembah) melainkan Dia, Yang Tetap hidup, Yang Kekal selama-lamanya mentadbirkan (sekalian makhlukNya). Yang tidak mengantuk usahkan tidur. Yang memiliki segala yang ada di langit dan yang ada di bumi. Tiada sesiapa yang dapat memberi syafaat (pertolongan) di sisiNya melainkan dengan izinNya. yang mengetahui apa yang ada di hadapan mereka dan apa yang ada di belakang mereka, sedang mereka tidak mengetahui sesuatu pun dari (kandungan) ilmu Allah melainkan apa yang Allah kehendaki (memberitahu kepadanya). Luasnya Kursi Allah (ilmuNya dan kekuasaanNya) meliputi langit dan bumi; dan tiadalah menjadi keberatan kepada Allah menjaga serta memelihara keduanya. Dan Dia lah Yang Maha Tinggi (darjat kemuliaanNya), lagi Maha Besar (kekuasaanNya)",
+      "114:6": "\"(Iaitu pembisik dan penghasut) dari kalangan jin dan manusia\"."
+    },
+    "sq.nahi": {
+      "1:1": "Me emër të Allahut, Mëshirues dhe Përdëllimtar i Madh.",
+      "2:255": "Perëndia është – s’ka tjetër zot përveç Tij, (i cili) jeton përgjithmonë dhe zotëron (mbi të gjitha krijesat)! Atë nuk e kaplon as kotja as gjumi! Të Atij janë të gjitha ato që gjenden në qiej dhe në Tokë. Kush mund të angazhohet për ndokend pa lejën e Tij? Ai di çdo gjë që ka ndodhë përpara dhe çdo gjë që do të ndodhë në të ardhmen. Por, njerëzit, nuk dinë asgjë nga dijenia e Tij, përveç asaj që Ai ka dashur t’ua tregojë. Froni (Madhëria) e Tij përfshin qiejt dhe Tokën dhe Atij nuk i vie rëndë t’i ruajë ato. Ai është shumë i Lartë, i Madhëruar!",
+      "114:6": "prej xhindëve dhe prej njerëzve!”"
+    },
+    "sq.ahmeti": {
+      "1:1": "Me emrin e All-llahut, Mëshiruesit, Mëshirëbërësit!",
+      "2:255": "All-llahu - s’ka zot pos Tij. I Gjalli, Vigjiluesi. Nuk e ze të koturit, e as gjumi. E Tija është ç’ka në qiej dhe ç’ka në tokë. Kush mund të ndërmjetësojë te Ai, pos me lejën e Tij? Ai e di se ç’po u ndodhë dhe ç’do t’u ndodhë. Dhe asgjë nga dija e Tij nuk mund të përvetësojnë, pos sa të dojë Ai. Ndërsa pushteti i Tij përfshin qiejt dhe tokën. E nuk lodhet duke i ruajtur (mirëmbajtur), ngase Ai është i Larti, Madhështori. (Ky ajet quhet edhe “Ajetul-Kursij”)",
+      "114:6": "Qoftë ai nga xhinët ose nga njerëzit”."
+    },
+    "ha.gumi": {
+      "1:1": "Da sũnan Allah, Mai rahama, Mai jin ƙai.",
+      "2:255": "Allah, bãbu wani Ubangiji fãce Shi, Rãyayye, Mai tsayuwa da kõme, gyangyaɗi bã ya kãma Shi, kuma barci bã ya kãma Shi, Shi ne da abin da yake a cikin sammai da abin da yake a cikin ƙasa. Wane ne wanda yake yin cẽto a wurinSa, fãce da izninSa? Yana sanin abin da yake a gaba gare su da abin da yake a bãyansu. Kuma bã su kẽwayẽwa da kõme daga ilminSa, fãce da abin da Ya so. KursiyyunSa ya yalwaci sammai da ƙasa. Kuma tsare su bã ya nauyayarSa. Kuma Shi ne Maɗaukaki, Mai girma.",
+      "114:6": "\"Daga aljannu da mutane.\""
+    },
+    "hi.farooq": {
+      "1:1": "अल्लाह के नाम से जो बड़ा कृपालु और अत्यन्त दयावान हैं।",
+      "2:255": "अल्लाह कि जिसके सिवा कोई पूज्य-प्रभु नहीं, वह जीवन्त-सत्ता है, सबको सँभालने और क़ायम रखनेवाला है। उसे न ऊँघ लगती है और न निद्रा। उसी का है जो कुछ आकाशों में है और जो कुछ धरती में है। कौन है जो उसके यहाँ उसकी अनुमति के बिना सिफ़ारिश कर सके? वह जानता है जो कुछ उनके आगे है और जो कुछ उनके पीछे है। और वे उसके ज्ञान में से किसी चीज़ पर हावी नहीं हो सकते, सिवाय उसके जो उसने चाहा। उसकी कुर्सी (प्रभुता) आकाशों और धरती को व्याप्त है और उनकी सुरक्षा उसके लिए तनिक भी भारी नहीं और वह उच्च, महान है",
+      "114:6": "जो जिन्नों में से भी होता हैं और मनुष्यों में से भी"
+    },
+    "hi.hindi": {
+      "1:1": "अल्लाह के नाम से जो रहमान व रहीम है।",
+      "2:255": "ख़ुदा ही वो ज़ाते पाक है कि उसके सिवा कोई माबूद नहीं (वह) ज़िन्दा है (और) सारे जहान का संभालने वाला है उसको न ऊँघ आती है न नींद जो कुछ आसमानो में है और जो कुछ ज़मीन में है (गरज़ सब कुछ) उसी का है कौन ऐसा है जो बग़ैर उसकी इजाज़त के उसके पास किसी की सिफ़ारिश करे जो कुछ उनके सामने मौजूद है (वह) और जो कुछ उनके पीछे (हो चुका) है (खुदा सबको) जानता है और लोग उसके इल्म में से किसी चीज़ पर भी अहाता नहीं कर सकते मगर वह जिसे जितना चाहे (सिखा दे) उसकी कुर्सी सब आसमानॊं और ज़मीनों को घेरे हुये है और उन दोनों (आसमान व ज़मीन) की निगेहदाश्त उसपर कुछ भी मुश्किल नहीं और वह आलीशान बुजुर्ग़ मरतबा है",
+      "114:6": "जिन्नात में से ख्वाह आदमियों में से"
+    },
+    "ml.abdulhameed": {
+      "1:1": "പരമകാരുണികനും കരുണാനിധിയുമായ അല്ലാഹുവിന്റെ നാമത്തില്‍ .",
+      "2:255": "അല്ലാഹു - അവനല്ലാതെ ദൈവമില്ല. എന്നെന്നും ജീവിച്ചിരിക്കുന്നവന്‍. എല്ലാം നിയന്ത്രിക്കുന്നവന്‍. മയക്കമോ ഉറക്കമോ അവനെ ബാധിക്കുകയില്ല. അവന്റേതാണ് ആകാശഭൂമികളിലുള്ളതെല്ലാം. അവന്റെ അനുവാദപ്രകാരമല്ലാതെ അവന്‍റെയടുക്കല്‍ ശുപാര്‍ശ നടത്താനാരുണ്ട് ? അവരുടെ മുമ്പിലുള്ളതും അവര്‍ക്ക് പിന്നിലുള്ളതും അവന്‍ അറിയുന്നു. അവന്റെ അറിവില്‍ നിന്ന് അവന്‍ ഇച്ഛിക്കുന്നതല്ലാതെ (മറ്റൊന്നും) അവര്‍ക്ക് സൂക്ഷ്മമായി അറിയാന്‍ കഴിയില്ല. അവന്റെ അധികാരപീഠം ആകാശഭൂമികളെ മുഴുവന്‍ ഉള്‍കൊള്ളുന്നതാകുന്നു. അവയുടെ സംരക്ഷണം അവന്ന് ഒട്ടും ഭാരമുള്ളതല്ല. അവന്‍ ഉന്നതനും മഹാനുമത്രെ.",
+      "114:6": "മനുഷ്യരിലും ജിന്നുകളിലും പെട്ടവര്‍."
+    },
+    "ml.karakunnu": {
+      "1:1": "പരമകാരുണികനും ദയാപരനുമായ അല്ലാഹുവിന്റെ നാമത്തില്‍.",
+      "2:255": "അല്ലാഹു; അവനല്ലാതെ ദൈവമില്ല. അവന്‍ എന്നെന്നും ‎ജീവിച്ചിരിക്കുന്നവന്‍; എല്ലാറ്റിനെയും ‎പരിപാലിക്കുന്നവന്‍; മയക്കമോ ഉറക്കമോ അവനെ ‎ബാധിക്കുകയില്ല. ആകാശഭൂമികളിലുള്ളതൊക്കെയും ‎അവന്റേതാണ്. അവന്റെ അടുക്കല്‍ അനുവാദമില്ലാതെ ‎ശിപാര്‍ശ ചെയ്യാന്‍ കഴിയുന്നവനാര്? അവരുടെ ‎ഇന്നലെകളിലുണ്ടായതും ‎നാളെകളിലുണ്ടാകാനിരിക്കുന്നതും അവനറിയുന്നു. ‎അവന്റെ അറിവില്‍നിന്ന് അവനിച്ഛിക്കുന്നതല്ലാതെ ‎അവര്‍ക്കൊന്നും അറിയാന്‍ സാധ്യമല്ല. അവന്റെ ‎ആധിപത്യം ആകാശഭൂമികളെയാകെ ‎ഉള്‍ക്കൊണ്ടിരിക്കുന്നു. അവയുടെ സംരക്ഷണം ‎അവനെയൊട്ടും തളര്‍ത്തുന്നില്ല. അവന്‍ അത്യുന്നതനും ‎മഹാനുമാണ്. ‎",
+      "114:6": "മനുഷ്യരിലും ജിന്നുകളിലും പെട്ടവനും."
+    },
+    "ps.abdulwali": {
+      "1:1": "د الله په نامه سره (شروع كوم) چې ډېر زیات مهربان، بې حده رحم كوونكى دى",
+      "2:255": "الله (چې دى) نشته هېڅ لايق د عبادت مګر هم دى دى، همېشه ژوندى دى، د ټول عالم انتظام كوونكى دى، په ده نه پركالي راځي، او نه خوب، خاص هم ده لره دي هغه څه چې په اسمانونو كې دي، او هغه څه چې په ځمكه كې دي، څوك دى هغه كس چې د ده په وړاندې به سفارش كوي مګر د ده په اجازت سره؟ هغه پوهېږي په هر هغه څه چې د دوى په وړاندې دي او په هر هغه څه چې د دوى وروسته دي، او دوى (مخلوق) د هغه له علم نه هېڅ شى هم نشي راګېرولى، مګر هغه څه چې هغه (الله) يې وغواړي۔، د هغه كرسۍ اسمانونه او ځمكه راځای كړي (راګېر) كړي دي او د دې دواړو ساتنه هغه (الله) نه ستړى كوي، او هم هغه ډېر اوچت دى، ډېر لوى دى",
+      "114:6": "چی (دغه وسوسې اچوونكي) له پېریانو او انسانانو ځنې دي"
+    },
+    "sd.amroti": {
+      "1:1": "الله ٻاجھاري مھربان جي نالي سان (شروع)",
+      "2:255": "الله (اُھو آھي جو) اُن کان سواءِ ڪو عبادت جي لائق نه آھي، (اُھو سدائين) جيئرو (جھانن کي) بيھڪ ڏيندڙ آھي، کيس نڪي پنڪي ۽ نڪي ننڊ وٺندي آھي، جيڪي آسمانن ۾ آھي ۽ جيڪي زمين ۾ آھي سو (سڀ) سندس (ملڪيت) آھي. ڪير آھي جو سندس موڪل ڌاران وٽس پارت ڪري سگھي؟ جيڪي اُنھن (مخلوقن) جي اڳيان آھي ۽ جيڪي سندن پوئتان آھي سو (سڀ) ڄاڻندو آھي، ۽ جيڪي گھري تنھن کان سواءِ سندس علم مان ڪنھن ذري کي (اُھي) گھيرو ڪري نه سگھندا آھن، سندس (بادشاھيءَ جي) ڪرسيءَ آسمانن ۽ زمين کي لپيٽيو آھي، ۽ اُنھن جي سنڀال کيس نه ٿڪائيندي آھي، ۽ اُھو (سڀ کان) مٿاھون وڏي وڏائيءَ وارو آھي.",
+      "114:6": "جو جنن (جي جنس) مان ھجي يا ماڻھن (جي جنس) مان."
+    },
+    "so.abduh": {
+      "1:1": "Magaca Eebe yaan kubillaabaynaa ee Naxariis guud iyo mid gaaraba Naxariista.",
+      "2:255": "Eebe Ilaahaan isada ahayn ma jiro, waana Eebaha Nool, Khalqigana maamula. Ma qabato Lulmo iyo hurdo (midna) wuxuuna iska leeyahay waxa Samooyinka ka sugan iyo Dhulka, waa kuma kan ka shafeeci agtiisa (Eebe) idankiisa mooyee, wuxuu ogyahay (Eebe) waxa Dadka hortooda ah iyo waxa ka dambeeya mana koobaan wax Cilmigiisa ah, wuxuu Eebe doono mooyee, wuuna u waasacnoqday kursigiisu Samaawaadka iyo Dhulka, mana Cusleeyo ilaalinteedu, Eebana waa sareeye wayn.",
+      "114:6": "«Kuwaas wax waswaasinayna» oo ah jinni iyo insiba."
+    },
+    "sw.barwani": {
+      "1:1": "KWA JINA LA MWENYEZI MUNGU MWINGI WA REHEMA MWENYE KUREHEMU.",
+      "2:255": "Mwenyezi Mungu - hapana mungu ila Yeye Aliye hai, Msimamia mambo yote milele. Hashikwi na usingizi wala kulala. Ni vyake pekee vyote viliomo mbinguni na duniani. Ni nani huyo awezaye kuombea mbele yake bila ya idhini yake? Anayajua yaliyo mbele yao na yaliyo nyuma yao; wala wao hawajui chochote katika vilio katika ujuzi wake, ila kwa atakalo mwenyewe. Enzi yake imetanda mbinguni na duniani; na wala haemewi na kuvilinda hivyo. Na Yeye ndiye aliye juu, na ndiye Mkuu.",
+      "114:6": "Kutokana na majini na wanaadamu."
+    },
+    "sv.bernstrom": {
+      "1:1": "I GUDS, DEN NÅDERIKES, DEN BARMHÄRTIGES NAMN",
+      "2:255": "GUD - det finns ingen gud utom Han, den Levande, skapelsens evige Vidmakthållare. Slummer överraskar Honom inte och inte heller sömn. Honom tillhör allt det som himlarna rymmer och det som jorden bär. Vem är den som vågar tala [för någon] inför Honom utan Hans tillstånd? Han vet allt vad [människor] kan veta och allt som är dolt för dem och av Hans kunskap kan de inte omfatta mer än Han tillåter. Hans allmakts tron omsluter himlarna och jorden. Att värna och bevara dem är för Honom ingen börda. Han är den Höge, den Härlige.",
+      "114:6": "[viskar] genom [onda] osynliga väsen och [deras likar bland] människorna.\""
+    },
+    "tt.nugman": {
+      "1:1": "Рәхимле шәфкатьле Аллаһ исеме белән башлыйм эшемне.",
+      "2:255": "Гыйбадәт кылырга яраклы һич бер зат юк, мәгәр Аллаһ үзе генә, Ул һәр вакыт тере, бөтен нәрсәгә хуҗа булганы хәлдә һәрвакыт бар. Аны ару, талу һәм йокы тотмас, җирдә һәм күкләрдә булган нәрсәләр аныкыдыр. Ахирәттә Аллаһ хозурында кем кемгә шәфәгать кылыр? Юк, шәфәгать кылучы булмас, һичкем үз теләге белән һичкемгә шәфәгать кыла алмас, мәгәр Аллаһ рөхсәте белән генә шәфәгать кылучы булыр. Аллаһ кешеләрнең үткәндәге барча эшләрен һәм алдагы барча эшләрен белер, кешеләр Аллаһ белеменнән һичнәрсәне чолгап ала алмаслар, мәгәр Аллаһ белдергәнне генә белерләр. Аллаһуның бушлык урыны җирне һәм күкләрне сыйдырды, Аллаһуга җирне һәм күкләрне саклау авыр түгел, ул Аллаһ дәрәҗәдә бик бөек һәм бик олугъ.",
+      "114:6": "Ул ханнәс җеннәрдән дә һәм кешеләрдән дә бардыр. (Ягъни җеннәрнең һәм адәмнәрнең яманлыкларыннан явызлыкларыннан сыенамын. Зарар теләүчеләрнең зарарыннан һәрвакыт Аллаһуга сыенып йөрү – һәр мөселманга ляземдер.)"
+    },
+    "ug.saleh": {
+      "1:1": "ناھايىتى شەپقەتلىك ۋە مېھرىبان اﷲ نىڭ ئىسمى بىلەن باشلايمەن",
+      "2:255": "بىر اﷲ تىن باشقا ھېچ ئىلاھ يوقتۇر؛ اﷲ ھەمىشە تىرىكتۇر، ھەممىنى ئىدارە قىلىپ تۇرغۇچىدۇر؛ ئۇ مۈگدەپ قالمايدۇ، ئۇنى ئۇيقۇ باسمايدۇ؛ ئاسمانلاردىكى ۋە زېمىندىكى ھەممە نەرسە اﷲ نىڭ (مۈلكى) دۇر؛ اﷲ نىڭ رۇخسىتىسىز كىممۇ اﷲ نىڭ ئالدىدا شاپائەت قىلالىسۇن؛ اﷲ ئۇلارنىڭ ئالدىدىكى (يەنى دۇنيادا قىلغان)، كەينىدىكى (يەنى ئۇلار ئۈچۈن ئاخىرەتتە تەييارلىغان) ئىشلارنىڭ ھەممىسىنى بىلىپ تۇرىدۇ؛ ئۇلار اﷲ نىڭ مەلۇماتىدىن (اﷲ) ئۇلارغا بىلدۈرۈشنى خالىغان نەرسىلەردىن (يەنى پەيغەمبەرلەرنىڭ تىلى ئارقىلىق بىلدۈرگەن نەرسىلەردىن) باشقا ھېچ نەرسىنى بىلمەيدۇ، اﷲ نىڭ كۇرسى (مەلۇماتى) ئاسمانلارنى ۋە زېمىننى ئۆز ئىچىگە ئالىدۇ. ئاسمان - زېمىننى ساقلاش ئۇنىڭغا ئېغىر كەلمەيدۇ. ئۇ يۇقىرى مەرتىۋىلىكتۇر، ھەممىدىن ئۇلۇغدۇر",
+      "114:6": "«ئىنسانلارنىڭ پەرۋەردىگارى، ئىنسانلارنىڭ پادىشاھى، ئىنسانلارنىڭ ئىلاھى (اﷲ) غا سېغىنىپ، كىشىلەرنىڭ دىللىرىدا ۋەسۋەسە قىلغۇچى جىنلاردىن ۋە ئىنسانلاردىن بولغان يوشۇرۇن شەيتاننىڭ ۋەسۋەسىسىنىڭ شەررىدىن پاناھ تىلەيمەن» دېگىن"
+    },
+    "uz.sodik": {
+      "1:1": "Меҳрибон ва раҳмли Аллоҳнинг номи билан бошлайман. (Аллоҳ таоло ўз китобини \"бисмиллаҳ\" билан бошлагани мусулмонларга ҳам ўрнак, улар ҳам доим ўз сўзларини ва ишларини \"бисмиллаҳ\" билан бошламоқлари лозим. Пайғамбар алайҳиссалом ҳадисларидан бирида: \"Эътиборли ҳар бир иш \"бисмиллаҳ\" билан бошланмас экан, унинг охири кесикдир\", деганлар. Яъни, баракаси бўлмайди, охирига етмайди.)",
+      "2:255": "Аллоҳ Ундан ўзга илоҳ йўқ зотдир. У тирик ва қаййумдир. Уни мудроқ ҳам, уйқу ҳам олмас. Осмонлару ердаги нарсалар Уникидир. Унинг ҳузурида Ўзининг изнисиз ҳеч ким шафоат қила олмас. У уларнинг олдиларидаги нарсани ҳам, ортларидаги нарсани ҳам билур. Унинг илмидан ҳеч нарсани иҳота қила олмаслар, магар Ўзи хоҳлаганини, халос. Унинг курсиси осмонлару ерни қамраган. Уларни муҳофаза қилиш Уни чарчатмас. Ва У Олий ва Азим зотдир. (Имом Муслим ва Имом Аҳмад Убай ибн Каъб розийаллоҳу анҳудан ривоят қилган ҳадисда, Аллоҳдаги китобидаги энг улуғ оят Курси ояти эканлиги таъкидланган. Имом Насаий Абу Умомадан ривоят қилган ҳадисда Пайғамбаримиз алайҳиссалом: «Ким ҳар фарз намоздан кейин «Оятул Курсий»ни ўқиса, унинг жаннатга киришини фақат ўлим тўсиб туради, холос», деганлар. Яъни, ўлмагани учун жаннатга кирмайди, агар вафот этса, уни жаннатдан тўсадиган ҳеч нарса қолмайди, дегани.)",
+      "114:6": "Жинлардан ва одамлардан бўлганнинг ёмонлигидан, деб айт. (Оятда зикр қилинган «беркиниб, кўриб турувчи»дан мурод шайтондир.)"
+    },
+    "bn.hoque": {
+      "1:1": "আল্লাহর নাম নিয়ে (আরম্ভ করছি), (যিনি) রহমান (--পরম করুণাময়, যিনি অসীম করুণা ও দয়া বশতঃ বিশ্বজগতের সমস্ত সৃষ্টির সহাবস্থানের প্রয়োজনীয় সব ব্যবস্থা অগ্রিম করে রেখেছেন), (যিনি) রহীম (--অফুরন্ত ফলদাতা, যাঁর অপার করুণা ও দয়ার ফলে প্রত্যেকের ক্ষুদ্রতম শুভ-প্রচেষ্টাও বিপুলভাবে সাফল্যমণ্ডিত ও পুরস্কৃত হয়ে থাকে)।",
+      "2:255": "আল্লাহ্ -- তিনি ছাড়া অন্য উপাস্য নেই, -- চিরজীবন্ত, সদা-বিদ্যমান, তন্দ্রা তাঁকে অভিভূত করতে পারে না, নিদ্রাও নয়। তাঁরই হচ্ছে যা-কিছু আছে মহাকাশমন্ডলে এবং যা-কিছু পৃথিবীতে। কে আছে যে তাঁর দরবারে সুপারিশ করতে পারে তার অনুমতি ছাড়া? তিনি জানেন কি আছে তাদের সামনে এবং কি আছে তাদের পেছনে; আর তাঁর জ্ঞানের কিছুই তারা ধারণা করতে পারে না তিনি যা ইচ্ছা করেন তা ব্যতীত। তাঁর মহাসিংহাসন মহাকাশমন্ডলী ও পৃথিবীতে ব্যাপ্ত; এদের উভয়ের হেফাজত তাঁকে ক্লান্ত করে না, আর তিনি সর্বোচ্চে অধিষ্ঠিত, মহামহিম।",
+      "114:6": "''জিনের অথবা মানুষের মধ্যে থেকে।’’"
+    },
+    "bn.bengali": {
+      "1:1": "শুরু করছি আল্লাহর নামে যিনি পরম করুণাময়, অতি দয়ালু।",
+      "2:255": "আল্লাহ ছাড়া অন্য কোন উপাস্য নেই, তিনি জীবিত, সবকিছুর ধারক। তাঁকে তন্দ্রাও স্পর্শ করতে পারে না এবং নিদ্রাও নয়। আসমান ও যমীনে যা কিছু রয়েছে, সবই তাঁর। কে আছ এমন, যে সুপারিশ করবে তাঁর কাছে তাঁর অনুমতি ছাড়া? দৃষ্টির সামনে কিংবা পিছনে যা কিছু রয়েছে সে সবই তিনি জানেন। তাঁর জ্ঞানসীমা থেকে তারা কোন কিছুকেই পরিবেষ্টিত করতে পারে না, কিন্তু যতটুকু তিনি ইচ্ছা করেন। তাঁর সিংহাসন সমস্ত আসমান ও যমীনকে পরিবেষ্টিত করে আছে। আর সেগুলোকে ধারণ করা তাঁর পক্ষে কঠিন নয়। তিনিই সর্বোচ্চ এবং সর্বাপেক্ষা মহান।",
+      "114:6": "জ্বিনের মধ্য থেকে অথবা মানুষের মধ্য থেকে।"
+    },
+    "am.sadiq": {
+      "1:1": "በአላህ ስም እጅግ በጣም ሩኅሩህ በጣም አዛኝ በኾነው፡፡",
+      "2:255": "አላህ ከእርሱ በቀር ሌላ አምላክ የለም፡፡ ሕያው ራሱን ቻይ ነው፡፡ ማንገላጀትም እንቅልፍም አትይዘውም፡፡ በሰማያት ውስጥና በምድር ውስጥ ያለው ሁሉ የርሱ ብቻ ነው፡፡ ያ እርሱ ዘንድ በፈቃዱ ቢኾን እንጅ የሚያማልድ ማነው? (ከፍጡሮች) በፊታቸው ያለውንና ከኋላቸው ያለውን ሁሉ ያውቃል፡፡ በሻውም ነገር እንጂ ከዕውቀቱ በምንም ነገር አያካብቡም (አያውቁም)፡፡ መንበሩ ሰማያትንና ምድርን ሰፋ፡፡ ጥበቃቸውም አያቅተውም፡፡ እርሱም የሁሉ በላይ ታላቅ ነው፡፡",
+      "114:6": "«ከጋኔኖችም ከሰዎችም (ሰይጣናት እጠበቃለሁ በል)፡፡»"
+    },
+    "az.mammadaliyev": {
+      "1:1": "Mərhəmətli, rəhmli Allahın adı ilə!",
+      "2:255": "Allah başqa heç bir tanrı yoxdur. (Zatı və kamal sifətləri ilə hər şeyə qadir olub bütün kainatı yaradan və idarə edən, bəndələrini dolandıran və onların işlərini yoluna qoyan) əbədi, əzəli varlıq Odur. O nə mürgü, nə də yuxu bilər. Göylərdə və yerdə nə varsa (hamısı) Onundur. Allahın izni olmadan (qiyamətdə) Onun yanında (hüzurunda) kim şəfaət (bu və ya digər şəxsin günahlarının bağışlanmasını xahiş) edə bilər? O, bütün yaranmışların keçmişini və gələcəyini (bütün olmuş və olacaq şeyləri) bilir. Onlar (yaranmışlar) Allahın elmindən Onun Özünün istədiyindən başqa heç bir şey qavraya bilməzlər. Onun kürsünü (elmi, qüdrət və səltənəti) göyləri və yeri əhatə etmişdir. Bunları mühafizə etmək Onun üçün heç də çətin deyildir. Ən uca, ən böyük varlıq da Odur!",
+      "114:6": "(O Şeytan ki) cinlərdən də olur, insanlardan da! (Və ya: (o Şeytan) istər cinlərdən olsun, istər insanlardan!)”"
+    },
+    "az.musayev": {
+      "1:1": "Mərhəmətli və Rəhmli Allahın adı ilə!",
+      "2:255": "Allah, Ondan başqa ibadətə layiq olan məbud yoxdur, əbədi Yaşayandır, bütün yaratdıqlarının Qəyyumudur. Onu nə mürgü, nə də yuxu tutar. Göylərdə və yerdə nə varsa, Ona məxsusdur. Onun izni olmadan Onun yanında kim havadarlıq edə bilər? O, məxluqatın gələcəyini və keçmişini bilir. Onlar Onun elmindən, Onun istədiyindən başqa heç bir şey qavraya bilməzlər. Onun Kürsüsü göyləri və yeri əhatə edir. Bunları qoruyub saxlamaq Ona ağır gəlmir. O, Ucadır, Uludur.",
+      "114:6": "cinlərdən də olur, insanlardan da!”"
+    },
+    "bs.korkut": {
+      "1:1": "U ime Allaha, Milostivog, Samilosnog!",
+      "2:255": "Allah je – nema boga osim Njega – Živi i Vječni! Ne obuzima Ga ni drijemež ni san! Njegovo je ono što je na nebesima i ono što je na Zemlji! Ko se može pred Njim zauzimati za nekoga bez dopuštenja Njegova?! On zna šta je bilo i prije njih i šta će biti poslije njih, a od onoga što On zna – drugi znaju samo onoliko koliko On želi. Moć Njegova obuhvaća i nebesa i Zemlju i Njemu ne dojadi održavanje njihovo; On je Svevišnji, Veličanstveni!",
+      "114:6": "od džina i od ljudi!\""
+    },
+    "bs.mlivo": {
+      "1:1": "U ime Allaha, Milostivog, Milosrdnog!",
+      "2:255": "Allah! Samo je On Bog! Živi, Samoopstojeći! Ne obuzima Ga drijemež, niti san. Njegovo je šta je u nebesima i šta je na Zemlji. Ko je taj ko će posredovati kod Njega, izuzev s dozvolom Njegovom? Zna šta je pred njima, i šta iza njih, a ne obuhvataju ništa od znanja Njegovog, izuzev šta htjedne. Kursijja Njegova obuhvata nebesa i Zemlju, i ne umara Ga održavanje njihovo. A On je Svevišnji, Veličanstveni.",
+      "114:6": "Od džinna i ljudi.\""
+    },
+    "es.garcia": {
+      "1:1": "En el nombre de Dios, el Compasivo con toda la creación, el Misericordioso con los creyentes.",
+      "2:255": "¡Dios! No existe nada ni nadie con derecho a ser adorado excepto Él, el Viviente [Eterno], el Sustentador [y Gobernador de toda la creación]. No Lo afectan somnolencia ni sueño. Suyo es cuanto hay en los cielos y la Tierra. ¿Quién podrá interceder ante Él si no es con Su permiso? Conoce el pasado y el futuro [lo manifiesto y lo oculto] y nadie abarca de Su conocimiento salvo lo que Él quiere. El escabel de Su Trono abarca los cielos y la Tierra, y la custodia [y mantenimiento] de ambos no Lo agobia. Y Él es el Sublime, el Grandioso.",
+      "114:6": "y existe entre los yinnes y entre los seres humanos\"."
+    },
+    "it.piccardo": {
+      "1:1": "In nome di Allah, il Compassionevole, il Misericordioso",
+      "2:255": "Allah! Non c'è altro dio che Lui, il Vivente, l'Assoluto. Non Lo prendon mai sopore, né sonno. A Lui appartiene tutto quello che è nei cieli e sulla terra. Chi può intercedere presso di Lui senza il Suo permesso? Egli conosce quello che è davanti a loro e quello che è dietro di loro e, della Sua scienza, essi apprendono solo ciò che Egli vuole. Il Suo Trono è più vasto dei cieli e della terra, e custodirli non Gli costa sforzo alcuno. Egli è l'Altissimo, l'Immenso.",
+      "114:6": "che [venga] dai dèmoni o dagli uomini”."
+    },
+    "pt.elhayek": {
+      "1:1": "Em nome de Deus, o Clemente, o Misericordioso.",
+      "2:255": "Deus! Não há mais divindade além d'Ele, Vivente, Subsistente, a Quem jamais alcança a inatividade ou o sono; d'Ele étudo quanto existe nos céus e na terra. Quem poderá interceder junto a Ele, sem a Sua anuência? Ele conhece tanto o passadocomo o futuro, e eles (humanos) nada conhecem a Sua ciência, senão o que Ele permite. O Seu Trono abrange os céus e aterra, cuja preservação não O abate, porque é o Ingente, o Altíssimo.",
+      "114:6": "Entre gênios e humanos!"
+    }
+  },
+  "errors": []
+}

@@ -94,6 +94,10 @@ Findings:
 
 ## Translations — `source/translation/<lang>/<lang>_translation_<n>.json`
 
+This section audits the three quranjson translation records only. The 65
+converted Tanzil datasets are audited separately in
+[`tanzil-validation.md`](tanzil-validation.md).
+
 ```jsonc
 {
   "name": "al-Fatihah",        // en and id only

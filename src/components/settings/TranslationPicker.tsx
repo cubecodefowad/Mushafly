@@ -91,7 +91,10 @@ export function TranslationPicker({
     if (open && !dialog.open) {
       setQuery("");
       dialog.showModal();
-      requestAnimationFrame(() => searchRef.current?.focus());
+      // showModal() focuses the first focusable element (the close button).
+      // Move focus to the search field immediately; requestAnimationFrame can
+      // be throttled in a background tab, which left focus on the close button.
+      searchRef.current?.focus();
     } else if (!open && dialog.open) {
       dialog.close();
     }

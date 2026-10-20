@@ -5,10 +5,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import {
   ArrowLeft,
   ArrowRight,
-  ChevronDown,
   Highlighter,
   History,
-  Languages,
   SlidersHorizontal,
 } from "lucide-react";
 import { AudioBar } from "@/components/audio/AudioBar";
@@ -21,7 +19,7 @@ import { useSettings } from "@/components/settings/SettingsProvider";
 import { TajweedLegend } from "@/components/tajweed/TajweedLegend";
 import { ReaderKey } from "@/components/tajweed/ReaderKey";
 import { AccuracyNotice } from "@/components/legal/AccuracyNotice";
-import { TranslationSelect } from "@/components/settings/TranslationSelect";
+import { TranslationPicker } from "@/components/settings/TranslationPicker";
 import { sourceInfo } from "@/data/attribution";
 import {
   TANZIL_TRANSLATIONS,
@@ -240,31 +238,18 @@ export function Reader({ surah }: { surah: SurahView }) {
               <Highlighter size={16} strokeWidth={1.8} aria-hidden />
               <span className="hidden text-[0.6875rem] lg:inline">Tajweed</span>
             </button>
-            <label
-              className="icon-button cursor-pointer px-1.5"
-              title="Translation language"
-            >
-              <Languages size={16} strokeWidth={1.8} aria-hidden />
-              <TranslationSelect
-                ariaLabel="Translation language"
-                value={settings.showTranslation ? settings.translation : "off"}
-                includeOff
-                onChange={(value) => {
-                  if (value === "off") {
-                    update({ showTranslation: false });
-                  } else {
-                    update({ translation: value, showTranslation: true });
-                  }
-                }}
-                className="max-w-[10rem] cursor-pointer appearance-none bg-transparent pr-0 text-[0.6875rem] text-current focus-visible:outline-none"
-              />
-              <ChevronDown
-                size={12}
-                strokeWidth={2}
-                className="pointer-events-none -ml-1 text-muted"
-                aria-hidden
-              />
-            </label>
+            <TranslationPicker
+              ariaLabel="Translation language"
+              value={settings.showTranslation ? settings.translation : "off"}
+              includeOff
+              onChange={(value) => {
+                if (value === "off") {
+                  update({ showTranslation: false });
+                } else {
+                  update({ translation: value, showTranslation: true });
+                }
+              }}
+            />
             <button
               type="button"
               className="icon-button px-2"

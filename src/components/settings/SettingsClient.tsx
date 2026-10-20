@@ -5,7 +5,7 @@ import { useState } from "react";
 import { ExternalLink, Monitor, Moon, Sun, Trash2 } from "lucide-react";
 import { useReadingState } from "@/components/bookmarks/ReadingStateProvider";
 import { useSettings } from "@/components/settings/SettingsProvider";
-import { TranslationSelect } from "@/components/settings/TranslationSelect";
+import { TranslationPicker } from "@/components/settings/TranslationPicker";
 import {
   TANZIL_TRANSLATIONS,
   groupedTranslations,
@@ -160,13 +160,14 @@ export function SettingsClient({
                 {activeTranslation.translator} · {activeTranslation.source}
               </p>
             </div>
-            <TranslationSelect
+            <TranslationPicker
+              variant="field"
               ariaLabel="Translation"
               value={settings.translation}
               onChange={(value) => {
                 if (value !== "off") update({ translation: value, showTranslation: true });
               }}
-              className="input w-full max-w-[18rem] text-xs"
+              className="w-full max-w-[18rem]"
             />
           </div>
 

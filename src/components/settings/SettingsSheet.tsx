@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { X } from "lucide-react";
 import { useSettings } from "@/components/settings/SettingsProvider";
-import { TranslationSelect } from "@/components/settings/TranslationSelect";
+import { TranslationPicker } from "@/components/settings/TranslationPicker";
 import { translationInfo } from "@/data/translations";
 
 type Props = {
@@ -99,13 +99,14 @@ export function SettingsSheet({ open, onClose }: Props) {
               {activeTranslation.translator} · {activeTranslation.source}
             </p>
           </div>
-          <TranslationSelect
+          <TranslationPicker
+            variant="field"
             ariaLabel="Translation"
             value={settings.translation}
             onChange={(value) => {
               if (value !== "off") update({ translation: value, showTranslation: true });
             }}
-            className="input w-full max-w-[18rem] text-xs"
+            className="w-full max-w-[18rem]"
           />
         </div>
 

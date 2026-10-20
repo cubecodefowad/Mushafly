@@ -508,6 +508,94 @@
     }
   }
 
+  /* The translation picker is a sheet with a fixed header, search field and
+     its own scroll area, so the search stays reachable in a 68-entry list. */
+  dialog.translation-picker {
+    max-width: 34rem;
+    max-height: min(86vh, 46rem);
+    overflow: hidden;
+  }
+
+  dialog.translation-picker[open] {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .picker-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 0.75rem 1rem 1rem;
+  }
+
+  .picker-list {
+    flex: 1 1 auto;
+    min-height: 8rem;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding-right: 0.25rem;
+    outline: none;
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in srgb, var(--text-secondary) 45%, transparent) transparent;
+  }
+
+  .picker-list::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .picker-list::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--text-secondary) 40%, transparent);
+  }
+
+  .picker-list:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 0.5rem;
+  }
+
+  .picker-group-label {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    padding: 0.6rem 0.6rem 0.35rem;
+    background: var(--surface);
+    color: var(--text-secondary);
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .picker-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    width: 100%;
+    padding: 0.5rem 0.6rem;
+    border-radius: 0.5rem;
+    color: var(--text-primary);
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .picker-option[data-active="true"],
+  .picker-option:hover {
+    background: var(--surface-muted);
+  }
+
+  .picker-option[aria-selected="true"],
+  .picker-option[aria-pressed="true"] {
+    color: var(--accent-strong);
+    background: color-mix(in srgb, var(--accent) 10%, transparent);
+  }
+
+  .picker-option:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: -2px;
+  }
+
   .settings-row {
     display: flex;
     align-items: center;

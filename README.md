@@ -228,9 +228,10 @@ node scripts/generate-brand-assets.mjs   # regenerate public/brand/ from assets/
   missing Bismillah row, all 65 generated Tanzil datasets and their 405,340
   non-empty rows, Urdu text preservation and direction metadata, and the optical
   offsets that align the standalone Tajweed signs.
-- **Playwright (44 tests × Chromium, Firefox and WebKit = 132 runs):** home
+- **Playwright (45 tests × Chromium, Firefox and WebKit = 135 runs):** home
   directory, reader directionality and exact strings, translation switching and
-  persistence, Tanzil datasets rendering their own text, Tajweed toggle, bookmark persistence after reload, Arabic/English
+  persistence, the searchable translation picker, Tanzil datasets rendering their
+  own text, Tajweed toggle, bookmark persistence after reload, Arabic/English
   search, on-demand search index, theme-aware mark and browser icons, canonical
   and social metadata, sitemap/robots, the 404 page, legal pages and their
   footer links, pre-rename data migration, theme persistence, settings dialog

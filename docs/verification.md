@@ -128,10 +128,16 @@ this project redistributes.
   check: `ur.junagarhi` renders `dir="rtl" lang="ur"` in Nastaliq, `bn.bengali`
   and `tr.yazir` render `dir="ltr"`, and the selection survives navigation to
   another surah through `mushafly.settings.v1`.
-- The reader toolbar and the reading-settings sheet share one grouped select
-  (29 `optgroup`s, 68 options plus Off); `/settings/` lists every dataset with
-  its translator and source. The footer and the settings attribution link to
-  Tanzil.net/trans, as its terms require for more than three translations.
+- The reader toolbar, the reading-settings sheet and `/settings/` share one
+  translation picker: a themed dialog with a search field and a 29-group list,
+  rather than a native `<select>`. A native menu cannot be styled and, with 68
+  entries, opens as an operating-system list taller than the window. The
+  picker filters on language, translator and edition name, supports
+  Arrow/Home/End/Enter navigation over a single `listbox`, closes on Escape
+  even while the search field has focus, and returns focus to its trigger.
+  `/settings/` also lists every dataset with its translator and source. The
+  footer and the settings attribution link to Tanzil.net/trans, as its terms
+  require for more than three translations.
 - The standalone Tajweed signs in the reader's side key and on `/tajweed/` were
   optically centred in their cells. The source glyphs are superscript marks
   designed for a base letter that a key does not have, so their natural ink sat

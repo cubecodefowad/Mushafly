@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import { expect, test } from "@playwright/test";
+import { expect, test, type Page } from "@playwright/test";
 
 /** Reads a packaged translation so the assertion uses the source text itself. */
 function translationVerse(id: string, surah: number, verse: number): string {
@@ -45,41 +45,67 @@ test("surah reader keeps Arabic and English separate and aligned to source", asy
   await expect(page.locator(".tajweed-mark").first()).toBeVisible();
 });
 
+/**
+ * Opens a translation picker from its trigger and chooses a dataset. The
+ * picker is a dialog, because a native select menu cannot be themed and a
+ * 68-entry OS list is taller than most windows.
+ */
+async function pickTranslation(
+  page: Page,
+  triggerName: string,
+  query: string,
+  value: string,
+) {
+  await page.getByRole("button", { name: triggerName }).click();
+  const picker = page.getByRole("dialog", { name: "Choose a translation" });
+  await picker.getByRole("searchbox", { name: "Search translations" }).fill(query);
+  await picker.locator(`[data-value="${value}"]`).click();
+  await expect(picker).toBeHidden();
+}
+
 test("the reader switches translation language and remembers it", async ({ page }) => {
   await page.goto("/surah/1/");
-  const select = page.getByRole("combobox", { name: "Translation language" });
-  await expect(select).toHaveValue("en");
+  const trigger = page.getByRole("button", { name: "Translation language" });
+  await expect(trigger).toContainText("Itani");
 
   const verse = page.locator("#verse-1 .translation-text");
   await expect(verse).toHaveAttribute("lang", "en");
   await expect(verse).toHaveAttribute("dir", "ltr");
 
-  await select.selectOption("id");
+  await pickTranslation(page, "Translation language", "Bahasa", "id");
   await expect(verse).toHaveAttribute("lang", "id");
   await expect(verse).toContainText("Dengan menyebut nama Allah");
+  await expect(trigger).toContainText("Bahasa Indonesia");
 
-  await select.selectOption("ar");
+  await pickTranslation(page, "Translation language", "Muyassar", "ar");
   await expect(verse).toHaveAttribute("lang", "ar");
   await expect(verse).toHaveAttribute("dir", "rtl");
   await expect(verse).toContainText("سورة الفاتحة");
 
   await page.reload();
-  await expect(select).toHaveValue("ar");
+  await expect(trigger).toContainText("Muyassar");
   await expect(page.locator("#verse-1 .translation-text")).toHaveAttribute("lang", "ar");
 
-  await select.selectOption("off");
+  // "Off" is a separate choice, shown only while the search box is empty.
+  await trigger.click();
+  const offPicker = page.getByRole("dialog", { name: "Choose a translation" });
+  await offPicker.locator('[data-value="off"]').click();
+  await expect(offPicker).toBeHidden();
   await expect(page.locator("#verse-1 .translation-text")).toHaveCount(0);
-  await select.selectOption("en");
+  await pickTranslation(page, "Translation language", "Itani", "en");
   await expect(page.locator("#verse-1 .translation-text")).toHaveAttribute("lang", "en");
 
-  // The reading-settings sheet offers the same choice and updates the toolbar.
+  // The reading-settings sheet offers the same picker and updates the toolbar.
   await page.getByRole("button", { name: "Open reading settings" }).click();
   const dialog = page.getByRole("dialog", { name: "Reading settings" });
-  await dialog
-    .getByRole("combobox", { name: "Translation" })
-    .selectOption("id.indonesian");
+  await dialog.getByRole("button", { name: "Translation", exact: true }).click();
+  const picker = page.getByRole("dialog", { name: "Choose a translation" });
+  await picker.getByRole("searchbox", { name: "Search translations" }).fill("Ministry");
+  await picker.locator('[data-value="id.indonesian"]').click();
+  await expect(picker).toBeHidden();
   await page.keyboard.press("Escape");
-  await expect(select).toHaveValue("id.indonesian");
+  await expect(dialog).toBeHidden();
+  await expect(trigger).toContainText("Indonesian Ministry");
   await expect(page.locator("#verse-1 .translation-text")).toHaveAttribute("lang", "id");
 });
 
@@ -87,24 +113,50 @@ test("the reader offers the Tanzil datasets and renders their own text", async (
   page,
 }) => {
   await page.goto("/surah/1/");
-  const select = page.getByRole("combobox", { name: "Translation language" });
+  const trigger = page.getByRole("button", { name: "Translation language" });
   const verse = page.locator("#verse-1 .translation-text");
 
-  await select.selectOption("ur.junagarhi");
+  await pickTranslation(page, "Translation language", "Junagarhi", "ur.junagarhi");
   await expect(verse).toHaveAttribute("lang", "ur");
   await expect(verse).toHaveAttribute("dir", "rtl");
   await expect(verse).toHaveText(translationVerse("ur.junagarhi", 1, 1));
 
-  await select.selectOption("bn.bengali");
+  await pickTranslation(page, "Translation language", "Muhiuddin", "bn.bengali");
   await expect(verse).toHaveAttribute("lang", "bn");
   await expect(verse).toHaveAttribute("dir", "ltr");
   await expect(verse).toHaveText(translationVerse("bn.bengali", 1, 1));
 
   await page.reload();
-  await expect(select).toHaveValue("bn.bengali");
+  await expect(trigger).toContainText("Muhiuddin Khan");
   await expect(page.locator("#verse-1 .translation-text")).toHaveText(
     translationVerse("bn.bengali", 1, 1),
   );
+});
+
+test("the translation picker is styled, searchable and keyboard dismissible", async ({
+  page,
+}) => {
+  await page.goto("/surah/1/");
+  await page.getByRole("button", { name: "Translation language" }).click();
+  const picker = page.getByRole("dialog", { name: "Choose a translation" });
+  await expect(picker).toBeVisible();
+
+  const search = picker.getByRole("searchbox", { name: "Search translations" });
+  await expect(search).toBeFocused();
+  await expect(picker.getByRole("option")).toHaveCount(68);
+
+  // The dialog is themed, not an operating-system menu.
+  const surface = await picker.evaluate((node) => getComputedStyle(node).backgroundColor);
+  expect(surface).not.toBe("rgba(0, 0, 0, 0)");
+
+  await search.fill("urdu");
+  await expect(picker.getByRole("option")).toHaveCount(6);
+  await search.fill("zzzz");
+  await expect(picker.getByText("No translation matches")).toBeVisible();
+
+  await page.keyboard.press("Escape");
+  await expect(picker).toBeHidden();
+  await expect(page.locator("#verse-1 .translation-text")).toHaveAttribute("lang", "en");
 });
 
 test("tajweed can be disabled and restored", async ({ page }) => {

@@ -167,6 +167,37 @@ this project redistributes.
   home page emits `WebSite` + `SearchAction` JSON-LD. Favicons remain the
   existing light/dark PNG pair plus the Apple touch icon.
 
+## Recitation catalogue (2026-10-21)
+
+`npm run data:reciters` audited every recitation folder listed on
+`versebyversequran.com`, reading each folder's checksum file (or its listing
+when no checksum exists) and comparing it with the 6,236 expected ayah files.
+
+| | |
+|---|---|
+| Folders listed | 80 |
+| Offered | 70 (62 Arabic Hafs, 2 Warsh, 6 translated) |
+| Excluded on request | 4: Fooladvand/Hedayatfar, Makarem/Kabiri, Karim Mansoori, Parhizgar |
+| Excluded as incomplete | 5: Abdul Basit (Warsh) 47 ayahs, Ibrahim Akhdar 64 kbps 6,236, Minshawi 32 kbps 303, Mustafa Ismail 4,220, Nabil Rifa'i 5 |
+| Default | Saad Al-Ghamadi, still the pinned dataset |
+
+Every offered folder has all 6,236 ayah files. 31 of the 70 have no `NNN000`
+Bismillah files, so the reader uses their `001001.mp3` for the unnumbered
+Bismillah row; 39 ship the full set of 112 and use it directly.
+
+Checks run against this catalogue:
+
+- `npm run lint` exit 0; `npm test` 58 passed in 10 files, including assertions
+  that no incomplete or requested-exclusion folder is offered and that the
+  Bismillah fallback resolves to `001001.mp3`.
+- `npm run build` exit 0, 130 prerendered pages.
+- `BASE_URL=http://localhost:3200 npx playwright test --project=chromium`
+  46 passed against the static export; the reader spec passes 18/18 in Firefox
+  and WebKit as well.
+- Browser probe: with `Hudhaify_32kbps` selected, playing the Al-Baqara
+  Bismillah requested `https://everyayah.com/data/Hudhaify_32kbps/001001.mp3`
+  and playback continued into `002001.mp3`.
+
 ## Test data policy
 
 Every Quranic string in the suite comes from the packaged runtime data, which is

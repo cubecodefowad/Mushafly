@@ -15,7 +15,7 @@ authentic or free of errors; it documents how Mushafly handles the data faithful
 | Source files (non-MP3) | 806, hashed in `src/data/source-lock.json` |
 | MP3 files | 6,348 (425 MB), not bundled |
 | Runtime translations | `en.itani`, `id.indonesian`, `ar.muyassar` |
-| Runtime audio | Ghamadi, `versebyversequran.com` (default) + Alafasy, `everyayah.com` (streamed) |
+| Runtime audio | Ghamadi, `versebyversequran.com` (default) + 70 editions from `everyayah.com` (streamed) |
 
 No other Quran content source, API, fallback repository or generated text is
 used.
@@ -212,9 +212,22 @@ Findings:
   `https://everyayah.com/data/<folder>/<surah:3><ayah:3>.mp3`, e.g.
   `Alafasy_128kbps/002255.mp3`. Ayah `000` is the unnumbered Bismillah row, so
   the numbering matches `verse_0` exactly; `001000` and `009000` do not exist.
-  The Alafasy folder was listed on 2026-10-21 and holds 6,348 files
-  (6,236 ayahs + 112 Bismillah), matching this build one-to-one. everyayah
-  publishes no terms, so its files are streamed only and are never bundled.
+  Some folders omit the 112 Bismillah files; for those the reader uses the
+  reciter's `001001.mp3`, which is the same Bismillah as Al-Fatiha 1:1.
+- The list is generated, not hand-maintained. `npm run data:reciters` reads the
+  recitation page at `versebyversequran.com`, checks every folder for the 6,236
+  ayah files (via the folder's checksum file, falling back to its listing), and
+  writes `src/data/generated/reciters.json`. It offered 70 folders on
+  2026-10-21: 62 Arabic Hafs editions, two Warsh readings and six translated
+  recitations. Translated recitations and Warsh are grouped separately in the
+  reader because they do not match the Hafs Arabic text on the page.
+- Nine folders are recorded as excluded instead of silently omitted: four left
+  out on request (`Fooladvand_Hedayatfar_40Kbps`, `Makarem_Kabiri_16Kbps`,
+  `Karim_Mansoori_40kbps`, `Parhizgar_48kbps`) and five whose files are
+  incomplete (`warsh_Abdul_Basit_128kbps` 47 ayahs, `Ibrahim_Akhdar_64kbps`
+  6,236, `Menshawi_32kbps` 303, `Mustafa_Ismail_48kbps` 4,220,
+  `Nabil_Rifa3i_48kbps` 5). everyayah publishes no terms, so its files are
+  streamed only and are never bundled.
 
 ## Validation output (pinned revision)
 

@@ -45,7 +45,7 @@ export. Output is written to `out/`.
 | Numbered verses | 6,236 |
 | Arabic rows | 6,348 (6,236 numbered + 112 unnumbered Bismillah rows) |
 | Translations | 68 datasets: `en.itani`, `id.indonesian`, `ar.muyassar` (quranjson) plus 65 Tanzil datasets across 29 languages, including six Urdu translations. See Settings → Attribution. |
-| Recitation | Saad Al-Ghamadi, versebyversequran.com, ~40 kbps (default, pinned) — plus Mishary Rashid Alafasy, everyayah.com, 128 kbps, streamed per ayah |
+| Recitation | Saad Al-Ghamadi, versebyversequran.com, ~40 kbps (default, pinned) — plus 70 editions from everyayah.com (Arabic Hafs, two Warsh readings, six translated recitations), streamed per ayah |
 | Tajweed ranges | 60,841 across 18 rule identifiers |
 | Audio entries | 6,348 files (425 MB, not bundled) |
 
@@ -364,9 +364,12 @@ verifies it. How to report a problem: [SECURITY.md](SECURITY.md).
   <https://tanzil.net/trans/>. Non-commercial use only; see
   `THIRD_PARTY_NOTICES.md` and Settings → Attribution.
 - Recitation: Saad Al-Ghamadi, versebyversequran.com, ~40 kbps (the pinned
-  default), and Mishary Rashid Alafasy, everyayah.com, 128 kbps. The everyayah
-  files are streamed, never copied into the build. everyayah publishes no terms
-  of its own, so that reciter is an opt-in stream and not a bundled asset.
+  default), and 70 editions from everyayah.com in Arabic Hafs, the Warsh
+  reading and six translated recitations. The everyayah files are streamed,
+  never copied into the build. everyayah publishes no terms of its own, so those
+  editions are opt-in streams and not bundled assets. `npm run data:reciters`
+  re-audits the folders and regenerates the manifest; an edition is only offered
+  when all 6,236 ayah files exist.
 - Fonts: Amiri Quran, Source Serif 4, Inter and Noto Nastaliq Urdu under the SIL
   Open Font License 1.1 (license files in `public/fonts/`).
 

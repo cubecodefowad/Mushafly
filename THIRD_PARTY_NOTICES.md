@@ -116,6 +116,21 @@ From `source/audio/.sources` in the pinned revision:
 Audio is streamed at runtime from immutable URLs at the pinned repository
 revision. It is not bundled with this application.
 
+## Recitation — everyayah.com editions
+
+Seventy further recitation folders are listed from
+<https://www.versebyversequran.com/recitations_ayat.html> and streamed from
+`https://everyayah.com/data/<folder>/`. They cover 62 Arabic Hafs editions, two
+Warsh readings and six translated recitations (English, Urdu, Bosnian,
+Azerbaijani and a multilingual edition). Their artwork is not redistributed and
+the MP3 files are never copied into this build.
+
+everyayah.com publishes no terms or licence page of its own, so these editions
+are offered as opt-in streams. Attribution on the site is limited to the reciter
+and folder names, which this project preserves in
+`src/data/generated/reciters.json` and in Settings → Attribution. Anyone
+redistributing the audio must establish their own permission.
+
 ## Fonts
 
 All fonts are used under the SIL Open Font License 1.1. The license texts are

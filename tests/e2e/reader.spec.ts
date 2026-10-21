@@ -365,9 +365,16 @@ async function waitForReaderHydration(page: Page) {
 
 test("the selected reciter changes the audio source", async ({ page, browserName }) => {
   await page.goto("/settings/");
-  const alafasy = page.getByRole("radio", { name: /Mishary Rashid Alafasy/ });
-  await alafasy.check();
-  await expect(alafasy).toBeChecked();
+  const trigger = page.getByRole("button", { name: "Choose a reciter" });
+  await trigger.click();
+  const picker = page.getByRole("dialog", { name: "Choose a reciter" });
+  await expect(picker).toBeVisible();
+  await picker.getByRole("searchbox", { name: "Search reciters" }).fill("Alafasy");
+  await picker
+    .getByRole("option", { name: /Mishary Rashid Alafasy 128 kbps/ })
+    .click();
+  await expect(picker).toBeHidden();
+  await expect(trigger).toContainText("Mishary Rashid Alafasy");
 
   // everyayah answers per-ayah files named <surah:3><ayah:3>.mp3. WebKit
   // neither routes nor reports media requests, so only intercept elsewhere.
@@ -395,7 +402,9 @@ test("the selected reciter changes the audio source", async ({ page, browserName
   // The choice is local state, so it survives a reload.
   await page.reload();
   await page.goto("/settings/");
-  await expect(page.getByRole("radio", { name: /Mishary Rashid Alafasy/ })).toBeChecked();
+  await expect(page.getByRole("button", { name: "Choose a reciter" })).toContainText(
+    "Mishary Rashid Alafasy",
+  );
 });
 
 test("reading settings dialog is keyboard dismissible", async ({ page }) => {

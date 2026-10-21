@@ -79,7 +79,8 @@ export function Footer() {
             (non-commercial).
           </p>
           <p className="mt-1">
-            Recitation: {RECITERS.map((reciter) => reciter.name).join(", ")}.
+            Recitation: Saad Al-Ghamadi (pinned), plus {RECITERS.length - 1}{" "}
+            editions streamed from everyayah.com.
           </p>
           <Link
             href="/settings/#attribution"

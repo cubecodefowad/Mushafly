@@ -4,9 +4,10 @@ import Link from "next/link";
 import { useState } from "react";
 import { ExternalLink, Monitor, Moon, Sun, Trash2 } from "lucide-react";
 import { useReadingState } from "@/components/bookmarks/ReadingStateProvider";
+import { ReciterPicker } from "@/components/settings/ReciterPicker";
 import { useSettings } from "@/components/settings/SettingsProvider";
 import { TranslationPicker } from "@/components/settings/TranslationPicker";
-import { RECITERS, reciterInfo } from "@/data/reciters";
+import { ACTIVE_GROUPS, EXCLUDED_RECITERS, RECITERS, reciterInfo } from "@/data/reciters";
 import {
   TANZIL_TRANSLATIONS,
   groupedTranslations,
@@ -222,46 +223,42 @@ export function SettingsClient({
       <section aria-labelledby="recitation" className="mt-10">
         <h2 id="recitation" className="display text-2xl">Recitation</h2>
         <div className="mt-4 rounded-xl border border-line bg-surface p-5">
-          <p className="text-sm font-medium">Reciter</p>
-          <p className="mt-1 text-xs text-muted">
-            One file per ayah. Audio is requested only when you press play.
-          </p>
-          <div className="mt-4 grid gap-2 sm:grid-cols-2">
-            {RECITERS.map((reciter) => {
-              const active = settings.reciter === reciter.id;
-              return (
-                <label
-                  key={reciter.id}
-                  className={`flex cursor-pointer items-start gap-3 rounded-lg border px-4 py-3 transition-colors ${
-                    active
-                      ? "border-accent bg-highlight/50"
-                      : "border-line hover:border-accent/40"
-                  }`}
-                >
-                  <input
-                    type="radio"
-                    name="reciter"
-                    value={reciter.id}
-                    checked={active}
-                    onChange={() => update({ reciter: reciter.id })}
-                    className="mt-0.5 h-4 w-4 accent-[var(--accent)]"
-                  />
-                  <span className="min-w-0">
-                    <span className="block text-sm font-medium text-ink">
-                      {reciter.name}
-                    </span>
-                    <span className="mt-0.5 block text-xs text-muted">
-                      {reciter.bitrate} · {reciter.source}
-                    </span>
-                  </span>
-                </label>
-              );
-            })}
+          <div className="flex flex-wrap items-end justify-between gap-3">
+            <div className="min-w-0">
+              <p className="text-sm font-medium">Reciter</p>
+              <p className="mt-1 text-xs text-muted">
+                {reciterInfo(settings.reciter).name}
+                {reciterInfo(settings.reciter).bitrate
+                  ? ` · ${reciterInfo(settings.reciter).bitrate}`
+                  : ""}
+                {" · "}
+                {reciterInfo(settings.reciter).source}
+                {reciterInfo(settings.reciter).kind === "warsh"
+                  ? " · Warsh reading"
+                  : reciterInfo(settings.reciter).kind === "translation"
+                    ? " · translated recitation"
+                    : ""}
+              </p>
+            </div>
+            <ReciterPicker
+              value={settings.reciter}
+              onChange={(value) => update({ reciter: value })}
+              ariaLabel="Choose a reciter"
+              className="w-full max-w-[18rem]"
+            />
           </div>
+          <ul className="mt-4 grid gap-1 text-xs text-muted sm:grid-cols-3">
+            {ACTIVE_GROUPS.map((group) => (
+              <li key={group.kind}>
+                <span className="text-ink">{group.label}</span> ·{" "}
+                {RECITERS.filter((reciter) => reciter.kind === group.kind).length}
+              </li>
+            ))}
+          </ul>
           <p className="mt-3 text-[0.6875rem] leading-relaxed text-muted">
-            Currently playing: {reciterInfo(settings.reciter).name}. The default
-            streams from the pinned dataset; the other reciters stream per ayah
-            from everyayah.com. Changing reciter stops playback so the next verse
+            One file per ayah, requested only when you press play. The default
+            streams from the pinned dataset; every other reciter streams from
+            everyayah.com. Changing reciter stops playback so the next verse
             starts from the source you chose.
           </p>
         </div>
@@ -408,19 +405,21 @@ export function SettingsClient({
 
             <dt className="text-muted">Recitation</dt>
             <dd>
-              <ul className="space-y-1">
+              <ul className="grid gap-x-4 gap-y-1 sm:grid-cols-2">
                 {RECITERS.map((reciter) => (
                   <li key={reciter.id}>
                     {reciter.name}
                     <span className="block text-xs text-muted">
-                      {reciter.bitrate} · {reciter.source} ·{" "}
+                      {reciter.bitrate ? `${reciter.bitrate} · ` : ""}
+                      {reciter.kind === "warsh" ? "Warsh · " : ""}
+                      {reciter.language !== "Arabic" ? `${reciter.language} · ` : ""}
                       <a
                         href={reciter.sourceUrl}
                         target="_blank"
                         rel="noreferrer"
                         className="underline decoration-line underline-offset-2"
                       >
-                        {reciter.folder ? "source" : "source and licence"}
+                        {reciter.folder ? reciter.source : "source and licence"}
                       </a>
                     </span>
                   </li>
@@ -429,8 +428,14 @@ export function SettingsClient({
               <span className="mt-2 block text-xs text-muted">
                 The default is the pinned {source.audio.bitrate ?? "dataset"} copy
                 from {source.audio.source}; its licence is documented at the link
-                above. everyayah.com publishes no terms of its own, so the added
-                reciters are streamed, never copied into this build.
+                above. everyayah.com publishes no terms of its own, so the other
+                recitations are streamed, never copied into this build.{" "}
+                {EXCLUDED_RECITERS.filter((reciter) => reciter.reason === "incomplete").length}{" "}
+                further folders are not offered because their files are missing,
+                and{" "}
+                {EXCLUDED_RECITERS.filter((reciter) => reciter.reason === "requested").length}{" "}
+                were left out on request. The list is checked against the folder
+                listings by <code>npm run data:reciters</code>.
               </span>
             </dd>
 

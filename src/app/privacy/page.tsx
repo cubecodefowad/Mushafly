@@ -106,7 +106,7 @@ export default function PrivacyPage() {
             >
               GitHub&apos;s privacy statement
             </a>
-            . The other reciters come from{" "}
+            . Every other reciter comes from{" "}
             <a
               className="underline decoration-line underline-offset-4 hover:text-ink"
               href="https://everyayah.com/"

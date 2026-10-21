@@ -72,9 +72,9 @@ export default function TermsPage() {
             {sourceInfo.translations
               .map((entry) => `${entry.translator} (${entry.id})`)
               .join(", ")}
-            , and recitation is by{" "}
-            {RECITERS.map((reciter) => `${reciter.name} (${reciter.source})`).join(" or ")}
-            . A further {TANZIL_TRANSLATIONS.length}{" "}
+            , and recitation is by Saad Al-Ghamadi (the pinned default) and the{" "}
+            {RECITERS.length - 1} other editions streamed from everyayah.com. A
+            further {TANZIL_TRANSLATIONS.length}{" "}
             translations come from{" "}
             <a
               className="underline decoration-line underline-offset-4 hover:text-ink"

@@ -78,10 +78,13 @@ export default function AccuracyPage() {
               the characters they describe.
             </li>
             <li>
-              Recitation: {RECITERS.map((reciter) => `${reciter.name} (${reciter.source})`).join(" or ")}
-              , streamed one ayah per file. The default comes from the pinned
-              dataset; the other reciters are read from everyayah.com and are not
-              copied into this build.
+              Recitation: {RECITERS.length} editions, streamed one ayah per file.
+              Saad Al-Ghamadi is the default and comes from the pinned dataset;
+              the other editions are read from everyayah.com and are not copied
+              into this build. Before an edition is offered, its folder is
+              checked for all 6,236 ayah files. Arabic Hafs, the Warsh reading
+              and translated recitations are listed separately because only the
+              first matches the Arabic text this reader displays.
             </li>
           </ul>
           <p>

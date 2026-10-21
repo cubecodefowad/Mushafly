@@ -16,6 +16,7 @@
     "data:validate:tanzil": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/validate-tanzil-data.mjs",
     "data:search": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/build-search-index.mjs",
     "data:tanzil": "node scripts/download-tanzil-translations.mjs",
+    "data:reciters": "node scripts/audit-reciters.mjs",
     "data:all": "npm run data:prepare && npm run data:search && npm run data:validate",
     "pretest": "npm run data:search",
     "test": "vitest run",

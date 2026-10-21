@@ -21,6 +21,7 @@ import { ReaderKey } from "@/components/tajweed/ReaderKey";
 import { AccuracyNotice } from "@/components/legal/AccuracyNotice";
 import { TranslationPicker } from "@/components/settings/TranslationPicker";
 import { sourceInfo } from "@/data/attribution";
+import { reciterInfo } from "@/data/reciters";
 import {
   TANZIL_TRANSLATIONS,
   translationInfo,
@@ -37,7 +38,7 @@ type FetchedTranslation = {
 export function Reader({ surah }: { surah: SurahView }) {
   const { settings, update } = useSettings();
   const { lastRead, saveLastRead } = useReadingState();
-  const audio = useSurahAudio(surah);
+  const audio = useSurahAudio(surah, settings.reciter);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [translation, setTranslation] = useState<FetchedTranslation | null>(null);
   const [translationStatus, setTranslationStatus] = useState<
@@ -389,7 +390,7 @@ export function Reader({ surah }: { surah: SurahView }) {
                 <Link href="/settings/#attribution" className="underline decoration-line underline-offset-2 hover:text-ink">
                   settings
                 </Link>
-                . Recitation: {sourceInfo.audio.reciter}.
+                . Recitation: {reciterInfo(settings.reciter).name}.
               </p>
               <p className="mt-2">
                 Verse text is rendered from the pinned source records. Search and

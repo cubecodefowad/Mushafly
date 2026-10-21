@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { sourceInfo } from "@/data/attribution";
+import { RECITERS } from "@/data/reciters";
 import { TANZIL_EXCLUDED, TANZIL_TRANSLATIONS } from "@/data/translations";
 import { pageMetadata } from "@/lib/metadata";
 
@@ -71,8 +72,9 @@ export default function TermsPage() {
             {sourceInfo.translations
               .map((entry) => `${entry.translator} (${entry.id})`)
               .join(", ")}
-            , and recitation is by {sourceInfo.audio.reciter} from{" "}
-            {sourceInfo.audio.source}. A further {TANZIL_TRANSLATIONS.length}{" "}
+            , and recitation is by{" "}
+            {RECITERS.map((reciter) => `${reciter.name} (${reciter.source})`).join(" or ")}
+            . A further {TANZIL_TRANSLATIONS.length}{" "}
             translations come from{" "}
             <a
               className="underline decoration-line underline-offset-4 hover:text-ink"

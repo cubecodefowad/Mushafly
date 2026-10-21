@@ -5,6 +5,7 @@ import { useEffect, useRef } from "react";
 import { X } from "lucide-react";
 import { useSettings } from "@/components/settings/SettingsProvider";
 import { TranslationPicker } from "@/components/settings/TranslationPicker";
+import { RECITERS, reciterInfo } from "@/data/reciters";
 import { translationInfo } from "@/data/translations";
 
 type Props = {
@@ -108,6 +109,27 @@ export function SettingsSheet({ open, onClose }: Props) {
             }}
             className="w-full max-w-[18rem]"
           />
+        </div>
+
+        <div className="settings-row">
+          <div>
+            <p className="text-sm font-medium">Reciter</p>
+            <p className="mt-0.5 text-xs text-muted">
+              {reciterInfo(settings.reciter).name}
+            </p>
+          </div>
+          <div className="segmented" role="group" aria-label="Reciter">
+            {RECITERS.map((reciter) => (
+              <button
+                key={reciter.id}
+                type="button"
+                aria-pressed={settings.reciter === reciter.id}
+                onClick={() => update({ reciter: reciter.id })}
+              >
+                {reciter.shortName}
+              </button>
+            ))}
+          </div>
         </div>
 
         <label className="settings-row cursor-pointer">

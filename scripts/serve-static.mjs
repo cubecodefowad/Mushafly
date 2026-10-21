@@ -15,8 +15,12 @@ import { createGzip } from "node:zlib";
 const root = path.resolve("out");
 const port = Number(process.env.PORT) || 3200;
 
-/** The only origin the reader reaches out to: verse audio, pinned by commit. */
-const AUDIO_ORIGIN = "https://raw.githubusercontent.com";
+/**
+ * The only origins the reader reaches out to: verse audio. The pinned mirror
+ * serves the default reciter; everyayah.com serves the alternates.
+ */
+const AUDIO_ORIGINS = ["https://raw.githubusercontent.com", "https://everyayah.com"];
+const AUDIO_SRC = AUDIO_ORIGINS.join(" ");
 
 const TYPES = {
   ".html": "text/html; charset=utf-8",
@@ -49,8 +53,8 @@ const SECURITY_HEADERS = {
     "style-src 'self' 'unsafe-inline'",
     "img-src 'self' data:",
     "font-src 'self'",
-    `media-src 'self' ${AUDIO_ORIGIN}`,
-    `connect-src 'self' ${AUDIO_ORIGIN}`,
+    `media-src 'self' ${AUDIO_SRC}`,
+    `connect-src 'self' ${AUDIO_SRC}`,
   ].join("; "),
   "Referrer-Policy": "strict-origin-when-cross-origin",
   "X-Frame-Options": "DENY",

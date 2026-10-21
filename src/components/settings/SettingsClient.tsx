@@ -6,6 +6,7 @@ import { ExternalLink, Monitor, Moon, Sun, Trash2 } from "lucide-react";
 import { useReadingState } from "@/components/bookmarks/ReadingStateProvider";
 import { useSettings } from "@/components/settings/SettingsProvider";
 import { TranslationPicker } from "@/components/settings/TranslationPicker";
+import { RECITERS, reciterInfo } from "@/data/reciters";
 import {
   TANZIL_TRANSLATIONS,
   groupedTranslations,
@@ -218,6 +219,54 @@ export function SettingsClient({
         </div>
       </section>
 
+      <section aria-labelledby="recitation" className="mt-10">
+        <h2 id="recitation" className="display text-2xl">Recitation</h2>
+        <div className="mt-4 rounded-xl border border-line bg-surface p-5">
+          <p className="text-sm font-medium">Reciter</p>
+          <p className="mt-1 text-xs text-muted">
+            One file per ayah. Audio is requested only when you press play.
+          </p>
+          <div className="mt-4 grid gap-2 sm:grid-cols-2">
+            {RECITERS.map((reciter) => {
+              const active = settings.reciter === reciter.id;
+              return (
+                <label
+                  key={reciter.id}
+                  className={`flex cursor-pointer items-start gap-3 rounded-lg border px-4 py-3 transition-colors ${
+                    active
+                      ? "border-accent bg-highlight/50"
+                      : "border-line hover:border-accent/40"
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="reciter"
+                    value={reciter.id}
+                    checked={active}
+                    onChange={() => update({ reciter: reciter.id })}
+                    className="mt-0.5 h-4 w-4 accent-[var(--accent)]"
+                  />
+                  <span className="min-w-0">
+                    <span className="block text-sm font-medium text-ink">
+                      {reciter.name}
+                    </span>
+                    <span className="mt-0.5 block text-xs text-muted">
+                      {reciter.bitrate} · {reciter.source}
+                    </span>
+                  </span>
+                </label>
+              );
+            })}
+          </div>
+          <p className="mt-3 text-[0.6875rem] leading-relaxed text-muted">
+            Currently playing: {reciterInfo(settings.reciter).name}. The default
+            streams from the pinned dataset; the other reciters stream per ayah
+            from everyayah.com. Changing reciter stops playback so the next verse
+            starts from the source you chose.
+          </p>
+        </div>
+      </section>
+
       <section aria-labelledby="data" className="mt-10">
         <h2 id="data" className="display text-2xl">Local data</h2>
         <div className="mt-4 rounded-xl border border-line bg-surface p-5">
@@ -359,17 +408,29 @@ export function SettingsClient({
 
             <dt className="text-muted">Recitation</dt>
             <dd>
-              {source.audio.reciter}
-              <span className="mt-1 block text-xs text-muted">
-                {source.audio.source} · {source.audio.bitrate ?? "source bitrate"} ·{" "}
-                <a
-                  href={source.audio.licenseUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="underline decoration-line underline-offset-2"
-                >
-                  audio license
-                </a>
+              <ul className="space-y-1">
+                {RECITERS.map((reciter) => (
+                  <li key={reciter.id}>
+                    {reciter.name}
+                    <span className="block text-xs text-muted">
+                      {reciter.bitrate} · {reciter.source} ·{" "}
+                      <a
+                        href={reciter.sourceUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="underline decoration-line underline-offset-2"
+                      >
+                        {reciter.folder ? "source" : "source and licence"}
+                      </a>
+                    </span>
+                  </li>
+                ))}
+              </ul>
+              <span className="mt-2 block text-xs text-muted">
+                The default is the pinned {source.audio.bitrate ?? "dataset"} copy
+                from {source.audio.source}; its licence is documented at the link
+                above. everyayah.com publishes no terms of its own, so the added
+                reciters are streamed, never copied into this build.
               </span>
             </dd>
 

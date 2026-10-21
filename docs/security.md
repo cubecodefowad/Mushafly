@@ -42,7 +42,7 @@ server does not serve.
 | `dangerouslySetInnerHTML` | One use, `ThemeScript`: a constant string, no interpolation of any value, all reads inside `try`/`catch` |
 | `eval`, `new Function`, `document.write`, `innerHTML` | None anywhere in `src/` or `scripts/` |
 | `target="_blank"` links | All 10 external links also carry `rel="noreferrer"` |
-| `fetch()` targets | All same-origin relative paths (`/quran/…`). The audio URL is built from pinned source metadata, never from user input |
+| `fetch()` targets | All same-origin relative paths (`/quran/…`). Audio URLs are built from pinned source metadata and a fixed reciter registry, never from user input |
 | Stored value parsing | Every stored record is type-checked, bounded (`arabicSize` clamped 24–56, bookmark labels trimmed to 120 characters) and dates parsed before use; invalid entries are dropped |
 | `npm audit` (production and development) | 0 vulnerabilities |
 | Secrets in the tree | None. No `.env` file exists; the only environment variables read are `PORT` and `BASE_URL` |
@@ -65,8 +65,8 @@ deployed site.
 Content-Security-Policy: default-src 'self'; base-uri 'none'; object-src 'none';
   frame-ancestors 'none'; form-action 'self'; script-src 'self' 'unsafe-inline';
   style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self';
-  media-src 'self' https://raw.githubusercontent.com;
-  connect-src 'self' https://raw.githubusercontent.com
+  media-src 'self' https://raw.githubusercontent.com https://everyayah.com;
+  connect-src 'self' https://raw.githubusercontent.com https://everyayah.com
 Referrer-Policy: strict-origin-when-cross-origin
 X-Content-Type-Options: nosniff
 X-Frame-Options: DENY

@@ -86,7 +86,9 @@ export default function PrivacyPage() {
           </p>
           <p>
             <span className="text-ink">Recitation audio.</span> Verses are read
-            aloud from MP3 files on{" "}
+            aloud from one MP3 per ayah, and only when you press play. Which host
+            receives that request depends on the reciter you selected. The
+            default recitation comes from{" "}
             <a
               className="underline decoration-line underline-offset-4 hover:text-ink"
               href="https://raw.githubusercontent.com/semarketir/quranjson"
@@ -94,10 +96,8 @@ export default function PrivacyPage() {
               rel="noreferrer"
             >
               raw.githubusercontent.com
-            </a>
-            , and only when you press play. Those requests go directly from your
-            browser to GitHub, so GitHub sees your IP address and user agent and
-            handles that data under{" "}
+            </a>{" "}
+            (the pinned dataset) and is handled under{" "}
             <a
               className="underline decoration-line underline-offset-4 hover:text-ink"
               href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement"
@@ -106,7 +106,18 @@ export default function PrivacyPage() {
             >
               GitHub&apos;s privacy statement
             </a>
-            . Reading, search, bookmarks and settings require no such request.
+            . The other reciters come from{" "}
+            <a
+              className="underline decoration-line underline-offset-4 hover:text-ink"
+              href="https://everyayah.com/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              everyayah.com
+            </a>
+            , which publishes no privacy policy we could link to; it can see your
+            IP address, user agent and the ayah you requested. Reading, search,
+            bookmarks and settings require no audio request at all.
           </p>
           <p>
             <span className="text-ink">Page counting.</span> The measurement

@@ -1,5 +1,9 @@
 import surahMeta from "@/data/generated/surah-meta.json";
 import {
+  DEFAULT_RECITER,
+  isReciterId,
+} from "@/data/reciters";
+import {
   DEFAULT_TRANSLATION,
   isTranslationLanguage,
 } from "@/data/translations";
@@ -22,6 +26,7 @@ export const DEFAULT_SETTINGS: ReaderSettings = {
   arabicSize: 34,
   translationSize: 17,
   translation: DEFAULT_TRANSLATION,
+  reciter: DEFAULT_RECITER,
   showTranslation: true,
   tajweed: true,
   autoScroll: true,
@@ -57,10 +62,13 @@ export function parseSettings(value: unknown): ReaderSettings {
     ? input.translation
     : DEFAULT_SETTINGS.translation;
 
+  const reciter = isReciterId(input.reciter) ? input.reciter : DEFAULT_SETTINGS.reciter;
+
   return {
     arabicSize: number("arabicSize", DEFAULT_SETTINGS.arabicSize, 24, 56),
     translationSize: number("translationSize", DEFAULT_SETTINGS.translationSize, 14, 26),
     translation,
+    reciter,
     showTranslation: bool("showTranslation", DEFAULT_SETTINGS.showTranslation),
     tajweed: bool("tajweed", DEFAULT_SETTINGS.tajweed),
     autoScroll: bool("autoScroll", DEFAULT_SETTINGS.autoScroll),

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { AccuracyNotice } from "@/components/legal/AccuracyNotice";
 import { sourceInfo } from "@/data/attribution";
+import { RECITERS } from "@/data/reciters";
 import { TANZIL_EXCLUDED, TANZIL_TRANSLATIONS } from "@/data/translations";
 import { pageMetadata } from "@/lib/metadata";
 
@@ -76,7 +77,12 @@ export default function AccuracyPage() {
               Tajweed highlighting: the dataset&apos;s annotated ranges, applied to
               the characters they describe.
             </li>
-            <li>Recitation: {sourceInfo.audio.reciter}, streamed from the dataset.</li>
+            <li>
+              Recitation: {RECITERS.map((reciter) => `${reciter.name} (${reciter.source})`).join(" or ")}
+              , streamed one ayah per file. The default comes from the pinned
+              dataset; the other reciters are read from everyayah.com and are not
+              copied into this build.
+            </li>
           </ul>
           <p>
             A build fails if the pinned data is malformed or if any surah is

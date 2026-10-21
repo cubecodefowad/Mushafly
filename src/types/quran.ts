@@ -1,3 +1,4 @@
+import type { ReciterId } from "@/data/reciters";
 import type { TanzilTranslationKey } from "@/data/generated/tanzil-keys";
 
 /** Unique selection key for every translation dataset. */
@@ -124,6 +125,7 @@ export type ReaderSettings = {
   arabicSize: number;
   translationSize: number;
   translation: TranslationLanguage;
+  reciter: ReciterId;
   showTranslation: boolean;
   tajweed: boolean;
   autoScroll: boolean;

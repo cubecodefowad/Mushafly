@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { BrandMark } from "@/components/layout/BrandMark";
 import { sourceInfo } from "@/data/attribution";
+import { RECITERS } from "@/data/reciters";
 import { TANZIL_TRANSLATIONS } from "@/data/translations";
 
 export function Footer() {
@@ -77,7 +78,9 @@ export function Footer() {
             </a>{" "}
             (non-commercial).
           </p>
-          <p className="mt-1">Recitation: {sourceInfo.audio.reciter}.</p>
+          <p className="mt-1">
+            Recitation: {RECITERS.map((reciter) => reciter.name).join(", ")}.
+          </p>
           <Link
             href="/settings/#attribution"
             className="mt-3 inline-block text-accent underline decoration-line underline-offset-4"

@@ -77,6 +77,9 @@ describe("local storage validation", () => {
     expect(parseSettings({ translation: "ur.junagarhi" }).translation).toBe(
       "ur.junagarhi",
     );
+    expect(parseSettings({ reciter: "alafasy" }).reciter).toBe("alafasy");
+    expect(parseSettings({ reciter: "husary" }).reciter).toBe(DEFAULT_SETTINGS.reciter);
+    expect(parseSettings({ reciter: 7 }).reciter).toBe(DEFAULT_SETTINGS.reciter);
     expect(parseSettings({ translation: "fr" }).translation).toBe("en");
     expect(parseSettings(null)).toEqual(DEFAULT_SETTINGS);
   });

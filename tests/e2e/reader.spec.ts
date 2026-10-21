@@ -349,6 +349,55 @@ test("theme choice applies immediately and survives reload", async ({ page }) =>
   await expect(root).toHaveAttribute("class", after ?? "");
 });
 
+/**
+ * The reader's controls are client components, so a click before React
+ * hydrates does nothing. WebKit is slow enough to expose that, so wait until
+ * the first play button has hydrated props before pressing it.
+ */
+async function waitForReaderHydration(page: Page) {
+  await page.waitForFunction(() => {
+    const button = document.querySelector('button[aria-label="Play verse 1"]');
+    return Boolean(
+      button && Object.keys(button).some((key) => key.startsWith("__reactProps")),
+    );
+  });
+}
+
+test("the selected reciter changes the audio source", async ({ page, browserName }) => {
+  await page.goto("/settings/");
+  const alafasy = page.getByRole("radio", { name: /Mishary Rashid Alafasy/ });
+  await alafasy.check();
+  await expect(alafasy).toBeChecked();
+
+  // everyayah answers per-ayah files named <surah:3><ayah:3>.mp3. WebKit
+  // neither routes nor reports media requests, so only intercept elsewhere.
+  const requested: string[] = [];
+  if (browserName !== "webkit") {
+    await page.route("https://everyayah.com/**", (route) => {
+      requested.push(route.request().url());
+      return route.abort();
+    });
+  }
+
+  await page.goto("/surah/1/");
+  await waitForReaderHydration(page);
+  await page.getByRole("button", { name: "Play verse 1" }).click();
+
+  if (browserName === "webkit") {
+    // The player started, which can only happen once the everyayah file loads;
+    // the filename itself is covered by the unit tests.
+    await expect(page.locator(".audio-bar")).toContainText("Playing Verse 1");
+  } else {
+    await expect.poll(() => requested.length).toBeGreaterThan(0);
+    expect(requested[0]).toContain("/data/Alafasy_128kbps/001001.mp3");
+  }
+
+  // The choice is local state, so it survives a reload.
+  await page.reload();
+  await page.goto("/settings/");
+  await expect(page.getByRole("radio", { name: /Mishary Rashid Alafasy/ })).toBeChecked();
+});
+
 test("reading settings dialog is keyboard dismissible", async ({ page }) => {
   await page.goto("/surah/1/");
   await page.getByRole("button", { name: "Open reading settings" }).click();

@@ -15,7 +15,7 @@ authentic or free of errors; it documents how Mushafly handles the data faithful
 | Source files (non-MP3) | 806, hashed in `src/data/source-lock.json` |
 | MP3 files | 6,348 (425 MB), not bundled |
 | Runtime translations | `en.itani`, `id.indonesian`, `ar.muyassar` |
-| Runtime audio | Ghamadi, `versebyversequran.com` |
+| Runtime audio | Ghamadi, `versebyversequran.com` (default) + Alafasy, `everyayah.com` (streamed) |
 
 No other Quran content source, API, fallback repository or generated text is
 used.
@@ -208,6 +208,13 @@ Findings:
   `https://raw.githubusercontent.com/semarketir/quranjson/<sha>/source/audio/002/255.mp3`.
   The host supports HTTP range requests. Reading is unaffected if playback
   fails; there is no automatic retry loop.
+- Alternative reciters come from
+  `https://everyayah.com/data/<folder>/<surah:3><ayah:3>.mp3`, e.g.
+  `Alafasy_128kbps/002255.mp3`. Ayah `000` is the unnumbered Bismillah row, so
+  the numbering matches `verse_0` exactly; `001000` and `009000` do not exist.
+  The Alafasy folder was listed on 2026-10-21 and holds 6,348 files
+  (6,236 ayahs + 112 Bismillah), matching this build one-to-one. everyayah
+  publishes no terms, so its files are streamed only and are never bundled.
 
 ## Validation output (pinned revision)
 

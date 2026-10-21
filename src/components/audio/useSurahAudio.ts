@@ -1,6 +1,11 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+  DEFAULT_RECITER,
+  recitationUrl,
+  type ReciterId,
+} from "@/data/reciters";
 import type { SurahView, VerseView } from "@/types/quran";
 
 export type AudioStatus = "idle" | "loading" | "playing" | "paused" | "error";
@@ -26,11 +31,19 @@ export type AudioController = {
   retry: () => void;
 };
 
-const errorMessage =
-  "Audio could not be loaded from the pinned source. Reading continues without it.";
+const errorMessage = "Audio could not be loaded. Reading continues without it.";
 
-export function useSurahAudio(surah: SurahView): AudioController {
+export function useSurahAudio(
+  surah: SurahView,
+  reciter: ReciterId = DEFAULT_RECITER,
+): AudioController {
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  // The player keeps a stable identity across reciter changes; the URL is
+  // resolved when a verse is played, from the reciter selected at that moment.
+  const reciterRef = useRef<ReciterId>(reciter);
+  reciterRef.current = reciter;
+  const surahNumberRef = useRef(surah.meta.number);
+  surahNumberRef.current = surah.meta.number;
   const playlist = useMemo(
     () => (surah.bismillah ? [surah.bismillah, ...surah.verses] : surah.verses),
     [surah],
@@ -54,6 +67,17 @@ export function useSurahAudio(surah: SurahView): AudioController {
     setCurrent(verse);
   }, []);
 
+  const urlFor = useCallback(
+    (verse: VerseView) =>
+      recitationUrl(
+        reciterRef.current,
+        surahNumberRef.current,
+        verse.number,
+        verse.audio?.url ?? null,
+      ),
+    [],
+  );
+
   const playVerse = useCallback(
     (verse: VerseView) => {
       const audio = audioRef.current;
@@ -66,13 +90,14 @@ export function useSurahAudio(surah: SurahView): AudioController {
         return;
       }
 
-      if (!verse.audio) {
+      const url = urlFor(verse);
+      if (!url) {
         setStatus("error");
         setError(verse.audioUnavailableReason ?? "No audio is available for this verse.");
         return;
       }
 
-      const sameSource = audio.src === verse.audio.url;
+      const sameSource = audio.src === url;
       if (sameSource) {
         if (!audio.paused) {
           audio.pause();
@@ -90,7 +115,7 @@ export function useSurahAudio(surah: SurahView): AudioController {
       setStatus("loading");
       setTime(0);
       setDuration(0);
-      audio.src = verse.audio.url;
+      audio.src = url;
       audio.load();
       const attempt = audio.play();
       if (attempt) {
@@ -106,8 +131,27 @@ export function useSurahAudio(surah: SurahView): AudioController {
         });
       }
     },
-    [setCurrentVerse],
+    [setCurrentVerse, urlFor],
   );
+
+  // Switching reciter mid-verse would otherwise leave the old file playing
+  // under the new name, so playback stops and the bar waits for a new press.
+  const previousReciter = useRef(reciter);
+  useEffect(() => {
+    if (previousReciter.current === reciter) return;
+    previousReciter.current = reciter;
+    const audio = audioRef.current;
+    if (audio) {
+      audio.pause();
+      audio.removeAttribute("src");
+      audio.load();
+    }
+    setCurrentVerse(null);
+    setStatus("idle");
+    setError(null);
+    setTime(0);
+    setDuration(0);
+  }, [reciter, setCurrentVerse]);
 
   const play = useCallback(
     (verse?: VerseView) => {

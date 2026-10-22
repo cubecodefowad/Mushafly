@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Bookmark, Search } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Bookmark, Search, Smartphone } from "lucide-react";
 import { BrandMark } from "@/components/layout/BrandMark";
 import { ContinueReading } from "@/components/home/ContinueReading";
 import { SurahDirectory } from "@/components/home/SurahDirectory";
@@ -9,6 +9,9 @@ import { absoluteUrl } from "@/lib/site";
 export const metadata: Metadata = {
   alternates: { canonical: absoluteUrl("/") },
 };
+
+const ANDROID_RELEASE_URL =
+  "https://github.com/cubecodefowad/Mushafly-Android/releases/tag/Android";
 
 export default function HomePage() {
   return (
@@ -66,6 +69,32 @@ export default function HomePage() {
 
         <div className="lg:pt-8">
           <ContinueReading />
+          <a
+            href={ANDROID_RELEASE_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="group mt-4 flex items-center gap-4 rounded-xl border border-line bg-surface p-5 transition-colors hover:border-accent/40"
+          >
+            <Smartphone
+              size={18}
+              strokeWidth={1.6}
+              className="shrink-0 text-accent"
+              aria-hidden
+            />
+            <span className="min-w-0 flex-1">
+              <span className="block text-sm text-ink">Mushafly for Android</span>
+              <span className="mt-0.5 block text-xs leading-relaxed text-muted">
+                The same reader as a native app, with the whole Quran offline.
+                Download the APK from GitHub.
+              </span>
+            </span>
+            <ArrowUpRight
+              size={16}
+              strokeWidth={1.8}
+              className="shrink-0 text-muted transition-colors group-hover:text-ink"
+              aria-hidden
+            />
+          </a>
         </div>
       </section>
 

@@ -63,7 +63,7 @@ export default function HomePage() {
             <span aria-hidden>·</span>
             <span>114 surahs · 6,236 verses</span>
             <span aria-hidden>·</span>
-            <span>Light &amp; dark</span>
+            <span>Light, dark &amp; mushaf borders</span>
           </div>
         </div>
 

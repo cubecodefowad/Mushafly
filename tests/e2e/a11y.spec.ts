@@ -57,9 +57,12 @@ for (const target of pages) {
   });
 }
 
-test("axe: dark surah reader", async ({ page }) => {
+test("axe: dark surah reader with a mushaf border", async ({ page }) => {
   await page.addInitScript(() => {
-    localStorage.setItem("mushafly.settings.v1", JSON.stringify({ theme: "dark" }));
+    localStorage.setItem(
+      "mushafly.settings.v1",
+      JSON.stringify({ theme: "dark", mushaf: "andalus" }),
+    );
   });
   await page.goto("/surah/2/");
   await page.waitForLoadState("networkidle");

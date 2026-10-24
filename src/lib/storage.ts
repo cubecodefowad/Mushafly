@@ -1,5 +1,9 @@
 import surahMeta from "@/data/generated/surah-meta.json";
 import {
+  DEFAULT_MUSHAF_THEME,
+  isMushafTheme,
+} from "@/data/mushaf-themes";
+import {
   DEFAULT_RECITER,
   isReciterId,
 } from "@/data/reciters";
@@ -31,6 +35,7 @@ export const DEFAULT_SETTINGS: ReaderSettings = {
   tajweed: true,
   autoScroll: true,
   theme: "system",
+  mushaf: DEFAULT_MUSHAF_THEME,
 };
 
 const THEMES: ThemePreference[] = ["system", "light", "dark"];
@@ -64,6 +69,8 @@ export function parseSettings(value: unknown): ReaderSettings {
 
   const reciter = isReciterId(input.reciter) ? input.reciter : DEFAULT_SETTINGS.reciter;
 
+  const mushaf = isMushafTheme(input.mushaf) ? input.mushaf : DEFAULT_SETTINGS.mushaf;
+
   return {
     arabicSize: number("arabicSize", DEFAULT_SETTINGS.arabicSize, 24, 56),
     translationSize: number("translationSize", DEFAULT_SETTINGS.translationSize, 14, 26),
@@ -73,6 +80,7 @@ export function parseSettings(value: unknown): ReaderSettings {
     tajweed: bool("tajweed", DEFAULT_SETTINGS.tajweed),
     autoScroll: bool("autoScroll", DEFAULT_SETTINGS.autoScroll),
     theme,
+    mushaf,
   };
 }
 

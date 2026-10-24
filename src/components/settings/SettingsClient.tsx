@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { ExternalLink, Monitor, Moon, Sun, Trash2 } from "lucide-react";
 import { useReadingState } from "@/components/bookmarks/ReadingStateProvider";
+import { MushafPicker } from "@/components/settings/MushafPicker";
 import { ReciterPicker } from "@/components/settings/ReciterPicker";
 import { useSettings } from "@/components/settings/SettingsProvider";
 import { TranslationPicker } from "@/components/settings/TranslationPicker";
@@ -103,6 +104,20 @@ export function SettingsClient({
               );
             })}
           </div>
+        </div>
+
+        <div className="mt-4 rounded-xl border border-line bg-surface p-5">
+          <p className="text-sm font-medium">Mushaf border</p>
+          <p className="mt-1 text-xs leading-relaxed text-muted">
+            Paper, ink and a page frame for the reading view, in light and dark.
+            These are original designs inspired by bound mushafs, not facsimiles
+            of a particular edition.
+          </p>
+          <MushafPicker
+            className="mt-4"
+            value={settings.mushaf}
+            onChange={(mushaf) => update({ mushaf })}
+          />
         </div>
       </section>
 

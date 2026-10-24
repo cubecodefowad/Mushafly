@@ -12,6 +12,7 @@ import {
 import { AudioBar } from "@/components/audio/AudioBar";
 import { useSurahAudio } from "@/components/audio/useSurahAudio";
 import { useReadingState } from "@/components/bookmarks/ReadingStateProvider";
+import { MushafFrame } from "@/components/reader/MushafFrame";
 import { SurahHeader } from "@/components/reader/SurahHeader";
 import { Verse } from "@/components/reader/Verse";
 import { SettingsSheet } from "@/components/settings/SettingsSheet";
@@ -289,41 +290,45 @@ export function Reader({ surah }: { surah: SurahView }) {
             </div>
 
             <div className="reader-column mt-2">
-              {surah.bismillah ? (
-                <Verse
-                  surah={surah}
-                  verse={surah.bismillah}
-                  settings={settings}
-                  active={audio.current?.key === surah.bismillah.key}
-                  playing={audio.status === "playing" && audio.current?.key === surah.bismillah.key}
-                  onTogglePlay={togglePlay}
-                  translation={
-                    language === "en" ? undefined : translationFor(surah.bismillah)
-                  }
-                  translationLanguage={language}
-                />
-              ) : null}
+              <MushafFrame>
+                {surah.bismillah ? (
+                  <Verse
+                    surah={surah}
+                    verse={surah.bismillah}
+                    settings={settings}
+                    active={audio.current?.key === surah.bismillah.key}
+                    playing={
+                      audio.status === "playing" && audio.current?.key === surah.bismillah.key
+                    }
+                    onTogglePlay={togglePlay}
+                    translation={
+                      language === "en" ? undefined : translationFor(surah.bismillah)
+                    }
+                    translationLanguage={language}
+                  />
+                ) : null}
 
-              {surah.verses.map((verse) => (
-                <Verse
-                  key={verse.key}
-                  surah={surah}
-                  verse={verse}
-                  settings={settings}
-                  active={audio.current?.key === verse.key}
-                  playing={audio.status === "playing" && audio.current?.key === verse.key}
-                  onTogglePlay={togglePlay}
-                  translation={language === "en" ? undefined : translationFor(verse)}
-                  translationLanguage={language}
-                  onBookmarkToggled={(added) =>
-                    showToast(
-                      added
-                        ? `Bookmarked ${surah.meta.number}:${verse.number}`
-                        : `Removed bookmark ${surah.meta.number}:${verse.number}`,
-                    )
-                  }
-                />
-              ))}
+                {surah.verses.map((verse) => (
+                  <Verse
+                    key={verse.key}
+                    surah={surah}
+                    verse={verse}
+                    settings={settings}
+                    active={audio.current?.key === verse.key}
+                    playing={audio.status === "playing" && audio.current?.key === verse.key}
+                    onTogglePlay={togglePlay}
+                    translation={language === "en" ? undefined : translationFor(verse)}
+                    translationLanguage={language}
+                    onBookmarkToggled={(added) =>
+                      showToast(
+                        added
+                          ? `Bookmarked ${surah.meta.number}:${verse.number}`
+                          : `Removed bookmark ${surah.meta.number}:${verse.number}`,
+                      )
+                    }
+                  />
+                ))}
+              </MushafFrame>
             </div>
 
             <nav

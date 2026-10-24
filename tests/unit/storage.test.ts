@@ -63,6 +63,7 @@ describe("local storage validation", () => {
       tajweed: false,
       autoScroll: true,
       theme: "sepia",
+      mushaf: "madinah",
     });
     expect(parsed.arabicSize).toBe(56);
     expect(parsed.translationSize).toBe(14);
@@ -70,6 +71,7 @@ describe("local storage validation", () => {
     expect(parsed.tajweed).toBe(false);
     expect(parsed.autoScroll).toBe(true);
     expect(parsed.theme).toBe("system");
+    expect(parsed.mushaf).toBe("madinah");
     expect(parsed.translation).toBe("en");
 
     expect(parseSettings({ translation: "id" }).translation).toBe("id");
@@ -81,6 +83,9 @@ describe("local storage validation", () => {
     expect(parseSettings({ reciter: "husary" }).reciter).toBe(DEFAULT_SETTINGS.reciter);
     expect(parseSettings({ reciter: 7 }).reciter).toBe(DEFAULT_SETTINGS.reciter);
     expect(parseSettings({ translation: "fr" }).translation).toBe("en");
+    expect(parseSettings({ mushaf: "sepia" }).mushaf).toBe("plain");
+    expect(parseSettings({ mushaf: 7 }).mushaf).toBe("plain");
+    expect(parseSettings({}).mushaf).toBe("plain");
     expect(parseSettings(null)).toEqual(DEFAULT_SETTINGS);
   });
 });

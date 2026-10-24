@@ -1,3 +1,4 @@
+import type { MushafTheme } from "@/data/mushaf-themes";
 import type { ReciterId } from "@/data/reciters";
 import type { TanzilTranslationKey } from "@/data/generated/tanzil-keys";
 
@@ -130,4 +131,6 @@ export type ReaderSettings = {
   tajweed: boolean;
   autoScroll: boolean;
   theme: ThemePreference;
+  /** Page design for the reading view; `plain` keeps the unframed layout. */
+  mushaf: MushafTheme;
 };

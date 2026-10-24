@@ -3,8 +3,9 @@
 An elegant, source-faithful Quran reading experience. All 114 surahs in
 Arabic, with 68 selectable translation datasets across 29 languages and an
 Arabic commentary (Tafsir al-Muyassar), repository-derived Tajweed
-highlighting, verse-by-verse recitation, local bookmarks and Arabic/English
-search. No account, no cookies, no generated Quranic content.
+highlighting, verse-by-verse recitation, local bookmarks, Arabic/English
+search and four reading-page designs inspired by bound mushafs. No account, no
+cookies, no generated Quranic content.
 
 Built with Next.js 16 (App Router, static export), React 19, TypeScript and
 Tailwind CSS 4.
@@ -111,7 +112,7 @@ The validator asserts these counts and reference sets exactly.
 | `/surah/[number]/` | Static pages for all 114 surahs |
 | `/search/` | Arabic + English search with derived normalization |
 | `/bookmarks/` | Local bookmarks with labels and removal |
-| `/settings/` | Theme, type sizes, local data, Tajweed limits, attribution |
+| `/settings/` | Theme, mushaf borders, type sizes, local data, Tajweed limits, attribution |
 | `/about/` | What the app is, how it is built, contact details |
 | `/accuracy/` | Accuracy and Sources: provenance, pinned revision, reporting |
 | `/tajweed/` | Tajweed and marks: every highlight colour and every sign explained |
@@ -121,6 +122,18 @@ The validator asserts these counts and reference sets exactly.
 | `/og.png`, `/twitter.png` | Generated 1200×630 social cards |
 | `/sitemap.xml`, `/robots.txt` | Crawler discovery and rules |
 | `/404.html` | Static 404 for unknown paths, served with HTTP 404 |
+
+### Reading page designs
+
+`/settings/` offers Plain, Madinah, Andalus and Ottoman. Each design defines a
+complete palette under `[data-mushaf="…"]` in `src/app/globals.css` — paper,
+surface, ink, muted text, accent, border and frame gilding — once for light and
+once for `html.dark`. The catalog in `src/data/mushaf-themes.ts` supplies the
+labels; `src/components/reader/MushafFrame.tsx` draws the rosettes, and CSS
+adds the border for every design other than `plain`. The wrapper stays in the
+markup either way, so switching designs cannot shift the text at hydration. The
+same `data-mushaf` attribute paints the picker swatches, so a preview cannot
+drift from the page.
 
 ## Branding
 
@@ -228,15 +241,16 @@ node scripts/generate-brand-assets.mjs   # regenerate public/brand/ from assets/
   missing Bismillah row, all 65 generated Tanzil datasets and their 405,340
   non-empty rows, Urdu text preservation and direction metadata, and the optical
   offsets that align the standalone Tajweed signs.
-- **Playwright (45 tests × Chromium, Firefox and WebKit = 135 runs):** home
+- **Playwright (52 tests × Chromium, Firefox and WebKit = 156 runs):** home
   directory, reader directionality and exact strings, translation switching and
   persistence, the searchable translation picker, Tanzil datasets rendering their
   own text, Tajweed toggle, bookmark persistence after reload, Arabic/English
   search, on-demand search index, theme-aware mark and browser icons, canonical
   and social metadata, sitemap/robots, the 404 page, legal pages and their
   footer links, pre-rename data migration, theme persistence, settings dialog
-  keyboard dismissal, mobile overflow, and axe WCAG 2.2 AA checks on eleven
-  routes plus a dark reader.
+  keyboard dismissal, mushaf-border selection, persistence and framing, mobile
+  overflow, and axe WCAG 2.2 AA checks on eleven routes plus a dark reader with
+  a mushaf border.
 - **Validator:** pins the exact source revision, file hashes and anomaly set.
   Run in CI and before release.
 
@@ -254,6 +268,10 @@ into the release — is recorded in [`docs/verification.md`](docs/verification.m
 - Tajweed is never encoded by color alone: dotted underlines and a rule key with
   labels and descriptions accompany the colors. All 18 rule colors pass 4.5:1
   against both theme backgrounds.
+- Every mushaf design ships a light and a dark palette; body text, secondary
+  text and accent links clear 4.5:1 on both the paper and the card surface. The
+  frame, corner rosettes and medallions are `aria-hidden` decoration, and the
+  text inside is unchanged.
 - Motion respects `prefers-reduced-motion`; reading never depends on animation.
 - No `aria-live` on the reader. Playback and short confirmations use polite
   status regions.

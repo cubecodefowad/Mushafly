@@ -3,9 +3,11 @@
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { X } from "lucide-react";
+import { MushafPicker } from "@/components/settings/MushafPicker";
 import { useSettings } from "@/components/settings/SettingsProvider";
 import { ReciterPicker } from "@/components/settings/ReciterPicker";
 import { TranslationPicker } from "@/components/settings/TranslationPicker";
+import { mushafThemeInfo } from "@/data/mushaf-themes";
 import { reciterInfo } from "@/data/reciters";
 import { translationInfo } from "@/data/translations";
 
@@ -193,6 +195,21 @@ export function SettingsSheet({ open, onClose }: Props) {
               </button>
             ))}
           </div>
+        </div>
+
+        <div className="settings-row max-sm:flex-col max-sm:items-start">
+          <div className="min-w-0">
+            <p className="text-sm font-medium">Mushaf border</p>
+            <p className="mt-0.5 text-xs text-muted">
+              {mushafThemeInfo(settings.mushaf).description}
+            </p>
+          </div>
+          <MushafPicker
+            variant="compact"
+            value={settings.mushaf}
+            onChange={(mushaf) => update({ mushaf })}
+            className="w-full max-w-[18rem]"
+          />
         </div>
 
         <div className="mt-5 flex flex-wrap items-center justify-between gap-3">

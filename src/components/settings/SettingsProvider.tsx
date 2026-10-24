@@ -81,6 +81,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     const root = document.documentElement;
     root.classList.toggle("dark", resolvedTheme === "dark");
     root.dataset.theme = settings.theme;
+    root.dataset.mushaf = settings.mushaf;
     root.style.setProperty("--arabic-size", `${settings.arabicSize}px`);
     root.style.setProperty("--translation-size", `${settings.translationSize}px`);
     writeStorage(STORAGE_KEYS.settings, settings);

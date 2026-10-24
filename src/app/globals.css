@@ -132,6 +132,103 @@
   color-scheme: dark;
 }
 
+/* ------------------------------------------------------- mushaf designs */
+/* A design carries a complete palette for both brightnesses, so the reader's
+   light/dark choice survives while the paper, ink and gilding change. The same
+   attributes paint the picker swatches, which is why the selectors are not
+   scoped to `html`. */
+:root {
+  /* Plain inherits the ordinary border, so the verse rules are untouched. */
+  --frame-rule: var(--border);
+}
+
+[data-mushaf="madinah"] {
+  --background: #f6f4e8;
+  --surface: #fffdf4;
+  --surface-muted: #eeeade;
+  --text-primary: #1e2a22;
+  --text-secondary: #55604f;
+  --accent: #2c6242;
+  --accent-strong: #214b33;
+  --border: #e0dbc7;
+  --highlight: #eee5ca;
+  --frame-rule: #a9863f;
+  --shadow-color: 30 42 34;
+}
+
+html.dark[data-mushaf="madinah"],
+html.dark [data-mushaf="madinah"] {
+  --background: #121a15;
+  --surface: #1a231c;
+  --surface-muted: #17201a;
+  --text-primary: #eee9dc;
+  --text-secondary: #aeb6a6;
+  --accent: #a3cbaa;
+  --accent-strong: #c3dfc6;
+  --border: #2e3a31;
+  --highlight: #232e25;
+  --frame-rule: #c2a15c;
+  --shadow-color: 0 0 0;
+}
+
+[data-mushaf="andalus"] {
+  --background: #f7efe2;
+  --surface: #fdf8ee;
+  --surface-muted: #f0e5d3;
+  --text-primary: #2b211a;
+  --text-secondary: #695745;
+  --accent: #84452c;
+  --accent-strong: #67341f;
+  --border: #e5d6bf;
+  --highlight: #efdfc5;
+  --frame-rule: #9c6a3c;
+  --shadow-color: 43 32 25;
+}
+
+html.dark[data-mushaf="andalus"],
+html.dark [data-mushaf="andalus"] {
+  --background: #1a1410;
+  --surface: #231b15;
+  --surface-muted: #1e1712;
+  --text-primary: #f3e9db;
+  --text-secondary: #bfae98;
+  --accent: #e0a87e;
+  --accent-strong: #f0c5a2;
+  --border: #3a2e24;
+  --highlight: #292018;
+  --frame-rule: #c49a6a;
+  --shadow-color: 0 0 0;
+}
+
+[data-mushaf="ottoman"] {
+  --background: #f4f2ea;
+  --surface: #fdfcf7;
+  --surface-muted: #ebe8dd;
+  --text-primary: #1c2532;
+  --text-secondary: #56606f;
+  --accent: #2e4a79;
+  --accent-strong: #22375c;
+  --border: #dedacd;
+  --highlight: #e5e9f0;
+  --frame-rule: #a78843;
+  --shadow-color: 28 37 51;
+}
+
+html.dark[data-mushaf="ottoman"],
+html.dark [data-mushaf="ottoman"] {
+  --background: #131822;
+  --surface: #1b212c;
+  --surface-muted: #171d27;
+  --text-primary: #ecf0f6;
+  --text-secondary: #aeb7c7;
+  --accent: #a9c0e8;
+  --accent-strong: #c9d9f5;
+  --border: #2c3546;
+  --highlight: #222b39;
+  --frame-rule: #b99b59;
+  --shadow-color: 0 0 0;
+}
+
 /* ------------------------------------------------------------------- base */
 @layer base {
   * {
@@ -363,6 +460,199 @@
     font-size: calc(var(--arabic-size) * 0.86);
     line-height: 2.1;
     text-align: center;
+  }
+
+  /* ------------------------------------------------------- mushaf page */
+  /* A bound-mushaf page: gold rule, a second hairline inside it, rosette
+     bosses at the corners and a medallion centred on the head and foot of the
+     frame. Everything is drawn in CSS and one small SVG rosette, so a design
+     costs no image request and recolours with its palette. */
+  .mushaf-frame {
+    position: relative;
+    margin-block: 1.75rem 1.9rem;
+    padding: clamp(1.6rem, 4vw, 2.6rem) clamp(0.85rem, 2.4vw, 1.9rem)
+      clamp(1.4rem, 3vw, 2.1rem);
+    border: 1px solid var(--frame-rule);
+    border-radius: 3px;
+    background-color: var(--surface);
+    background-image: radial-gradient(
+      circle at 1px 1px,
+      color-mix(in srgb, var(--text-primary) 4%, transparent) 0.8px,
+      transparent 0
+    );
+    background-size: 17px 17px;
+    box-shadow:
+      inset 0 0 0 1px color-mix(in srgb, var(--background) 70%, transparent),
+      inset 0 0 56px color-mix(in srgb, var(--frame-rule) 7%, transparent);
+  }
+
+  .mushaf-frame::before {
+    content: "";
+    position: absolute;
+    inset: 0.42rem;
+    border: 1px solid color-mix(in srgb, var(--frame-rule) 42%, transparent);
+    border-radius: 1px;
+    pointer-events: none;
+  }
+
+  .mushaf-frame .verse {
+    border-bottom-color: color-mix(in srgb, var(--frame-rule) 22%, var(--border));
+  }
+
+  .mushaf-ornament {
+    position: absolute;
+    z-index: 1;
+    display: block;
+    color: var(--frame-rule);
+    padding: 0.15rem;
+    border-radius: 999px;
+    background: var(--surface);
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--frame-rule) 50%, transparent);
+  }
+
+  .mushaf-ornament > svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .mushaf-corner {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .mushaf-corner-tl {
+    top: 0.42rem;
+    left: 0.42rem;
+    transform: translate(-50%, -50%);
+  }
+
+  .mushaf-corner-tr {
+    top: 0.42rem;
+    right: 0.42rem;
+    transform: translate(50%, -50%);
+  }
+
+  .mushaf-corner-bl {
+    bottom: 0.42rem;
+    left: 0.42rem;
+    transform: translate(-50%, 50%);
+  }
+
+  .mushaf-corner-br {
+    bottom: 0.42rem;
+    right: 0.42rem;
+    transform: translate(50%, 50%);
+  }
+
+  .mushaf-boss {
+    left: 50%;
+    width: 1.55rem;
+    height: 1.55rem;
+    transform: translate(-50%, -50%);
+  }
+
+  .mushaf-boss-top {
+    top: 0;
+  }
+
+  .mushaf-boss-bottom {
+    top: 100%;
+  }
+
+  /* Picker preview: the palette and rules of the design at thumbnail size. */
+  .mushaf-swatch {
+    position: relative;
+    display: block;
+    height: 2.4rem;
+    overflow: hidden;
+    border: 1px solid var(--frame-rule);
+    border-radius: 2px;
+    background-color: var(--surface);
+    background-image: radial-gradient(
+      circle at 1px 1px,
+      color-mix(in srgb, var(--text-primary) 5%, transparent) 0.7px,
+      transparent 0
+    );
+    background-size: 9px 9px;
+  }
+
+  .mushaf-swatch::before {
+    content: "";
+    position: absolute;
+    inset: 4px;
+    border: 1px solid color-mix(in srgb, var(--frame-rule) 48%, transparent);
+  }
+
+  .mushaf-swatch::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: -0.1875rem;
+    width: 0.375rem;
+    height: 0.375rem;
+    margin-left: -0.1875rem;
+    transform: rotate(45deg);
+    background: var(--frame-rule);
+  }
+
+  /* Plain means "the page as it is", so its preview shows the base palette
+     rather than borrowing the design that happens to be selected. */
+  .mushaf-swatch[data-mushaf="plain"] {
+    --surface: #faf8f3;
+    --border: #e7e3da;
+    --text-primary: #252821;
+    --text-secondary: #666a61;
+    border-style: dashed;
+    border-color: color-mix(in srgb, var(--text-secondary) 40%, transparent);
+  }
+
+  .dark .mushaf-swatch[data-mushaf="plain"] {
+    --surface: #171916;
+    --border: #383c35;
+    --text-primary: #f1eee6;
+    --text-secondary: #b1b4aa;
+  }
+
+  .mushaf-swatch[data-mushaf="plain"]::before,
+  .mushaf-swatch[data-mushaf="plain"]::after {
+    display: none;
+  }
+
+  @media (max-width: 640px) {
+    .mushaf-corner {
+      width: 1.15rem;
+      height: 1.15rem;
+    }
+
+    .mushaf-boss {
+      width: 1.2rem;
+      height: 1.2rem;
+    }
+
+    .mushaf-frame {
+      padding-top: 1.35rem;
+    }
+  }
+
+  /* Plain keeps the unframed page. The wrapper stays in the static markup so a
+     stored design does not add elements at hydration and shift the text; the
+     same reset covers the first paint, before ThemeScript sets the attribute. */
+  html:not([data-mushaf]) .mushaf-frame,
+  html[data-mushaf="plain"] .mushaf-frame {
+    margin-block: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    box-shadow: none;
+  }
+
+  html:not([data-mushaf]) .mushaf-frame::before,
+  html[data-mushaf="plain"] .mushaf-frame::before,
+  html:not([data-mushaf]) .mushaf-ornament,
+  html[data-mushaf="plain"] .mushaf-ornament {
+    display: none;
   }
 
   .icon-button {

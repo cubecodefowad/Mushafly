@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, Bookmark, Search, Smartphone } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Bookmark, Library, Search, Smartphone } from "lucide-react";
 import { BrandMark } from "@/components/layout/BrandMark";
 import { ContinueReading } from "@/components/home/ContinueReading";
+import { HADITHLY_TOTALS } from "@/data/hadith";
 import { SurahDirectory } from "@/components/home/SurahDirectory";
 import { absoluteUrl } from "@/lib/site";
 
@@ -60,7 +61,6 @@ export default function HomePage() {
               <Bookmark size={13} strokeWidth={1.8} aria-hidden />
               Bookmarks
             </Link>
-            <span aria-hidden>·</span>
             <span>114 surahs · 6,236 verses</span>
             <span aria-hidden>·</span>
             <span>Light, dark &amp; mushaf borders</span>
@@ -69,6 +69,25 @@ export default function HomePage() {
 
         <div className="lg:pt-8">
           <ContinueReading />
+          <Link
+            href="/hadithly/"
+            className="group mt-4 flex items-center gap-4 rounded-xl border border-line bg-surface p-5 transition-colors hover:border-accent/40"
+          >
+            <Library size={18} strokeWidth={1.6} className="shrink-0 text-accent" aria-hidden />
+            <span className="min-w-0 flex-1">
+              <span className="block text-sm text-ink">Hadithly</span>
+              <span className="mt-0.5 block text-xs leading-relaxed text-muted">
+                The Six Books and the Muwatta in Arabic, with{" "}
+                {HADITHLY_TOTALS.languages} translations and each scholar&apos;s grading.
+              </span>
+            </span>
+            <ArrowRight
+              size={16}
+              strokeWidth={1.8}
+              className="shrink-0 text-muted transition-colors group-hover:text-ink"
+              aria-hidden
+            />
+          </Link>
           <a
             href={ANDROID_RELEASE_URL}
             target="_blank"

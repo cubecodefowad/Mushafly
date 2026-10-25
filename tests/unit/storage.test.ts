@@ -73,6 +73,12 @@ describe("local storage validation", () => {
     expect(parsed.theme).toBe("system");
     expect(parsed.mushaf).toBe("madinah");
     expect(parsed.translation).toBe("en");
+    expect(parsed.hadithTranslation).toBe("en");
+
+    expect(parseSettings({ hadithTranslation: "ur" }).hadithTranslation).toBe("ur");
+    expect(parseSettings({ hadithTranslation: "bn" }).hadithTranslation).toBe("bn");
+    expect(parseSettings({ hadithTranslation: "de" }).hadithTranslation).toBe("en");
+    expect(parseSettings({ hadithTranslation: 7 }).hadithTranslation).toBe("en");
 
     expect(parseSettings({ translation: "id" }).translation).toBe("id");
     expect(parseSettings({ translation: "ar" }).translation).toBe("ar");

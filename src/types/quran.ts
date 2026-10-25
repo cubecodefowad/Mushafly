@@ -1,6 +1,7 @@
 import type { MushafTheme } from "@/data/mushaf-themes";
 import type { ReciterId } from "@/data/reciters";
 import type { TanzilTranslationKey } from "@/data/generated/tanzil-keys";
+import type { HadithLanguageCode } from "@/types/hadith";
 
 /** Unique selection key for every translation dataset. */
 export type TranslationLanguage = "en" | "id" | "ar" | TanzilTranslationKey;
@@ -126,6 +127,8 @@ export type ReaderSettings = {
   arabicSize: number;
   translationSize: number;
   translation: TranslationLanguage;
+  /** Which language Hadithly shows beneath the Arabic. */
+  hadithTranslation: HadithLanguageCode;
   reciter: ReciterId;
   showTranslation: boolean;
   tajweed: boolean;

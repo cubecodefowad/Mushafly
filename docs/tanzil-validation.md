@@ -1,6 +1,6 @@
 # Tanzil integration validation
 
-Generated: 2026-10-20T14:50:48.062Z
+Generated: 2026-10-25T07:09:37.030Z
 
 - Integrated translations: **65**
 - Excluded translations: **2**

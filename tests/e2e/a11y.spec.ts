@@ -12,6 +12,9 @@ const pages = [
   { path: "/accuracy/", name: "accuracy and sources" },
   { path: "/about/", name: "about" },
   { path: "/tajweed/", name: "tajweed and marks" },
+  { path: "/hadithly/", name: "hadithly" },
+  { path: "/hadithly/bukhari/", name: "hadithly collection" },
+  { path: "/hadithly/tirmidhi/1/", name: "hadithly book" },
   { path: "/social-preview/", name: "social preview" },
 ];
 

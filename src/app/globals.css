@@ -76,6 +76,11 @@
   --border: #e7e3da;
   --highlight: #eee7d8;
   --shadow-color: 37 40 33;
+  /* Hadith gradings: the three tones a chip can take. */
+  --grade-sahih: #2c6242;
+  --grade-hasan: #7c5410;
+  --grade-weak: #8a3a32;
+  --grade-other: var(--text-secondary);
   --arabic-size: 2.1rem;
   --translation-size: 1.0625rem;
   --header-height: 4rem;
@@ -111,6 +116,10 @@
   --border: #383c35;
   --highlight: #2a2e28;
   --shadow-color: 0 0 0;
+  --grade-sahih: #a8d0ae;
+  --grade-hasan: #e0c483;
+  --grade-weak: #eaa9a1;
+  --grade-other: var(--text-secondary);
   --tw-hamzat_wasl: #c9a7f0;
   --tw-madd_2: #8fb8ec;
   --tw-madd_246: #79c9cc;
@@ -934,10 +943,113 @@ html.dark [data-mushaf="ottoman"] {
     animation: soft-pulse 1.4s ease-in-out infinite;
   }
 
+  /* ------------------------------------------------------------- hadithly */
+  /* A hadith is not an ayah, so it gets its own measure: the Arabic keeps the
+     Quranic face but sits a little smaller and looser than the mushaf page. */
+  .hadith-article {
+    position: relative;
+    padding-block: clamp(1.4rem, 2.8vw, 2rem);
+    border-bottom: 1px solid var(--border);
+    scroll-margin-top: calc(var(--header-height) + 2.5rem);
+  }
+
+  .hadith-article:last-child {
+    border-bottom: 0;
+  }
+
+  .hadith-article:hover {
+    background: color-mix(in srgb, var(--highlight) 26%, transparent);
+  }
+
+  .hadith-arabic {
+    font-family: var(--font-arabic);
+    font-size: calc(var(--arabic-size) * 0.82);
+    line-height: 2.05;
+    direction: rtl;
+    text-align: right;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern" 1, "calt" 1;
+    overflow-wrap: break-word;
+    color: var(--text-primary);
+  }
+
+  .hadith-actions {
+    opacity: 0;
+    transition: opacity 160ms ease;
+  }
+
+  .hadith-article:hover .hadith-actions,
+  .hadith-article:focus-within .hadith-actions,
+  .hadith-actions:focus-within {
+    opacity: 1;
+  }
+
+  .grade-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.16rem 0.5rem;
+    border: 1px solid color-mix(in srgb, var(--grade-tone) 40%, transparent);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--grade-tone) 8%, transparent);
+    font-size: 0.625rem;
+    line-height: 1.5;
+    letter-spacing: 0.03em;
+    color: var(--grade-tone);
+  }
+
+  .grade-chip[data-tone="sahih"] {
+    --grade-tone: var(--grade-sahih);
+  }
+
+  .grade-chip[data-tone="hasan"] {
+    --grade-tone: var(--grade-hasan);
+  }
+
+  .grade-chip[data-tone="weak"] {
+    --grade-tone: var(--grade-weak);
+  }
+
+  .grade-chip[data-tone="other"] {
+    --grade-tone: var(--grade-other);
+  }
+
+  /* Weight rather than opacity separates the verdict from its author: a
+     translucent 10px label drops under 4.5:1 on the tinted chip. */
+  .grade-chip-value {
+    font-weight: 600;
+  }
+
+  .grade-chip-scholar {
+    font-weight: 400;
+  }
+
+  .collection-card {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    background: var(--surface);
+    padding: 1.25rem;
+    transition: border-color 160ms ease, background-color 160ms ease;
+  }
+
+  .collection-card:hover {
+    border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+  }
+
   @media (hover: none) {
     .verse-actions {
       opacity: 1;
       transform: none;
+    }
+    .hadith-actions {
+      opacity: 1;
+    }
+    .hadith-article:hover {
+      background: transparent;
     }
     .verse:hover {
       background: transparent;
@@ -948,6 +1060,7 @@ html.dark [data-mushaf="ottoman"] {
     .site-header,
     .reader-toolbar,
     .verse-actions,
+    .hadith-actions,
     .audio-bar,
     .site-footer {
       display: none !important;

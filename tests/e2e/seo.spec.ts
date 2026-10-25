@@ -114,11 +114,17 @@ test("robots.txt and the sitemap point crawlers at every public page", async ({
   expect(sitemap.headers()["content-type"]).toContain("xml");
   const xml = await sitemap.text();
   const locations = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
-  expect(locations).toHaveLength(121);
+  // Home + 114 surahs + Hadithly's 10 collections and 399 books + 7 pages.
+  expect(locations).toHaveLength(531);
   expect(locations[0]).toBe(`${ORIGIN}/`);
   expect(locations).toContain(`${ORIGIN}/surah/1/`);
   expect(locations).toContain(`${ORIGIN}/surah/114/`);
   expect(locations).toContain(`${ORIGIN}/tajweed/`);
+  expect(locations).toContain(`${ORIGIN}/hadithly/`);
+  expect(locations).toContain(`${ORIGIN}/hadithly/bukhari/`);
+  expect(locations).toContain(`${ORIGIN}/hadithly/nawawi/`);
+  expect(locations).toContain(`${ORIGIN}/hadithly/bukhari/1/`);
+  expect(locations).toContain(`${ORIGIN}/hadithly/nawawi/1/`);
   expect(locations).not.toContain(`${ORIGIN}/bookmarks/`);
   expect(locations).not.toContain(`${ORIGIN}/settings/`);
   expect(xml).not.toContain("?q=");

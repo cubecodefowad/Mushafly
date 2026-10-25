@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { BrandMark } from "@/components/layout/BrandMark";
 import { sourceInfo } from "@/data/attribution";
+import { HADITHLY_TOTALS } from "@/data/hadith";
 import { RECITERS } from "@/data/reciters";
 import { TANZIL_TRANSLATIONS } from "@/data/translations";
 
@@ -31,6 +32,7 @@ export function Footer() {
           <p className="meta mb-3">Sections</p>
           <ul className="space-y-2 text-muted">
             <li><Link className="hover:text-ink" href="/">Surahs</Link></li>
+            <li><Link className="hover:text-ink" href="/hadithly/">Hadithly</Link></li>
             <li><Link className="hover:text-ink" href="/search/">Search</Link></li>
             <li><Link className="hover:text-ink" href="/bookmarks/">Bookmarks</Link></li>
             <li><Link className="hover:text-ink" href="/settings/">Settings</Link></li>
@@ -81,6 +83,12 @@ export function Footer() {
           <p className="mt-1">
             Recitation: Saad Al-Ghamadi (pinned), plus {RECITERS.length - 1}{" "}
             editions streamed from everyayah.com.
+          </p>
+          <p className="mt-2">
+            <Link className="underline decoration-line underline-offset-4 hover:text-ink" href="/hadithly/">
+              Hadithly
+            </Link>
+            : hadith-api editions, {HADITHLY_TOTALS.languages} translations (public domain).
           </p>
           <Link
             href="/settings/#attribution"

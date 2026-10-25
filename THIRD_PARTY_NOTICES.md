@@ -131,6 +131,25 @@ and folder names, which this project preserves in
 `src/data/generated/reciters.json` and in Settings → Attribution. Anyone
 redistributing the audio must establish their own permission.
 
+## Hadith — fawazahmed0/hadith-api
+
+Repository: <https://github.com/fawazahmed0/hadith-api>
+Pinned revision: `df57907be35291c91ad6a6691180e22ca9920784`
+License: The Unlicense (public domain dedication)
+
+Ten collections are copied into `public/hadith/`, split by book and by language,
+with the Arabic text from the dataset's `ara-*` editions and every translation it
+publishes in that collection's `ben-*`, `eng-*`, `fra-*`, `ind-*`, `rus-*`,
+`tam-*`, `tur-*` and `urd-*` editions. Eight languages in total; where the
+dataset publishes no translation of a collection, none is shown. Each edition is
+reproduced as published, and no text is machine-translated here. Gradings are
+reproduced as published too, each attributed to the scholar whose verdict it is;
+Hadithly adds no grading of its own. The
+dataset's own references (`References.md` at the pinned revision) credit
+sunnah.com, al-maktaba.org and the individual graders, and state that the
+repository's licence covers the datasets it publishes. As with the Quran data,
+verify a narration against a printed edition before relying on it.
+
 ## Fonts
 
 All fonts are used under the SIL Open Font License 1.1. The license texts are

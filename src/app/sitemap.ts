@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import surahMeta from "@/data/generated/surah-meta.json";
+import { HADITH_COLLECTIONS, hadithSectionUrl } from "@/data/hadith";
 import { absoluteUrl } from "@/lib/site";
 
 export const dynamic = "force-static";
@@ -14,6 +15,7 @@ const PUBLIC_PAGES: Array<{
   priority: number;
 }> = [
   { path: "/", changeFrequency: "weekly", priority: 1 },
+  { path: "/hadithly/", changeFrequency: "monthly", priority: 0.9 },
   { path: "/search/", changeFrequency: "monthly", priority: 0.5 },
   { path: "/about/", changeFrequency: "monthly", priority: 0.6 },
   { path: "/accuracy/", changeFrequency: "monthly", priority: 0.6 },
@@ -35,7 +37,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  // Home first, then the reading surface, then the supporting pages. Search
+  const collections: MetadataRoute.Sitemap = HADITH_COLLECTIONS.map((collection) => ({
+    url: absoluteUrl(`/hadithly/${collection.id}/`),
+    changeFrequency: "monthly",
+    priority: 0.7,
+  }));
+
+  // Every book is a real, citable page, so Hadithly's 399 books are listed
+  // after the Quran's surahs and its collection pages.
+  const books: MetadataRoute.Sitemap = HADITH_COLLECTIONS.flatMap((collection) =>
+    collection.sections.map((section) => ({
+      url: absoluteUrl(hadithSectionUrl(collection.id, section.number)),
+      changeFrequency: "yearly" as const,
+      priority: 0.5,
+    })),
+  );
+
+  // Home first, then the reading surfaces, then the supporting pages. Search
   // result URLs (?q=) and the local-only bookmarks/settings pages are omitted.
-  return [pages[0], ...surahs, ...pages.slice(1)];
+  return [pages[0], ...surahs, ...collections, ...books, ...pages.slice(1)];
 }

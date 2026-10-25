@@ -7,16 +7,23 @@ import {
   DEFAULT_RECITER,
   isReciterId,
 } from "@/data/reciters";
+import { DEFAULT_HADITH_LANGUAGE, isHadithLanguage } from "@/data/hadith-format";
 import {
   DEFAULT_TRANSLATION,
   isTranslationLanguage,
 } from "@/data/translations";
 import type { BookmarkRecord, LastRead, ReaderSettings, ThemePreference } from "@/types/quran";
+import type { HadithProgress } from "@/types/hadith";
 
 export const STORAGE_KEYS = {
   settings: "mushafly.settings.v1",
   bookmarks: "mushafly.bookmarks.v1",
   lastRead: "mushafly.lastRead.v1",
+} as const;
+
+/** Hadithly keeps its own record: a place in a hadith book, not in a surah. */
+export const HADITHLY_STORAGE_KEYS = {
+  progress: "mushafly.hadithly.v1",
 } as const;
 
 /** Keys used before the app was renamed to Mushafly. Read once, then migrated. */
@@ -30,6 +37,7 @@ export const DEFAULT_SETTINGS: ReaderSettings = {
   arabicSize: 34,
   translationSize: 17,
   translation: DEFAULT_TRANSLATION,
+  hadithTranslation: DEFAULT_HADITH_LANGUAGE,
   reciter: DEFAULT_RECITER,
   showTranslation: true,
   tajweed: true,
@@ -67,6 +75,10 @@ export function parseSettings(value: unknown): ReaderSettings {
     ? input.translation
     : DEFAULT_SETTINGS.translation;
 
+  const hadithTranslation = isHadithLanguage(input.hadithTranslation)
+    ? input.hadithTranslation
+    : DEFAULT_SETTINGS.hadithTranslation;
+
   const reciter = isReciterId(input.reciter) ? input.reciter : DEFAULT_SETTINGS.reciter;
 
   const mushaf = isMushafTheme(input.mushaf) ? input.mushaf : DEFAULT_SETTINGS.mushaf;
@@ -75,6 +87,7 @@ export function parseSettings(value: unknown): ReaderSettings {
     arabicSize: number("arabicSize", DEFAULT_SETTINGS.arabicSize, 24, 56),
     translationSize: number("translationSize", DEFAULT_SETTINGS.translationSize, 14, 26),
     translation,
+    hadithTranslation,
     reciter,
     showTranslation: bool("showTranslation", DEFAULT_SETTINGS.showTranslation),
     tajweed: bool("tajweed", DEFAULT_SETTINGS.tajweed),
@@ -136,6 +149,48 @@ export function parseLastRead(value: unknown): LastRead | null {
     return null;
   }
   return { reference: candidate.reference, updatedAt: candidate.updatedAt };
+}
+
+/**
+ * Structural check only: the collection id, book and hadith number must be
+ * plausible. The shape is validated here so a tampered or stale value cannot
+ * crash the landing page; the pages themselves still own the real data.
+ */
+export function parseHadithProgress(value: unknown): HadithProgress | null {
+  if (!value || typeof value !== "object") return null;
+  const candidate = value as Partial<HadithProgress>;
+  if (typeof candidate.collection !== "string" || !/^[a-z]{3,16}$/.test(candidate.collection)) {
+    return null;
+  }
+  const section = candidate.section;
+  if (typeof section !== "number" || !Number.isInteger(section) || section < 0 || section > 999) {
+    return null;
+  }
+  if (
+    typeof candidate.number !== "number" ||
+    !Number.isFinite(candidate.number) ||
+    candidate.number < 1 ||
+    candidate.number > 99_999
+  ) {
+    return null;
+  }
+  if (typeof candidate.updatedAt !== "string" || Number.isNaN(Date.parse(candidate.updatedAt))) {
+    return null;
+  }
+
+  const label = (value: unknown) =>
+    typeof value === "string" && value.trim() ? value.trim().slice(0, 120) : undefined;
+  const collectionName = label(candidate.collectionName);
+  const sectionName = label(candidate.sectionName);
+
+  return {
+    collection: candidate.collection,
+    ...(collectionName ? { collectionName } : {}),
+    section,
+    ...(sectionName ? { sectionName } : {}),
+    number: candidate.number,
+    updatedAt: candidate.updatedAt,
+  };
 }
 
 /**

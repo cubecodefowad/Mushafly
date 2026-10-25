@@ -4,8 +4,10 @@ An elegant, source-faithful Quran reading experience. All 114 surahs in
 Arabic, with 68 selectable translation datasets across 29 languages and an
 Arabic commentary (Tafsir al-Muyassar), repository-derived Tajweed
 highlighting, verse-by-verse recitation, local bookmarks, Arabic/English
-search and four reading-page designs inspired by bound mushafs. No account, no
-cookies, no generated Quranic content.
+search and four reading-page designs inspired by bound mushafs. A second
+section, Hadithly, carries ten hadith collections in Arabic with every
+translation the dataset publishes — eight languages — and their gradings. No account, no cookies, no generated
+Quranic or hadith content.
 
 Built with Next.js 16 (App Router, static export), React 19, TypeScript and
 Tailwind CSS 4.
@@ -20,8 +22,9 @@ npm install
 npm run dev
 ```
 
-The verified source-derived data is committed under `public/quran/`, so a fresh
-clone can run without the upstream checkout. To re-pin or audit the data:
+The verified source-derived data is committed under `public/quran/` and
+`public/hadith/`, so a fresh clone can run without any upstream checkout. To
+re-pin or audit the Quran data:
 
 ```bash
 git clone https://github.com/semarketir/quranjson.git .quranjson
@@ -30,6 +33,7 @@ npm run data:prepare   # verifies revision + hashes, copies runtime JSON, conver
 npm run data:search    # rebuilds the derived search index
 npm run data:validate  # release-blocking integrity checks for quranjson and Tanzil
 npm run data:tanzil    # re-downloads the Tanzil XML corpus (optional)
+npm run data:hadith    # re-downloads the pinned Hadithly corpus (optional)
 ```
 
 `npm run build` runs validation and search-index generation before the static
@@ -110,6 +114,9 @@ The validator asserts these counts and reference sets exactly.
 |---|---|
 | `/` | Continue reading, search, full surah directory |
 | `/surah/[number]/` | Static pages for all 114 surahs |
+| `/hadithly/` | Hadithly: ten hadith collections, Arabic with eight translations |
+| `/hadithly/[collection]/` | One collection's books, filterable |
+| `/hadithly/[collection]/[section]/` | One book, read from a same-origin file |
 | `/search/` | Arabic + English search with derived normalization |
 | `/bookmarks/` | Local bookmarks with labels and removal |
 | `/settings/` | Theme, mushaf borders, type sizes, local data, Tajweed limits, attribution |
@@ -134,6 +141,60 @@ adds the border for every design other than `plain`. The wrapper stays in the
 markup either way, so switching designs cannot shift the text at hydration. The
 same `data-mushaf` attribute paints the picker swatches, so a preview cannot
 drift from the page.
+
+### Hadithly
+
+`/hadithly/` is a second library beside the Quran: ten hadith collections — the
+Six Books, the Muwatta and three sets of forty — in Arabic, each with the
+translations the dataset publishes, 36,110 narrations in 399 books. It reuses
+the header, theme and type-size settings, and keeps its own reading position.
+
+The text comes from [fawazahmed0/hadith-api](https://github.com/fawazahmed0/hadith-api)
+(Unlicense, public domain), pinned to a commit rather than the moving `1`
+branch:
+
+```bash
+npm run data:hadith   # download every edition, split by book and language
+```
+
+The downloader reads `editions.json` and fetches every edition the upstream
+publishes for these ten collections: the Arabic, the English and each further
+translation. The registry lists 74 editions; the ten `ara-*1` copies — the same
+Arabic without diacritics, kept upstream for searching — are skipped, leaving
+eight languages. It writes one file per book to
+`public/hadith/{collection}/{section}.json` for the Arabic and English, and one
+per book per language to `public/hadith/{collection}/{language}/{section}.json`;
+counts and chapter names live in `src/data/generated/hadith-index.json`.
+
+Editions are joined on the in-book `book:hadith` reference first and the
+collection number second, never on array order, so a shifted row cannot attach
+the wrong text. The dataset's `0:0` placeholder is matched by number alone:
+treating it as a real reference would give hundreds of narrations the same
+Arabic. A page loads a single book (~1 MB at the largest, in the language the
+reader picked) instead of a 10 MB collection, and paints the window only once
+that file arrives. English sits beside the Arabic so the first paint always has
+a translation; every other language is fetched when it is chosen.
+
+`npm run data:validate` fails the build when the index and the files disagree,
+when a narration has no text at all, when numbering runs backwards, or when a
+declared defect count drifts. Two source shapes are declared rather than
+repaired: 4 narrations are published only in English, and 76 carry a U+FFFD
+from the dataset's own encoding. Both are marked in the data and explained where
+they appear. Bukhari leaves 311 narrations outside any chapter; they are placed
+in the chapter whose published number range contains them rather than in a
+synthetic “Book 0”.
+
+The same validator checks the translations: every language the index advertises
+must have a folder of book files, every translated row must name a narration
+that exists in that book, no row may be empty, and the file counts must match
+the index. A language a collection lacks never gets a folder, so the reader can
+tell "not translated" from "not loaded".
+
+Gradings are shown as chips naming the scholar who issued them, using the
+dataset's own verdicts for Abu Dawud, Tirmidhi, Nasai, Ibn Majah and the Muwatta.
+Bukhari, Muslim and the three sets of forty ship no gradings, so Hadithly shows
+none rather than inferring any. Long books render in windows of 25, and
+`#hadith-N` deep links open the book at that narration.
 
 ## Branding
 
@@ -228,20 +289,23 @@ BASE_URL=http://localhost:3200 npm run test:e2e   # same suite against the built
 npm run data:prepare   # requires .quranjson at the pinned commit
 npm run data:validate
 npm run data:search
+npm run data:hadith     # download every pinned Hadithly edition (needs network)
 node scripts/generate-brand-assets.mjs   # regenerate public/brand/ from assets/brand/
 ```
 
 ## Testing
 
-- **Unit/integration (46 tests):** Tajweed concatenation across all 6,348 rows,
+- **Unit/integration (75 tests):** Tajweed concatenation across all 6,348 rows,
   corrupted range fixtures (bounds, overlap, unknown rule), BOM handling,
   normalization and excerpt mapping, search in both languages, storage
   validation and the pre-rename key migration, adapter coverage and audio
   mapping, all three quranjson datasets including the Arabic commentary's
   missing Bismillah row, all 65 generated Tanzil datasets and their 405,340
-  non-empty rows, Urdu text preservation and direction metadata, and the optical
-  offsets that align the standalone Tajweed signs.
-- **Playwright (52 tests × Chromium, Firefox and WebKit = 156 runs):** home
+  non-empty rows, Urdu text preservation and direction metadata, the optical
+  offsets that align the standalone Tajweed signs, and Hadithly's catalogue,
+  files, helpers and reading position, and a file for every book in every
+  advertised translation (10 collections, 36,110 narrations, eight languages).
+- **Playwright (64 tests × Chromium, Firefox and WebKit = 192 runs):** home
   directory, reader directionality and exact strings, translation switching and
   persistence, the searchable translation picker, Tanzil datasets rendering their
   own text, Tajweed toggle, bookmark persistence after reload, Arabic/English
@@ -249,8 +313,10 @@ node scripts/generate-brand-assets.mjs   # regenerate public/brand/ from assets/
   and social metadata, sitemap/robots, the 404 page, legal pages and their
   footer links, pre-rename data migration, theme persistence, settings dialog
   keyboard dismissal, mushaf-border selection, persistence and framing, mobile
-  overflow, and axe WCAG 2.2 AA checks on eleven routes plus a dark reader with
-  a mushaf border.
+  overflow, Hadithly's landing, collection filter, book reading, choosing and
+  keeping a translation language, gradings, windowing, deep links and remembered
+  position, and axe WCAG 2.2 AA checks on
+  seventeen routes plus a dark reader with a mushaf border.
 - **Validator:** pins the exact source revision, file hashes and anomaly set.
   Run in CI and before release.
 
@@ -388,6 +454,12 @@ verifies it. How to report a problem: [SECURITY.md](SECURITY.md).
   editions are opt-in streams and not bundled assets. `npm run data:reciters`
   re-audits the folders and regenerates the manifest; an edition is only offered
   when all 6,236 ayah files exist.
+- Hadith: fawazahmed0/hadith-api, Unlicense (public domain), revision
+  `df57907be35291c91ad6a6691180e22ca9920784`. Arabic from the `ara-*` editions,
+  English from the `eng-*` editions and each further translation from its own
+  edition (`urd-*`, `tur-*`, `ben-*`, `fra-*`, `ind-*`, `rus-*`, `tam-*`),
+  gradings as published and attributed to the scholars who issued them. The dataset's own references page credits
+  sunnah.com, al-maktaba.org and the graders whose verdicts it carries.
 - Fonts: Amiri Quran, Source Serif 4, Inter and Noto Nastaliq Urdu under the SIL
   Open Font License 1.1 (license files in `public/fonts/`).
 
@@ -404,6 +476,11 @@ before redistribution.
   the on-demand index stays at 3.64 MiB instead of growing with every language.
 - The Tajweed anomalies above mean those specific verses intentionally have no
   highlighting. They are counted, surfaced, and never patched.
+- Hadithly has no hadith audio, commentary or cross-references to the Quran,
+  and its translations are only the ones the dataset publishes: coverage differs
+  by collection, nothing is machine-translated, and a language the upstream
+  lacks is not offered. Numbering is the dataset's, which can differ from a
+  printed edition, so a citation should name the collection and number together.
 - Audio availability depends on the pinned repository's raw files and the
   browser's media support.
 - On a throttled 3G profile the Inter body font can arrive after first paint, so

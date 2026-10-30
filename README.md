@@ -6,8 +6,9 @@ Arabic commentary (Tafsir al-Muyassar), repository-derived Tajweed
 highlighting, verse-by-verse recitation, local bookmarks, Arabic/English
 search and four reading-page designs inspired by bound mushafs. A second
 section, Hadithly, carries ten hadith collections in Arabic with every
-translation the dataset publishes — eight languages — and their gradings. No account, no cookies, no generated
-Quranic or hadith content.
+translation the dataset publishes — eight languages — and their gradings,
+searchable in Arabic beside any one of those translations. No account, no
+cookies, no generated Quranic or hadith content.
 
 Built with Next.js 16 (App Router, static export), React 19, TypeScript and
 Tailwind CSS 4.
@@ -30,7 +31,7 @@ re-pin or audit the Quran data:
 git clone https://github.com/semarketir/quranjson.git .quranjson
 git -C .quranjson checkout 7ca6f46ec9a1a029cdb220c2531d509f4a5b5e98
 npm run data:prepare   # verifies revision + hashes, copies runtime JSON, converts Tanzil XML
-npm run data:search    # rebuilds the derived search index
+npm run data:search    # rebuilds both derived search indexes
 npm run data:validate  # release-blocking integrity checks for quranjson and Tanzil
 npm run data:tanzil    # re-downloads the Tanzil XML corpus (optional)
 npm run data:hadith    # re-downloads the pinned Hadithly corpus (optional)
@@ -117,6 +118,7 @@ The validator asserts these counts and reference sets exactly.
 | `/hadithly/` | Hadithly: ten hadith collections, Arabic with eight translations |
 | `/hadithly/[collection]/` | One collection's books, filterable |
 | `/hadithly/[collection]/[section]/` | One book, read from a same-origin file |
+| `/hadithly/search/` | Arabic + one translation search over all 36,110 narrations |
 | `/search/` | Arabic + English search with derived normalization |
 | `/bookmarks/` | Local bookmarks with labels and removal |
 | `/settings/` | Theme, mushaf borders, type sizes, local data, Tajweed limits, attribution |
@@ -272,7 +274,12 @@ public/quran/ (runtime copies, committed)
 Next.js App Router (static export)
         ├── server-rendered surah pages reading pinned JSON at build time
         ├── client reader: settings, audio, bookmarks, last-read
-        └── client search loading the derived index on demand
+        ├── client search loading the derived index on demand
+        │
+public/hadith/ (runtime copies, committed)
+        ├── scripts/build-hadith-search-index.mjs → public/hadith-search/
+        ├── server-rendered collection and book pages
+        └── client reader and library search: postings on demand, text from the books
 ```
 
 ## Commands
@@ -295,7 +302,7 @@ node scripts/generate-brand-assets.mjs   # regenerate public/brand/ from assets/
 
 ## Testing
 
-- **Unit/integration (75 tests):** Tajweed concatenation across all 6,348 rows,
+- **Unit/integration (88 tests):** Tajweed concatenation across all 6,348 rows,
   corrupted range fixtures (bounds, overlap, unknown rule), BOM handling,
   normalization and excerpt mapping, search in both languages, storage
   validation and the pre-rename key migration, adapter coverage and audio
@@ -303,9 +310,12 @@ node scripts/generate-brand-assets.mjs   # regenerate public/brand/ from assets/
   missing Bismillah row, all 65 generated Tanzil datasets and their 405,340
   non-empty rows, Urdu text preservation and direction metadata, the optical
   offsets that align the standalone Tajweed signs, and Hadithly's catalogue,
-  files, helpers and reading position, and a file for every book in every
-  advertised translation (10 collections, 36,110 narrations, eight languages).
-- **Playwright (64 tests × Chromium, Firefox and WebKit = 192 runs):** home
+  files, helpers and reading position, a file for every book in every
+  advertised translation (10 collections, 36,110 narrations, eight languages),
+  and the derived hadith search index: postings decoding, sorted terms, prefix
+  matching, Arabic letter folding, and one result per narration even when both
+  Arabic and the translation match.
+- **Playwright (67 tests × Chromium, Firefox and WebKit = 201 runs):** home
   directory, reader directionality and exact strings, translation switching and
   persistence, the searchable translation picker, Tanzil datasets rendering their
   own text, Tajweed toggle, bookmark persistence after reload, Arabic/English
@@ -314,9 +324,9 @@ node scripts/generate-brand-assets.mjs   # regenerate public/brand/ from assets/
   footer links, pre-rename data migration, theme persistence, settings dialog
   keyboard dismissal, mushaf-border selection, persistence and framing, mobile
   overflow, Hadithly's landing, collection filter, book reading, choosing and
-  keeping a translation language, gradings, windowing, deep links and remembered
-  position, and axe WCAG 2.2 AA checks on
-  seventeen routes plus a dark reader with a mushaf border.
+  keeping a translation language, gradings, windowing, deep links, remembered
+  position, a library-wide hadith search, and axe WCAG 2.2 AA checks on
+  eighteen routes plus a dark reader with a mushaf border.
 - **Validator:** pins the exact source revision, file hashes and anomaly set.
   Run in CI and before release.
 
@@ -378,6 +388,12 @@ into the release — is recorded in [`docs/verification.md`](docs/verification.m
 - Search keeps its 3.64 MiB index (1.0 MiB gzipped) off the critical path: the
   route renders instantly and the index is fetched only once a query of two or
   more characters exists. Landing on `/search/?q=…` fetches it immediately.
+- Hadith search works the same way. Its postings total 33.7 MiB across nine
+  languages, split into 65 files by language and collection, so a query fetches
+  Arabic (6.69 MiB) plus the one translation in use — English another 4.73 MiB —
+  and nothing else. Result text is not stored in the index: the books that hold
+  a visible match are fetched from `public/hadith/`, so the index never becomes
+  a second copy of the corpus.
 - Arabic and Latin fonts are self-hosted WOFF2 with `font-display: swap` and
   preloads to limit layout shift.
 - Deploy the contents of `out/` to any static host. Set
@@ -474,6 +490,10 @@ before redistribution.
 - Search indexes the Arabic source and the English Itani translation. The
   Indonesian and Arabic commentary are reading options, not search fields, so
   the on-demand index stays at 3.64 MiB instead of growing with every language.
+- Hadith search covers Arabic and one translation at a time. The picker offers
+  all eight, but a query never spans two translations at once. Because the
+  postings hold no word positions, results are listed in the library's reading
+  order rather than by phrase proximity.
 - The Tajweed anomalies above mean those specific verses intentionally have no
   highlighting. They are counted, surfaced, and never patched.
 - Hadithly has no hadith audio, commentary or cross-references to the Quran,

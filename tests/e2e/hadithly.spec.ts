@@ -142,6 +142,51 @@ test("Hadithly remembers where a reader stopped", async ({ page }) => {
   await expect(page.getByRole("heading", { level: 1 })).toContainText("Forty Hadith");
 });
 
+test("Hadithly links to a library-wide search", async ({ page }) => {
+  await page.goto("/hadithly/");
+  await page.getByRole("link", { name: "Search the hadiths" }).click();
+
+  await expect(page).toHaveURL(/\/hadithly\/search\/$/);
+  await expect(page.getByRole("heading", { level: 1, name: "Find a narration." })).toBeVisible();
+  await expect(page.getByRole("searchbox", { name: "Search the hadiths" })).toBeVisible();
+});
+
+test("search finds a narration and opens it at the cited number", async ({ page }) => {
+  await page.goto("/hadithly/search/?q=intentions");
+
+  const results = page.locator("ol > li");
+  await expect(results.first()).toBeVisible({ timeout: 30_000 });
+  const first = results.first();
+  await expect(first).toContainText("Sahih al-Bukhari");
+  await expect(first).toContainText("Hadith 1");
+  await expect(first.locator('p[lang="ar"]')).toHaveAttribute("dir", "rtl");
+  await expect(first).toContainText("intentions");
+
+  await first.locator("a").click();
+  await expect(page).toHaveURL(/\/hadithly\/bukhari\/1\/#hadith-1$/);
+  await expect(page.locator("#hadith-1")).toBeInViewport();
+});
+
+test("search covers the Arabic alone or beside a translation", async ({ page }) => {
+  await page.goto(`/hadithly/search/?q=${encodeURIComponent("نماز")}`);
+  await page.waitForLoadState("networkidle");
+
+  // English is the default, so the Urdu word only matches once Urdu is picked.
+  await expect(page.getByText("No narrations match")).toBeVisible({ timeout: 30_000 });
+
+  await page.getByRole("combobox", { name: "Search language" }).selectOption("ur");
+  const urdu = page.locator('p[lang="ur"]').first();
+  await expect(urdu).toBeVisible({ timeout: 30_000 });
+  await expect(urdu).toHaveAttribute("dir", "rtl");
+  await expect(urdu).toContainText(/[\u0600-\u06FF]/);
+
+  // The Arabic-only option keeps the Arabic text and drops the translation.
+  await page.getByRole("searchbox", { name: "Search the hadiths" }).fill("الرحمن");
+  await page.getByRole("combobox", { name: "Search language" }).selectOption("ar");
+  await expect(page.locator('p[lang="ar"]').first()).toBeVisible({ timeout: 30_000 });
+  await expect(page.locator('p[lang="ur"]')).toHaveCount(0);
+});
+
 test("the sources note explains Hadithly's provenance and translations", async ({ page }) => {
   await page.goto("/accuracy/");
   const section = page.locator("#hadithly").locator("..");

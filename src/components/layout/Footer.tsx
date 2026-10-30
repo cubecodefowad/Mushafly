@@ -34,6 +34,7 @@ export function Footer() {
             <li><Link className="hover:text-ink" href="/">Surahs</Link></li>
             <li><Link className="hover:text-ink" href="/hadithly/">Hadithly</Link></li>
             <li><Link className="hover:text-ink" href="/search/">Search</Link></li>
+            <li><Link className="hover:text-ink" href="/hadithly/search/">Search hadiths</Link></li>
             <li><Link className="hover:text-ink" href="/bookmarks/">Bookmarks</Link></li>
             <li><Link className="hover:text-ink" href="/settings/">Settings</Link></li>
             <li><Link className="hover:text-ink" href="/tajweed/">Tajweed and marks</Link></li>

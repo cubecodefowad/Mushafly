@@ -57,6 +57,40 @@ export function normalizeWithMap(source: string): Normalized {
   let lastWasSpace = true;
 
   for (let i = 0; i < source.length; ) {
+    // Most of the corpus is ASCII prose, so it is folded a code unit at a time
+    // without building a string and running it through NFKD and two regular
+    // expressions. The result is identical to the general path below.
+    const ascii = source.charCodeAt(i);
+    if (ascii < 0x80) {
+      if (ascii === 0x20) {
+        if (!lastWasSpace) {
+          text += SPACE;
+          map.push(i);
+          lastWasSpace = true;
+        }
+        i += 1;
+        continue;
+      }
+      const letter =
+        ascii >= 0x61 && ascii <= 0x7a
+          ? ascii
+          : ascii >= 0x41 && ascii <= 0x5a
+            ? ascii + 0x20
+            : 0;
+      if (letter || (ascii >= 0x30 && ascii <= 0x39)) {
+        text += String.fromCharCode(letter || ascii);
+        map?.push(i);
+        lastWasSpace = false;
+      } else if (!lastWasSpace) {
+        // Punctuation and controls fold to a single space.
+        text += SPACE;
+        map?.push(i);
+        lastWasSpace = true;
+      }
+      i += 1;
+      continue;
+    }
+
     const codePoint = source.codePointAt(i);
     if (codePoint === undefined) break;
     const char = String.fromCodePoint(codePoint);
@@ -91,12 +125,13 @@ export function normalizeWithMap(source: string): Normalized {
         lastWasSpace = false;
       }
       text += outChar;
-      map.push(i);
+      map?.push(i);
     }
     i += width;
   }
 
-  return { text: text.trim(), map: map.slice(0, text.trim().length) };
+  const trimmed = text.trim();
+  return { text: trimmed, map: map.slice(0, trimmed.length) };
 }
 
 export function normalize(text: string): string {

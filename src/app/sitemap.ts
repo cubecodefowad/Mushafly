@@ -17,6 +17,7 @@ const PUBLIC_PAGES: Array<{
   { path: "/", changeFrequency: "weekly", priority: 1 },
   { path: "/hadithly/", changeFrequency: "monthly", priority: 0.9 },
   { path: "/search/", changeFrequency: "monthly", priority: 0.5 },
+  { path: "/hadithly/search/", changeFrequency: "monthly", priority: 0.5 },
   { path: "/about/", changeFrequency: "monthly", priority: 0.6 },
   { path: "/accuracy/", changeFrequency: "monthly", priority: 0.6 },
   { path: "/tajweed/", changeFrequency: "monthly", priority: 0.7 },

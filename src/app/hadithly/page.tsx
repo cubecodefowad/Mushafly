@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, Library } from "lucide-react";
+import { ArrowLeft, ArrowRight, Library, Search } from "lucide-react";
 import { ContinueHadith } from "@/components/hadithly/ContinueHadith";
 import {
   formatCount,
@@ -22,13 +22,20 @@ export const metadata: Metadata = pageMetadata({
 export default function HadithlyPage() {
   return (
     <div className="mx-auto max-w-6xl px-5 sm:px-8">
-      <nav className="pt-8 text-xs sm:pt-12">
+      <nav className="flex items-center justify-between gap-4 pt-8 text-xs sm:pt-12">
         <Link
           href="/"
           className="inline-flex items-center gap-1.5 text-muted hover:text-ink"
         >
           <ArrowLeft size={14} strokeWidth={1.8} aria-hidden />
           Mushafly · the Quran
+        </Link>
+        <Link
+          href="/hadithly/search/"
+          className="inline-flex items-center gap-1.5 text-muted hover:text-ink"
+        >
+          <Search size={13} strokeWidth={1.8} aria-hidden />
+          Search the hadiths
         </Link>
       </nav>
 

@@ -15,6 +15,7 @@ const pages = [
   { path: "/hadithly/", name: "hadithly" },
   { path: "/hadithly/bukhari/", name: "hadithly collection" },
   { path: "/hadithly/tirmidhi/1/", name: "hadithly book" },
+  { path: "/hadithly/search/?q=intention", name: "hadithly search" },
   { path: "/social-preview/", name: "social preview" },
 ];
 

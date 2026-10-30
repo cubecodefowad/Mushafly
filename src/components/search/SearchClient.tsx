@@ -108,7 +108,13 @@ export function SearchClient() {
         Search the Arabic source text or the Itani English translation. Other
         translations, including the Urdu datasets, are reading options and are
         not indexed. Diacritics and common Arabic letter variants are matched on
-        a derived index; the displayed Quranic text is never altered.
+        a derived index; the displayed Quranic text is never altered.{" "}
+        <Link
+          href="/hadithly/search/"
+          className="underline decoration-line underline-offset-2 hover:text-ink"
+        >
+          Looking for a hadith? Search Hadithly.
+        </Link>
       </p>
 
       <form

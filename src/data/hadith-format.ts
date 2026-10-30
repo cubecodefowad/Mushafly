@@ -41,6 +41,19 @@ export function hadithSectionUrl(collectionId: string, section: number): string 
   return `/hadithly/${collectionId}/${section}/`;
 }
 
+/** A citation that opens the book at one narration. */
+export function hadithUrl(collectionId: string, section: number, number: number): string {
+  return `${hadithSectionUrl(collectionId, section)}#hadith-${number}`;
+}
+
+/** The catalogue of every searchable narration, shared by all languages. */
+export const HADITH_SEARCH_DOCS_URL = "/hadith-search/docs.json";
+
+/** The postings for one language and collection, fetched on demand. */
+export function hadithSearchShardUrl(language: string, collectionId: string): string {
+  return `/hadith-search/${language}/${collectionId}.json`;
+}
+
 /** Same-origin file the reader fetches, one book at a time, Arabic + English. */
 export function hadithDataUrl(collectionId: string, section: number): string {
   return `/hadith/${collectionId}/${section}.json`;
